@@ -5,8 +5,3 @@
 #include <stdio.h>
 #include <termcap.h>
 
-int main(int argc, char const *argv[])
-{
-	ioctl()
-	return 0;
-}
