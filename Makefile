@@ -12,7 +12,8 @@ FILE = 	main \
 		utils/str_utils \
 		utils/split_utils \
 		parsing/parsing_tokens \
-		parsing/parsing_bundles
+		parsing/parsing_bundles \
+		execute/execute_cmd
 
 SRCS = $(addprefix ./src/, $(addsuffix .c, $(FILE)))
 OBJS = $(addprefix ./src/, $(addsuffix .o, $(FILE)))

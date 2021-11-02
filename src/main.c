@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/02 03:43:35 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/02 16:39:35 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,23 @@ void	start_sh(char **env, char *input)
 {
 	t_bundle	*bundles;
 	int			i;
-	// int			result;
+	int			result;
 
-	if (is_space_str(input))
+	if (is_space_str(input)) // check space input
 		return ;
-	bundles = split_bundle(env, input);
-	// split_token(bundle);
+	bundles = split_bundle(env, input);//별개의 명령어별 bundle 생성 및 우선순위 setting
+	parsing_token(bundles); // bundle 별 cmd 연결리스트 parsing
 	i = 0;
-	// while (bundles[i].commands)
-	// {
-	// 	result = excute_cmd();
-	// 	if ((result == TRUE && bundles[i].priority == P_OR) \
-	// 	|| (result == FALSE && bundles[i].priority == P_AND))
-	// 	{
-	// 		i++;
-	// 	}
-	// 	i++;
-	// }
+	while (bundles[i].cmd_line) // 우선순위체크 및 cmd 실행
+	{
+		if ((result == TRUE && bundles[i].priority == P_OR) \
+		|| (result == FALSE && bundles[i].priority == P_AND))
+		{
+			i++;
+		}
+		result = execute_cmd(&bundles[i]);
+		i++;
+	}
 }
 
 char	**dup_envp(char **envp)
@@ -71,6 +71,6 @@ void	loop(char **env)
 int main(int argc, char const *argv[], char **envp)
 {
 	// signal(SIGINT, SIG_IGN);
-	loop(dup_envp(envp));//env 복제해서 매개변수로 넘긴다.
+	loop(dup_envp(envp));//env 복제본을 매개변수로 넘긴다.
 	return 0;
 }

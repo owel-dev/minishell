@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/02 16:04:11 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/02 16:37:04 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,18 @@ typedef struct s_bundle
 void	start_sh(char **env, char *input);
 char	**dup_envp(char **envp);
 void	loop(char **env);
+//execute
+int		execute_cmd(t_bundle *bundle);
+//parsing_token
+char	**parsing_token(t_bundle *bundles);
+void	split_command(char *str);
+void	parsing(char *str);
+
+//parsing_bundle
+
+int		set_bundle_line(t_bundle *bundle, int word_len);
+void	set_bundle(t_bundle *bundle, char **env, int bundles_num);
+
 
 //utils_lst
 void		ft_lstdelone(t_token *lst);
@@ -70,13 +82,6 @@ void		ft_lstadd_front(t_token **lst, t_token *new);
 void		ft_lstadd_back(t_token **lst, t_token *new);
 t_token		*ft_lstnew(char *content);
 t_token		*ft_lstlast(t_token *lst);
-
-//parsing_token
-//parsing_bundle
-
-int		set_bundle_line(t_bundle *bundle, int word_len);
-void	set_bundle(t_bundle *bundle, char **env, int bundles_num);
-
 
 //utils_split
 int			sh_count_word(char const *s);
@@ -90,11 +95,8 @@ int		is_space_str(char *str);
 int		check_priority(const char *str, int start);
 int		is_quote(char str, int preval);
 
-//parsing
-void	parsing(char *str);
-void	split_command(char *str);
-
 //builtin
+
 //error
 void	print_error(char *str);
 

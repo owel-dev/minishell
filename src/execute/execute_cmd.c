@@ -1,44 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_tokens.c                                   :+:      :+:    :+:   */
+/*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/27 02:23:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/02 16:32:55 by hyospark         ###   ########.fr       */
+/*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
+/*   Updated: 2021/11/02 16:36:21 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	parsing(char *str)
-{
-	char	**space;
-	int		i;
-
-	space = ft_split(str, ' ');
-	if (space == NULL)
-		print_error("SPACE_SPLIT_ERROR");
-	i = 0;
-	while (space[i])
-		printf("%s\n", space[i++]);
-}
-
-void	split_command(char *str)
-{
-	char	**semi;
-	int		i;
-
-	semi = ft_split(str, ';');
-	if (semi == NULL)
-		print_error("SEMI_SPLIT_ERROR");
-	i = 0;
-	while(semi[i])
-		parsing(semi[i++]);
-}
-
-char	**parsing_token(t_bundle *bundles)
+int	execute_cmd(t_bundle *bundle)
 {
 	
 }
