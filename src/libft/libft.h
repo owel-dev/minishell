@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 18:54:17 by ulee              #+#    #+#             */
-/*   Updated: 2021/05/28 21:47:36 by ulee             ###   ########.fr       */
+/*   Updated: 2021/10/29 19:42:56 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,33 +25,6 @@
 # ifndef OPEN_MAX
 #  define OPEN_MAX 32
 # endif
-
-# ifndef TYPE
-#  define TYPE "diucsxXp%"
-# endif
-
-typedef struct		s_list
-{
-	void			*content;
-	struct s_list	*next;
-}					t_list;
-
-typedef struct		s_flags
-{
-	int				len;
-	int				minus;
-	int				zero;
-	int				width_minus;
-	int				width;
-	int				dot;
-	int				dot_width;
-	int				star;
-	int				dot_star;
-	int				print_zero;
-	int				print_space;
-	long long		arg;
-	char			*string;
-}					t_flags;
 
 void				*ft_memset(void *str, int c, size_t n);
 void				*ft_bzero(void *array, size_t byte_size);
@@ -95,49 +68,11 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
-t_list				*ft_lstnew(void *content);
-void				ft_lstadd_front(t_list **lst, t_list *new);
-int					ft_lstsize(t_list *lst);
-t_list				*ft_lstlast(t_list *lst);
-void				ft_lstadd_back(t_list **lst, t_list *new);
-void				ft_lstdelone(t_list *lst, void (*del)(void *));
-void				ft_lstclear(t_list **lst, void (*del)(void*));
-t_list				*ft_lstmap(t_list *lst, void *(*f)(void *), \
-	void (*del)(void *));
-
 int					get_next_line(int fd, char **line);
-
 int					ft_printf(const char *s, ...);
 int					ft_istype(int c);
-void				delete_multiflag(t_flags *flags);
-void				check_flag(char **percent, char c, t_flags *flags, \
-	int isdot);
-void				check_width(char **percent, t_flags *flags, int isdot);
-void				check_format(char **percent, t_flags *flags);
-int					check_len(long long n, t_flags *flags);
-int					check_hexlen(long long n, t_flags *flags);
-int					check_strlen(t_flags *flags);
-void				set_width(t_flags *flags, int len);
-void				set_star(va_list ap, t_flags *flags);
-void				set_arg(char *percent, t_flags *flags, va_list ap);
-int					set_len(char *percent, t_flags *flags);
-void				set_format(char *percent, t_flags *flags, va_list ap);
-
-int					print_string(const char *s, int len);
-int					print_spaces(t_flags *flags);
-int					print_zeros(t_flags *flags);
-int					print_minus(t_flags *flags, int position);
-int					print_arg(char *percent, t_flags *flags);
-int					print_format(char *percent, t_flags *flags);
-
-int					print_num(t_flags *flags, size_t arg, char tyoe);
-int					print_numhex(t_flags *flags, size_t arg, char type, \
-char *base);
-int					print_int(t_flags *flags, char type);
-int					print_char(t_flags *flags);
-int					print_chars(t_flags *flags);
-int					print_hex(t_flags *flags, char type);
-
 int					ft_strcmp(char *one, char *two);
+int					is_space(int c);
+
 
 #endif

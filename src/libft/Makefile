@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+         #
+#    By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/17 14:49:10 by ulee              #+#    #+#              #
-#    Updated: 2021/05/28 21:48:13 by ulee             ###   ########.fr        #
+#    Updated: 2021/10/27 15:21:49 by hyospark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,24 +51,6 @@ FILES = ft_memset \
 		ft_putstr_fd \
 		ft_putendl_fd \
 		ft_putnbr_fd \
-		ft_lstnew \
-		ft_lstadd_front \
-		ft_lstsize \
-		ft_lstlast \
-		ft_lstadd_back \
-		ft_lstdelone \
-		ft_lstclear \
-		ft_lstiter \
-		ft_lstmap \
-		get_next_line \
-		check_format \
-		etc \
-		ft_printf \
-		ft_printf_tree \
-		print_format \
-		print_format2 \
-		print_format3 \
-		set_format\
 		ft_strcmp
 
 SRCS_DIR = ./

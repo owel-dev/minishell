@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   builtIn.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 20:18:58 by ulee              #+#    #+#             */
-/*   Updated: 2020/11/14 17:51:02 by ulee             ###   ########.fr       */
+/*   Created: 2021/10/27 17:26:11 by hyospark          #+#    #+#             */
+/*   Updated: 2021/11/01 22:21:07 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	execve_builtIn()
 {
-	t_list	*last;
+	char	*builtIn[] = {"/bin/ls", NULL};
+	int		pid;
 
-	if (lst == NULL || new == NULL)
-		return ;
-	if (*lst == NULL)
+	pid = fork();
+	if (pid == 0)
 	{
-		*lst = new;
-		return ;
+		execve("/bin/ls", builtIn, NULL);
 	}
-	last = ft_lstlast(*lst);
-	last->next = new;
+	else
+		wait(&pid);
 }
