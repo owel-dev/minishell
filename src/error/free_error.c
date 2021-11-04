@@ -1,41 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_bundles.c                                  :+:      :+:    :+:   */
+/*   free_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 15:58:22 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/04 05:02:01 by hyospark         ###   ########.fr       */
+/*   Created: 2021/11/03 01:47:17 by hyospark          #+#    #+#             */
+/*   Updated: 2021/11/03 02:11:44 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../minishell.h"
 
-int	set_bundle_line(t_bundle *bundle, int word_len)
+void	free_bundle(t_bundle *bundles, int i)
 {
-	int		i;
-	char	*tem;
-
-	i = 0;
-	tem = (char *)malloc(sizeof(char) * (word_len + 1));
-	if (!tem)
-		return (1);
-	bundle->cmd_line = tem;
-	return (0);
-}
-
-void	set_bundle(t_bundle *bundle, char **env, int bundles_num)
-{
-	int		i;
-
-	i = 0;
-	while (i < bundles_num)
+	while (i >= 0)
 	{
-		bundle[i].env = env;
-		bundle[i].quote = 0;
-		bundle[i].priority = 0;
-		bundle[i].token = NULL;
-		i++;
+		free(bundles[i].cmd_line);
+		ft_lstclear(&bundles[i].token);
+		i--;
 	}
+	free(bundles);
 }

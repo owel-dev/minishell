@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/02 16:37:04 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/05 02:34:36 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define FALSE 0
 # define D_OPEN 1
 # define S_OPEN 2
+# define S_CLOSE 10
+# define D_CLOSE 11
 # define STR 1
 # define CMD 2
 # define BUILT 3
@@ -37,6 +39,7 @@
 # define D_REDIR_IN 6
 # define D_REDIR_OUT 7
 # define PIPE 8
+# define ENV 9
 # define P_OR 1
 # define P_AND 2
 
@@ -46,15 +49,16 @@ typedef struct s_token
 	struct s_token	*next;
 	char			*content;
 	int				token_type;
+	int				back_space;
 }				t_token;
 
 typedef struct s_bundle
 {
 	t_token		*token;
-	char		*cmd_line;
-	int			is_quote;
+	int			quote;
 	int			priority;
 	int			fds[2];
+	char		*cmd_line;
 	char		**env;
 }			t_bundle;
 
@@ -62,25 +66,29 @@ typedef struct s_bundle
 void	start_sh(char **env, char *input);
 char	**dup_envp(char **envp);
 void	loop(char **env);
+
 //execute
-int		execute_cmd(t_bundle *bundle);
-//parsing_token
-char	**parsing_token(t_bundle *bundles);
-void	split_command(char *str);
-void	parsing(char *str);
+void		execute_cmd(t_bundle *bundle);
 
 //parsing_bundle
-
 int		set_bundle_line(t_bundle *bundle, int word_len);
 void	set_bundle(t_bundle *bundle, char **env, int bundles_num);
 
+//parsing_token
+int			parsing_token(t_bundle *bundles);
+char		*make_token(char *str, int start, int end, int token_type);
+int			get_token(t_token **token, char *cmd, int i, int start);
+
+//parsing_str
+int			check_quote(char *str, int start, int end);
+int			parsing_quote_str(char *str, int start, int quote);
+int			parsing_env_str(char *str, int start);
 
 //utils_lst
-void		ft_lstdelone(t_token *lst);
-void		ft_lstclear(t_token **lst);
-void		ft_lstadd_front(t_token **lst, t_token *new);
+t_token		*ft_lstnew(char *content, int token_type, int back_space);
 void		ft_lstadd_back(t_token **lst, t_token *new);
-t_token		*ft_lstnew(char *content);
+void		ft_lstclear(t_token **lst);
+int			ft_lstsize(t_token *lst);
 t_token		*ft_lstlast(t_token *lst);
 
 //utils_split
@@ -89,16 +97,19 @@ int			sh_make_word(t_bundle *bundle, char const *s, int j, int word_len);
 int			cut_cmd(t_bundle *bundles, char const *s);
 t_bundle	*split_bundle(char **env, char const *str);
 
-
 //utils_str
 int		is_space_str(char *str);
 int		check_priority(const char *str, int start);
 int		is_quote(char str, int preval);
+int		check_vaild_str(char *str, int start);
+int		parsing_quote_str(char *str, int start, int quote);
 
 //builtin
 
 //error
 void	print_error(char *str);
+void	free_bundle(t_bundle *bundles, int i);
+
 
 
 #endif

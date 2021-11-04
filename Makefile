@@ -7,13 +7,16 @@ RM = rm -f
 
 FILE = 	main \
 		builtin/builtin \
+		error/free_error \
 		error/print_error \
 		utils/list_utils \
 		utils/str_utils \
 		utils/split_utils \
-		parsing/parsing_tokens \
 		parsing/parsing_bundles \
-		execute/execute_cmd
+		parsing/parsing_tokens \
+		parsing/parsing_str \
+		execute/execute_cmd \
+
 
 SRCS = $(addprefix ./src/, $(addsuffix .c, $(FILE)))
 OBJS = $(addprefix ./src/, $(addsuffix .o, $(FILE)))

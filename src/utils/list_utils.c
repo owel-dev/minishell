@@ -6,20 +6,24 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 00:31:12 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/01 22:26:28 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/05 02:27:05 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token	*ft_lstnew(char *content)
+t_token	*ft_lstnew(char *content, int token_type, int back_space)
 {
 	t_token	*new;
 
-	new = malloc(sizeof(t_token));
+	if (content == NULL)
+		return (NULL);
+	new = (t_token *)malloc(sizeof(t_token));
 	if (new == NULL)
 		return (NULL);
 	new->content = content;
+	new->token_type = token_type;
+	new->back_space = back_space;
 	new->next = 0;
 	return (new);
 }
@@ -46,18 +50,11 @@ void	ft_lstclear(t_token **lst)
 	while (*lst != NULL)
 	{
 		temp = (*lst)->next;
-		ft_lstdelone(*lst);
+		free(lst);
+		lst = NULL;
 		*lst = temp;
 	}
 	*lst = NULL;
-}
-
-void	ft_lstdelone(t_token *lst)
-{
-	if (lst == NULL)
-		return ;
-	free(lst);
-	lst = NULL;
 }
 
 int	ft_lstsize(t_token *lst)
@@ -77,7 +74,7 @@ t_token	*ft_lstlast(t_token *lst)
 {
 	if (lst == NULL)
 		return (NULL);
-	while (lst->next != NULL)
+	while (lst->next != 0)
 		lst = lst->next;
 	return (lst);
 }

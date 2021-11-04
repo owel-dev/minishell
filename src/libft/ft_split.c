@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 20:19:51 by ulee              #+#    #+#             */
-/*   Updated: 2021/05/24 20:29:23 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/04 00:44:12 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		**all_free(char **result)
+char	**all_free(char **result)
 {
 	int		i;
 
@@ -28,7 +28,7 @@ char		**all_free(char **result)
 	return (NULL);
 }
 
-int			count_words(const char *str, char c)
+int	count_words(const char *str, char c)
 {
 	int		i;
 	int		word_count;
@@ -49,7 +49,7 @@ int			count_words(const char *str, char c)
 	return (word_count);
 }
 
-char		*cut_word(const char *str, char c, int word_number)
+char	*cut_word(const char *str, char c, int word_number)
 {
 	int		start;
 	int		count;
@@ -78,7 +78,7 @@ char		*cut_word(const char *str, char c, int word_number)
 	return (NULL);
 }
 
-char		**ft_split(char const *str, char c)
+char	**ft_split(char const *str, char c)
 {
 	char	**result;
 	int		word_count;

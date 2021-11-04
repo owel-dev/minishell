@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:28:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/02 16:34:49 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/04 05:24:58 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	sh_count_word(char const *s)
 	int quote;
 
 	if (ft_strlen(s) < 3)
-		return (0);
+		return (1);
 	i = 0;
-	count = 0;
+	count = 1;
 	quote = 0;
-	while (s[i + 1])
+	while (s[i])
 	{
 		if (is_quote(s[i], quote) > 0)
 			quote = is_quote(s[i], quote);
@@ -59,14 +59,14 @@ int	cut_cmd(t_bundle *bundles, char const *s)
 	word_len = 0;
 	while (s[j]) // 세미콜론 유무 및 우선순위 체크하여 각 bundle의 cmd_line 생성
 	{
-		if (!is_quote(s[j], bundles[i].is_quote) && check_priority(s, j))
+		if (!is_quote(s[j], bundles[i].quote) && check_priority(s, j))
 		{
 			bundles[i].priority = check_priority(s, j);
 			j += 2;
 		}
-		while (s[j] && !(!bundles[i].is_quote && check_priority(s, j)))
+		while (s[j] && !(!bundles[i].quote && check_priority(s, j)))
 		{
-			bundles[i].is_quote = is_quote(s[j++], bundles[i].is_quote);
+			bundles[i].quote = is_quote(s[j++], bundles[i].quote);
 			word_len++;
 		}
 		if (set_bundle_line(&bundles[i], word_len))
@@ -87,13 +87,10 @@ t_bundle	*split_bundle(char **env, char const *str)
 	bundles = (t_bundle *)malloc(sizeof(t_bundle) * (bundles_num + 1));
 	if (bundles == NULL)
 		return (NULL);
-	set_bundle(bundles, env, bundles_num); 
-	i = cut_cmd(bundles, str); 
-	if (i >= 0)
-	{
-		while (i >= 0)
-			free(bundles[i--].cmd_line);
-		free(bundles);
-	}
+	set_bundle(bundles, env, bundles_num);
+	i = cut_cmd(bundles, str);
+	if (i > -1)
+		free_bundle(bundles, i);
+	bundles[bundles_num].cmd_line = NULL;
 	return (bundles);
 }
