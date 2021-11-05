@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/05 02:34:36 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/05 17:10:37 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	**dup_envp(char **envp);
 void	loop(char **env);
 
 //execute
-void		execute_cmd(t_bundle *bundle);
+int		execute_cmd(t_bundle *bundle);
 
 //parsing_bundle
 int		set_bundle_line(t_bundle *bundle, int word_len);

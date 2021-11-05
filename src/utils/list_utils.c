@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 00:31:12 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/05 02:27:05 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/05 16:57:25 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	ft_lstclear(t_token **lst)
 	while (*lst != NULL)
 	{
 		temp = (*lst)->next;
+		free((*lst)->content);
 		free(lst);
 		lst = NULL;
 		*lst = temp;

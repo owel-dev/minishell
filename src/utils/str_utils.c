@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:36:12 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/04 23:47:55 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/05 17:16:25 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ int	check_priority(const char *str, int start)
 
 int	check_vaild_str(char *str, int start)
 {
-	int	quote;
-
-	quote = check_quote(str, start, ft_strlen(str));
-	if (quote > 0)
+	if (check_quote(str, start, ft_strlen(str)) > 0)
 		return (check_quote(str, start, ft_strlen(str)));
 	if (str[start] == '|')
 		return (PIPE);
@@ -72,5 +69,3 @@ int	check_vaild_str(char *str, int start)
 		return (STR);
 	return (0);
 }
-
-
