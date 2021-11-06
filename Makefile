@@ -17,7 +17,6 @@ FILE = 	main \
 		parsing/parsing_str \
 		execute/execute_cmd \
 
-
 SRCS = $(addprefix ./src/, $(addsuffix .c, $(FILE)))
 OBJS = $(addprefix ./src/, $(addsuffix .o, $(FILE)))
 

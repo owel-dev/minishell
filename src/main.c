@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/02 16:39:35 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/06 21:46:17 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	start_sh(char **env, char *input)
 	i = 0;
 	while (bundles[i].cmd_line) // 우선순위체크 및 cmd 실행
 	{
+		result = execute_cmd(&bundles[i]);
 		if ((result == TRUE && bundles[i].priority == P_OR) \
 		|| (result == FALSE && bundles[i].priority == P_AND))
 		{
 			i++;
 		}
-		result = execute_cmd(&bundles[i]);
 		i++;
 	}
 }
