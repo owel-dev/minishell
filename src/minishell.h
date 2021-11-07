@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/05 17:10:37 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/07 19:55:52 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,28 +57,28 @@ typedef struct s_bundle
 	t_token		*token;
 	int			quote;
 	int			priority;
+	int			is_pipe;
 	int			fds[2];
 	char		*cmd_line;
 	char		**env;
 }			t_bundle;
 
 // main
-void	start_sh(char **env, char *input);
-char	**dup_envp(char **envp);
-void	loop(char **env);
+void		start_sh(char **env, char *input);
+char		**dup_envp(char **envp);
+void		loop(char **env);
 
 //execute
-int		execute_cmd(t_bundle *bundle);
+int			execute_cmd(t_bundle *bundle);
 
 //parsing_bundle
-int		set_bundle_line(t_bundle *bundle, int word_len);
-void	set_bundle(t_bundle *bundle, char **env, int bundles_num);
+int			set_bundle_line(t_bundle *bundle, int word_len);
+void		set_bundle(t_bundle *bundle, char **env, int bundles_num);
 
 //parsing_token
 int			parsing_token(t_bundle *bundles);
 char		*make_token(char *str, int start, int end, int token_type);
-int			get_token(t_token **token, char *cmd, int i, int start);
-
+int			get_token(t_bundle *bnde, char *cmd, int i, int start);
 //parsing_str
 int			check_quote(char *str, int start, int end);
 int			parsing_quote_str(char *str, int start, int quote);
@@ -98,17 +98,17 @@ int			cut_cmd(t_bundle *bundles, char const *s);
 t_bundle	*split_bundle(char **env, char const *str);
 
 //utils_str
-int		is_space_str(char *str);
-int		check_priority(const char *str, int start);
-int		is_quote(char str, int preval);
-int		check_vaild_str(char *str, int start);
-int		parsing_quote_str(char *str, int start, int quote);
+int			is_space_str(char *str);
+int			check_priority(const char *str, int start);
+int			is_quote(char str, int preval);
+int			check_vaild_str(char *str, int start);
+int			parsing_quote_str(char *str, int start, int quote);
 
 //builtin
 
 //error
-void	print_error(char *str);
-void	free_bundle(t_bundle *bundles, int i);
+void		print_error(char *str);
+void		free_bundle(t_bundle *bundles, int i);
 
 
 
