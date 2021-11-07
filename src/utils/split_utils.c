@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:28:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/06 18:38:21 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/07 17:47:10 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ int	sh_count_word(char const *s)
 	while (s[i])
 	{
 		if (is_quote(s[i], quote) > 0)
+		{
 			quote = is_quote(s[i], quote);
+			if (quote != S_OPEN || quote != D_OPEN)
+				quote = 0;
+		}
 		if (quote == 0 && check_priority(s, i) > 0)
 		{
 			count++;
@@ -67,6 +71,8 @@ int	cut_cmd(t_bundle *bundles, char const *s)
 		while (s[j] && !(!bundles[i].quote && check_priority(s, j)))
 		{
 			bundles[i].quote = is_quote(s[j++], bundles[i].quote);
+			if (bundles[i].quote != S_OPEN || bundles[i].quote != D_OPEN)
+				bundles[i].quote = 0;
 			word_len++;
 		}
 		if (set_bundle_line(&bundles[i], word_len))

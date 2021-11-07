@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 02:23:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/05 17:19:06 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/07 17:36:42 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,15 @@ int	parsing_token_list(t_bundle *bundle)
 		i = get_token(&bundle->token, cmd, i, start); //token 문자열 생성 및 타입 지정
 		i++;
 	}
-	// t_token *temp;
-	// int size = ft_lstsize(bundle->token);
-	// temp = bundle->token;
-	// while (size--)
-	// {
-	// 	printf("%s %d %d\n", temp->content, temp->token_type, temp->back_space);
-	// 	bundle->token = temp->next;
-	// 	temp = bundle->token;
-	// } // test 출력
+	t_token *temp;
+	int size = ft_lstsize(bundle->token);
+	temp = bundle->token;
+	while (size--)
+	{
+		printf("%s %d %d\n", temp->content, temp->token_type, temp->back_space);
+		bundle->token = temp->next;
+		temp = bundle->token;
+	} // test 출력
 	return (1);
 }
 
