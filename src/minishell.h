@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/07 19:55:52 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/10 12:04:50 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct s_bundle
 	int			quote;
 	int			priority;
 	int			is_pipe;
-	int			fds[2];
 	char		*cmd_line;
 	char		**env;
 }			t_bundle;
