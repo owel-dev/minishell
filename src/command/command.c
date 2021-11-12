@@ -33,12 +33,11 @@ void ft_export(char *str)
 
 	if (str == NULL || ft_strchr(str, '=') == NULL)
 		return ;
-
 	split_str = ft_split(str, '=');
 	if (split_str == NULL)
 		return ;
 	key = split_str[0];
-	get_env = getenv(key);
+	get_env = ft_getenv(key);
 	if (get_env != NULL)
 	{
 		i = 0;
@@ -59,7 +58,6 @@ void ft_export(char *str)
 		}
 		return ;
 	}
-
 	len = 0;
 	while (g_env[len])
 		len++;
@@ -76,7 +74,6 @@ void ft_export(char *str)
 	}
 	all_free(g_env);
 	g_env = env_copy;
-	return ;
 }
 
 void ft_pwd(void)
@@ -101,11 +98,13 @@ void ft_unset(char *str)
 	int k;
 	int len;
 
+	if (str == NULL)
+		return ;
 	i = 0;
 	while (g_env[i])
 		i++;
 	len = i;
-	if (getenv(str) != NULL)
+	if (ft_getenv(str) != NULL)
 	{
 		env_copy = (char **)malloc(sizeof(char *) * len);
 		if (env_copy == NULL)
