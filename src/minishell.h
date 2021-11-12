@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: g_ulee <g_ulee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/10 12:04:50 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/12 14:50:48 by g_ulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <termios.h>
 # include <sys/ioctl.h>
 # include <signal.h>
+# include <string.h>
+# include <errno.h>
 # define TRUE 1
 # define FALSE 0
 # define D_OPEN 1
@@ -45,7 +47,7 @@
 
 typedef struct s_token
 {
-	struct s_token	*pre; 
+	struct s_token	*pre;
 	struct s_token	*next;
 	char			*content;
 	int				token_type;
@@ -109,6 +111,13 @@ int			parsing_quote_str(char *str, int start, int quote);
 void		print_error(char *str);
 void		free_bundle(t_bundle *bundles, int i);
 
+//command
+void		ft_cd(char *path);
+void		ft_env(char **env);
+void		ft_export(char *str);
+void		ft_pwd(void);
+void		ft_unset(char *str);
 
+char **g_env;
 
 #endif
