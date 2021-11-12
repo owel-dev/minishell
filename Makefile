@@ -17,6 +17,7 @@ FILE = 	main \
 		parsing/parsing_tokens \
 		parsing/parsing_str \
 		execute/execute_cmd \
+		command/command \
 		iohandler/pipe_handler \
 		iohandler/redir_handler \
 
