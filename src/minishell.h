@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/10 12:04:50 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/12 14:47:10 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <termios.h>
 # include <sys/ioctl.h>
 # include <signal.h>
+# include <string.h>
+# include <errno.h>
 # define TRUE 1
 # define FALSE 0
 # define D_OPEN 1
@@ -45,7 +47,7 @@
 
 typedef struct s_token
 {
-	struct s_token	*pre; 
+	struct s_token	*pre;
 	struct s_token	*next;
 	char			*content;
 	int				token_type;
@@ -60,7 +62,7 @@ typedef struct s_bundle
 	int			is_pipe;
 	char		*cmd_line;
 	char		**env;
-}			t_bundle;
+}				t_bundle;
 
 // main
 void		start_sh(char **env, char *input);
@@ -83,7 +85,11 @@ int			check_quote(char *str, int start, int end);
 int			parsing_quote_str(char *str, int start, int quote);
 int			parsing_env_str(char *str, int start);
 
-//utils_lst
+//fd_utils
+int	is_fdnum(char *str, int back);
+
+
+//lst_utils
 t_token		*ft_lstnew(char *content, int token_type, int back_space);
 void		ft_lstadd_back(t_token **lst, t_token *new);
 void		ft_lstclear(t_token **lst);
@@ -109,6 +115,15 @@ int			parsing_quote_str(char *str, int start, int quote);
 void		print_error(char *str);
 void		free_bundle(t_bundle *bundles, int i);
 
+//command
+void		ft_cd(char *path);
+void		ft_env(char **env);
+void		ft_export(char *str);
+void		ft_pwd(void);
+void		ft_unset(char *str);
+void		free_two(char **str);
+char		**dup_two(char **str);
 
+char **g_env;
 
 #endif

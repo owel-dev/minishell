@@ -12,10 +12,13 @@ FILE = 	main \
 		utils/list_utils \
 		utils/str_utils \
 		utils/split_utils \
+		utils/fd_utils \
 		parsing/parsing_bundles \
 		parsing/parsing_tokens \
 		parsing/parsing_str \
 		execute/execute_cmd \
+		iohandler/pipe_handler \
+		iohandler/redir_handler \
 
 SRCS = $(addprefix ./src/, $(addsuffix .c, $(FILE)))
 OBJS = $(addprefix ./src/, $(addsuffix .o, $(FILE)))

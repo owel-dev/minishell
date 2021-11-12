@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_handler.c                                     :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/10 11:30:02 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/10 13:23:45 by hyospark         ###   ########.fr       */
+/*   Created: 2021/11/10 14:18:54 by ulee              #+#    #+#             */
+/*   Updated: 2021/11/12 14:38:02 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	pipe_handler(t_bundle *bundle)
+void ft_pwd(void)
 {
-	int	pid;
-	int	status;
-	int	fd[2];
+	char *ret;
+	char s[1000];
 
-	if (pipe(fd) < 0)
-		print_error("PIPE_ERROR\n");
-	pid = fork();
-	if (pid < 0)
-		print_error("FORK_ERROR\n");
-	if (pid == 0)
+	ret = getcwd(s,1000);
+	if (ret == 0)
 	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
+		printf("%s\n", strerror(errno));
+		return ;
 	}
-	else
-	{
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
-		wait(&status);
-	}
+	printf("%s\n", ret);
 }

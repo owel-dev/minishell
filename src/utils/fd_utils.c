@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_handler.c                                     :+:      :+:    :+:   */
+/*   fd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/10 11:30:02 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/10 13:23:45 by hyospark         ###   ########.fr       */
+/*   Created: 2021/11/10 16:23:10 by hyospark          #+#    #+#             */
+/*   Updated: 2021/11/11 17:48:45 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	pipe_handler(t_bundle *bundle)
+int	is_fdnum(char *str, int back)
 {
-	int	pid;
-	int	status;
-	int	fd[2];
+	int	i;
 
-	if (pipe(fd) < 0)
-		print_error("PIPE_ERROR\n");
-	pid = fork();
-	if (pid < 0)
-		print_error("FORK_ERROR\n");
-	if (pid == 0)
-	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-	}
-	else
-	{
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
-		wait(&status);
-	}
+	i = 0;
+	if (str == NULL)
+		return (0);
+	if (back && str[i] == '&')
+		i++;
+	if (!ft_isdigit(str[i]))
+		return (0);
+	return (i);
 }

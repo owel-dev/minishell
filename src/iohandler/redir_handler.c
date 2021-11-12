@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_handler.c                                     :+:      :+:    :+:   */
+/*   redir_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/10 11:30:02 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/10 13:23:45 by hyospark         ###   ########.fr       */
+/*   Created: 2021/11/10 13:24:11 by hyospark          #+#    #+#             */
+/*   Updated: 2021/11/12 14:23:22 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-int	pipe_handler(t_bundle *bundle)
+int	redir_handler(t_token *token)
 {
 	int	pid;
-	int	status;
-	int	fd[2];
+	int status;
 
-	if (pipe(fd) < 0)
-		print_error("PIPE_ERROR\n");
 	pid = fork();
 	if (pid < 0)
-		print_error("FORK_ERROR\n");
+		print_error("FORK_ERROR");
 	if (pid == 0)
 	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
+		if (is_fdnum(token->pre->content, 0) == 1 && token->pre->back_space == 0)
+		{
+			dup2(token->pre->content[0] + '0', STDIN_FILENO);
+		}
+		if (is_fdnum(token->next->content, 1) == 2 && token->pre->back_space == 0)
+		{
+			dup2(ft_atoi(token->next->content[1] +'0' ), STDOUT_FILENO);
+		}
 	}
 	else
 	{
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
 		wait(&status);
 	}
 }
