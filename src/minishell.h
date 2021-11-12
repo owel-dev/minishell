@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: g_ulee <g_ulee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/12 14:53:27 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/12 16:01:21 by g_ulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void		ft_env(char **env);
 void		ft_export(char *str);
 void		ft_pwd(void);
 void		ft_unset(char *str);
+char		*ft_getenv(char *key);
 
 char **g_env;
 
