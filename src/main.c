@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: g_ulee <g_ulee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/12 16:28:19 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/14 18:10:34 by g_ulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,33 @@ char	**dup_envp(char **envp)
 	return (env);
 }
 
+void sig_handler(int signum)
+{
+	if (signum == SIGINT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+		printf("%c[K\n", 27);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else if (signum == SIGQUIT)
+	{
+		printf("zsh: quit           %s", "a.out");
+		rl_replace_line("               ", 0);
+		rl_redisplay();
+		printf("%c\n", 27);
+		exit(0);
+	}
+}
+
 void	loop(char **env)
 {
 	char	*input;
 
+	signal(SIGINT, (void *)sig_handler);
+	signal(SIGQUIT, (void *)sig_handler);
 	while(TRUE)
 	{
 		input = readline("minishell$ ");
