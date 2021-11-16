@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: g_ulee <g_ulee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/14 18:10:34 by g_ulee           ###   ########.fr       */
+/*   Updated: 2021/11/14 19:50:31 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	loop(char **env)
 {
 	char	*input;
 
-	signal(SIGINT, (void *)sig_handler);
-	signal(SIGQUIT, (void *)sig_handler);
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, sig_handler);
 	while(TRUE)
 	{
 		input = readline("minishell$ ");
@@ -93,7 +93,6 @@ void	loop(char **env)
 
 int main(int argc, char const *argv[], char **envp)
 {
-	// signal(SIGINT, SIG_IGN);
-	loop(dup_envp(envp));//env 복제본을 매개변수로 넘긴다.
+	loop(dup_envp(envp));
 	return 0;
 }

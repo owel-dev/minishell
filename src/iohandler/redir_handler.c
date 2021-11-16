@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:24:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/12 17:35:52 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/16 15:55:48 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,69 @@
 
 int	d_redir_cmd(t_bundle *bundle, t_token *token)
 {
-	int	fd;
+	int	fd_num[2];
 
-	fd = set_fd(token);
-	if (fd < 0)
+	set_fd(token, fd_num);
+	if (token->token_type == D_REDIR_OUT)
 	{
-		if (token->token_type == D_REDIR_OUT)
+		if (fd_num[0] > -1)
+			dup2(fd_num[0], STDIN_FILENO);
+		if (fd_num[0] < 0)
 		{
-			fd = open(token->next->content, O_WRONLY | O_APPEND | O_CREAT, 0666);
+			fd_num[0] = open(token->next->content, O_WRONLY | O_APPEND | O_CREAT, 0666);
+			if (fd_num[0] < 0)
+				print_error("redir open file error");
 		}
-		if (token->token_type == D_REDIR_IN)
-		{
-			while ()
-			{
-				
-			}
-			
-			fd = open(token->next->content, 
-		}
+		dup2(fd_num[0], STDOUT_FILENO);
 	}
-	else
+	if (token->token_type == D_REDIR_IN)
+	{
+		
+	}
 }
 
 int	redir_cmd(t_bundle *s_bundle, t_token *token)
 {
-	
+	int	fd_num[2];
+
+	set_fd(token, fd_num);
+	if (token->token_type == REDIR_OUT)
+	{
+		if (fd_num[0] > -1)
+			dup2(fd_num[0], STDIN_FILENO);
+		if (fd_num[1] < 0)
+		{
+			fd_num[1] = open(token->next->content, O_WRONLY | O_TRUNC | O_CREAT, 0666);
+			if (fd_num[1] < 0)
+				print_error("redir open file error");
+		}
+		dup2(fd_num[1], STDOUT_FILENO);
+	}
+	if (token->token_type == REDIR_IN)
+	{
+		if (fd_num[0] > -1)
+			dup2(fd_num[0], STDIN_FILENO);
+		if (fd_num[1] < 0)
+		{
+			fd_num[1] = open(token->next->content, O_RDONLY);
+			if (fd_num[1] < 0)
+				print_error("redir opne file error");
+		}
+		dup2(fd_num[1], STDIN_FILENO);
+	}
 }
 
-int	set_fd(t_token *token)
+int	*set_fd(t_token *token, int	fd_num[])
 {
 	if (is_fdnum(token->pre->content, 0) == 1 && token->pre->back_space == 0)
-		return (token->pre->content[0] + '0');
-	else if (is_fdnum(token->next->content, 1) == 2 && token->pre->back_space == 0)
-		return (token->pre->content[1] + '0');
-	return (-1);
+		fd_num[0] = token->pre->content[0] + '0';
+	else
+		fd_num[0] = -1;
+	if (is_fdnum(token->next->content, 1) == 2 && token->back_space == 0)
+		fd_num[1] = (token->pre->content[1] + '0');
+	else
+		fd_num[1] = -1;
+	return (fd_num);
 }
 
 int	redir_handler(t_bundle *bundle, t_token *token)
@@ -57,22 +86,22 @@ int	redir_handler(t_bundle *bundle, t_token *token)
 
 	pid = fork();
 	if (pid < 0)
-		print_error("FORK_ERROR");
+		print_error("redir fork error");
 	if (pid == 0)
 	{
-		
 		if (token->token_type == D_REDIR_IN || token->token_type == D_REDIR_OUT)
 		{
-			d_redir_cmd(bundle, token);
+			status = d_redir_cmd(bundle, token);
 		}
 		else if (token->token_type == REDIR_IN || token->token_type == REDIR_OUT)
 		{
-			redir_cmd(bundle, token);
+			status = redir_cmd(bundle, token);
 		}
-		execute_cmd();
+		exit(status);
 	}
 	else
 	{
 		wait(&status);
+		exit(status);
 	}
 }

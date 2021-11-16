@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 00:31:12 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/05 16:57:25 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/15 18:17:10 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_token	*ft_lstnew(char *content, int token_type, int back_space)
 	new->content = content;
 	new->token_type = token_type;
 	new->back_space = back_space;
+	new->redir = 0;
+	new->pipe = 0;
 	new->next = 0;
 	return (new);
 }

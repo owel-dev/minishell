@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:36:12 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/05 17:16:25 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/15 03:52:01 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ int	check_vaild_str(char *str, int start)
 		return (ENV);
 	if (is_space(str[start + 1]) || ft_strchr("|<>$", str[start + 1]) ||
 	check_quote(str, start + 1, ft_strlen(str)))
-		return (STR);
+		return (0);
 	return (0);
 }

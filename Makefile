@@ -1,12 +1,13 @@
 NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -lreadline
-INCS = -I./src/libft -I./
+INCS = -I./src/libft -I./ -I/usr/local/opt/readline/include
 LIBFT = -L./src/libft -lft
 RM = rm -f
 
 FILE = 	main \
-		builtin/builtin \
+		builtin/check_builtin \
+		builtin/command \
 		error/free_error \
 		error/print_error \
 		utils/list_utils \

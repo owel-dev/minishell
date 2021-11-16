@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: g_ulee <g_ulee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/12 16:01:21 by g_ulee           ###   ########.fr       */
+/*   Updated: 2021/11/15 18:16:11 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@
 # define S_OPEN 2
 # define S_CLOSE 10
 # define D_CLOSE 11
-# define STR 1
-# define CMD 2
-# define BUILT 3
 # define REDIR_IN 4
 # define REDIR_OUT 5
 # define D_REDIR_IN 6
@@ -49,6 +46,8 @@ typedef struct s_token
 {
 	struct s_token	*pre;
 	struct s_token	*next;
+	int				pipe;
+	int				redir;
 	char			*content;
 	int				token_type;
 	int				back_space;
@@ -62,6 +61,7 @@ typedef struct s_bundle
 	int			is_pipe;
 	char		*cmd_line;
 	char		**env;
+	t_token		*pipe_token;
 }				t_bundle;
 
 // main
@@ -77,9 +77,10 @@ int			set_bundle_line(t_bundle *bundle, int word_len);
 void		set_bundle(t_bundle *bundle, char **env, int bundles_num);
 
 //parsing_token
+int			set_token_type(int token_type, t_bundle *bnde, int i);
 int			parsing_token(t_bundle *bundles);
 char		*make_token(char *str, int start, int end, int token_type);
-int			get_token(t_bundle *bnde, char *cmd, int i, int start);
+int			get_token(t_bundle *bnde, int i, int start);
 //parsing_str
 int			check_quote(char *str, int start, int end);
 int			parsing_quote_str(char *str, int start, int quote);
