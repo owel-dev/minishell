@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:30:02 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/10 13:23:45 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/16 17:12:08 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	pipe_handler(t_bundle *bundle)
 	int	fd[2];
 
 	if (pipe(fd) < 0)
-		print_error("PIPE_ERROR\n");
+		print_error("PIPE_ERROR\n", EXIT_FAILURE);
 	pid = fork();
 	if (pid < 0)
-		print_error("FORK_ERROR\n");
+		print_error("FORK_ERROR\n", EXIT_FAILURE);
 	if (pid == 0)
 	{
 		close(fd[1]);

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:24:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/16 15:55:48 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/16 17:12:30 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	d_redir_cmd(t_bundle *bundle, t_token *token)
 		{
 			fd_num[0] = open(token->next->content, O_WRONLY | O_APPEND | O_CREAT, 0666);
 			if (fd_num[0] < 0)
-				print_error("redir open file error");
+				print_error("redir open file error", EXIT_FAILURE);
 		}
 		dup2(fd_num[0], STDOUT_FILENO);
 	}
@@ -48,7 +48,7 @@ int	redir_cmd(t_bundle *s_bundle, t_token *token)
 		{
 			fd_num[1] = open(token->next->content, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 			if (fd_num[1] < 0)
-				print_error("redir open file error");
+				print_error("redir open file error", EXIT_FAILURE);
 		}
 		dup2(fd_num[1], STDOUT_FILENO);
 	}
@@ -60,7 +60,7 @@ int	redir_cmd(t_bundle *s_bundle, t_token *token)
 		{
 			fd_num[1] = open(token->next->content, O_RDONLY);
 			if (fd_num[1] < 0)
-				print_error("redir opne file error");
+				print_error("redir opne file error", EXIT_FAILURE);
 		}
 		dup2(fd_num[1], STDIN_FILENO);
 	}
@@ -86,7 +86,7 @@ int	redir_handler(t_bundle *bundle, t_token *token)
 
 	pid = fork();
 	if (pid < 0)
-		print_error("redir fork error");
+		print_error("redir fork error", EXIT_FAILURE);
 	if (pid == 0)
 	{
 		if (token->token_type == D_REDIR_IN || token->token_type == D_REDIR_OUT)

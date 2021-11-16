@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/15 18:16:11 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/16 17:08:26 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int			parsing_quote_str(char *str, int start, int quote);
 //builtin
 
 //error
-void		print_error(char *str);
+void	print_error(char *str, int error_num);
 void		free_bundle(t_bundle *bundles, int i);
 
 //command

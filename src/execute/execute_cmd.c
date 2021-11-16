@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/16 00:20:26 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/16 17:12:38 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ t_token	*pipe_cmd(t_bundle *bundle, t_token *token)
 
 	pid = fork();
 	if (pid < 0)
-		print_error("pipe fork error");
+		print_error("pipe fork error", EXIT_FAILURE);
 	pipe(fd);
 	if (pipe < 0)
-		print_error("pipe function error");
+		print_error("pipe function error", EXIT_FAILURE);
 	if(pid == 0)
 	{
 		close(fd[0]);
