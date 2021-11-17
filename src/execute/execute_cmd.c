@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/16 17:12:38 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/17 16:29:40 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_token	*pipe_cmd(t_bundle *bundle, t_token *token)
 	}
 	else
 	{
-		clode(fd[1]);
+		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		tem = token->next;
 		token = tem;
@@ -62,7 +62,7 @@ int	execute_cmd(t_bundle *bundle)
 		}
 		// if (bundle->token->redir > 0)
 		// 	redir_cmd();
-		if (is_builtin())
+		if (is_builtin(bundle, bundle->token))
 		{
 			temp = excute_builtin();
 		}

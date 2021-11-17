@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 02:23:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/15 19:15:33 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/17 16:28:13 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	parsing_token_list(t_bundle *bundle)
 	int		i;
 	int		start;
 	char	*cmd;
-	t_token *start;
 
 	i = 0;
 	start = 0;
