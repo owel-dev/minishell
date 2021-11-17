@@ -6,19 +6,18 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 17:26:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/17 16:40:10 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/17 17:24:28 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	is_builtin(t_bundle *bundle, t_token *token)
+t_bundle	*is_builtin(t_bundle *bundle, t_token *token)
 {
-	int result;
+	t_bundle *return_bundle;
 	char *content_first;
 	char *content_second;
 
-	result = 0;
 	if (token->back_space == 1)
 	{
 		content_first = token->content;
@@ -41,4 +40,5 @@ int	is_builtin(t_bundle *bundle, t_token *token)
 		else if (ft_strcmp(content_first, "unset") == 0)
 			ft_unset(content_second);
 	}
+	return (return_bundle);
 }
