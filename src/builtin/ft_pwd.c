@@ -3,25 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/17 16:38:13 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/19 19:49:29 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void ft_pwd(void)
+int ft_pwd(t_token *token)
 {
-	char *ret;
-	char s[1000];
+	char *ret_pwd;
+	char dir[1000];
 
-	ret = getcwd(s,1000);
-	if (ret == 0)
+	if (token != NULL)
+	{
+		while (token != NULL || token->next->token_type != PIPE)
+			token = token->next;
+	}
+	ret_pwd = getcwd(dir,1000);
+	if (ret_pwd == 0)
 	{
 		printf("%s\n", strerror(errno));
-		return ;
+		return (FAIL);
 	}
-    printf("%s\n", ret);
+    printf("%s\n", dir);
+	return (SUCCESS);
 }

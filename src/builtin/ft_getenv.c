@@ -3,30 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 03:54:58 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/15 03:54:59 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/19 19:49:26 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *ft_getenv(char *key)
+char *ft_getenv(t_bundle *bundle, char *key)
 {
 	int i;
 	char **split;
 	char *ret;
 
 	i = 0;
-	while (g_env[i])
+	while (bundle->env[i])
 	{
-		split = ft_split(g_env[i], '=');
+		split = ft_split(bundle->env[i], '=');
 		if (split == NULL)
 			return (NULL);
 		if (ft_strcmp(split[0], key) == 0)
 		{
 			ret = ft_strdup(split[1]);
+			if (ret == NULL)
+			{
+				all_free(split);
+				return (NULL);
+			}
 			all_free(split);
 			return (ret);
 		}

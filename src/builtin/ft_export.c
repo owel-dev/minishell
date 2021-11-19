@@ -3,66 +3,83 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:36 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/17 16:38:45 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/19 19:49:40 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void ft_export(char *str)
+int append_env(t_bundle *bundle, t_token *token)
 {
-	char **split_str;
-	char *key;
-	char **env_copy;
-	char *get_env;
-	char **split_env;
 	int len;
 	int i;
+	char **env_copy;
 
-	if (str == NULL || ft_strchr(str, '=') == NULL)
-		return ;
-	split_str = ft_split(str, '=');
-	if (split_str == NULL)
-		return ;
-	key = split_str[0];
-	get_env = ft_getenv(key);
-	if (get_env != NULL)
-	{
-		i = 0;
-		while (g_env[i])
-		{
-			split_env = ft_split(g_env[i], '=');
-			if (split_env == NULL)
-				return ;
-			if (ft_strcmp(split_env[0], key) == 0)
-			{
-				all_free(split_env);
-				free(g_env[i]);
-				g_env[i] = ft_strdup(str);
-				return ;
-			}
-			all_free(split_env);
-			i++;
-		}
-		return ;
-	}
-	len = 0;
-	while (g_env[len])
-		len++;
+	len = ft_arrlen(bundle->env);
+	if (len == 0)
+		return (FAIL);
 	env_copy = (char **)malloc(sizeof(char *) * len + 2);
 	if (env_copy == NULL)
-		return ;
+		return (FAIL);
 	env_copy[len + 1] = NULL;
-	env_copy[len] = str;
+	env_copy[len] = token->content;
 	i = 0;
 	while (i < len)
 	{
-		env_copy[i] = ft_strdup(g_env[i]);
+		env_copy[i] = ft_strdup(bundle->env[i]);
 		i++;
 	}
-	all_free(g_env);
-	g_env = env_copy;
+	all_free(bundle->env);
+	bundle->env = env_copy;
+	return (SUCCESS);
+}
+
+int replace_env(t_bundle *bundle, t_token *token, char *key)
+{
+	int i;
+	char **env_split;
+	char *key;
+
+	if (bundle == NULL || token == NULL || key == NULL)
+		return (FAIL);
+	i = 0;
+	while (bundle->env[i])
+	{
+		env_split = ft_split(bundle->env[i], '=');
+		if (env_split == NULL)
+			return (FAIL);
+		if (ft_strcmp(env_split[0], key) == 0)
+		{
+			all_free(env_split);
+			free(bundle->env[i]);
+			bundle->env[i] = ft_strdup(token->content);
+			return (SUCCESS);
+		}
+		all_free(env_split);
+		i++;
+	}
+	return (FAIL);
+}
+
+int ft_export(t_bundle *bundle, t_token *token)
+{
+	char **content_split;
+	char *key;
+	char *value;
+
+	if (token == NULL)
+		return (FAIL);
+	if (ft_strchr(token->content, '=') == NULL)
+		return (FAIL);
+	content_split = ft_split(token->content, '=');
+	if (content_split == NULL)
+		return (FAIL);
+	key = content_split[0];
+	value = ft_getenv(bundle, key);
+	if (value != NULL)
+		return (replace_env(bundle, token, key));
+	return (append_env(bundle, token));
 }

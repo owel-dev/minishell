@@ -3,23 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:39:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/17 16:39:16 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/19 19:49:18 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void ft_cd(char *path)
+int  ft_cd(t_token *token)
 {
-	int ret;
+	int ret_chdir;
+	char *dir;
 
-	if (path == NULL)
-		return ;
-	ret = chdir(path);
-	if (ret == -1)
+	if (token->next != NULL)
+	{
+		printf("error\n");
+		while (token != NULL || token->next->token_type != PIPE)
+			token = token->next;
+		return (FAIL);
+	}
+	if (token == NULL || token->next->token_type == PIPE)
+		dir = "~";
+	else
+		dir = token->content;
+	ret_chdir = chdir(dir);
+	if (ret_chdir == -1)
+	{
 		printf("%s\n", strerror(errno));
+		return (FAIL);
+	}
+	return (SUCCESS);
 }
-

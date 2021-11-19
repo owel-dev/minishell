@@ -3,15 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   redir_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:24:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/16 17:12:30 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/19 19:55:21 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	read_here_document(t_bundle *bundle)
+{
+	pid_t	pid;
+	int		status;
+	int		read_doc;
+	int		fd;
+
+	fd = open("tem", O_WRONLY | O_EXCL | O_CREAT, 0666);
+	pid = fork();
+	if (pid < 0)
+		return (-1);
+	if (pid == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		while (fd > 0)
+		{
+			read_doc = readline("> ");
+			if (!ft_strcmp(read_doc, bundle->token->next))
+				fd = -1;
+			else
+				write(fd, read_doc, ft_strlen(read_doc));
+			free(read_doc);
+		}
+		child_exit(bundle);
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		return (0);
+	}
+}
 int	d_redir_cmd(t_bundle *bundle, t_token *token)
 {
 	int	fd_num[2];
@@ -31,7 +62,15 @@ int	d_redir_cmd(t_bundle *bundle, t_token *token)
 	}
 	if (token->token_type == D_REDIR_IN)
 	{
-		
+		if (fd_num[0] > -1)
+			dup2(fd_num[0], STDIN_FILENO);
+		if (fd_num[0] < 0)
+		{
+			read_here_document(bundle);
+			if (fd_num[0] < 0)
+				print_error("redir open file error", EXIT_FAILURE);
+		}
+		dup2(fd_num[0], STDOUT_FILENO);
 	}
 }
 
