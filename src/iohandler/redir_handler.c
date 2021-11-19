@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:24:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 19:55:21 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/19 20:07:11 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,23 @@ int	read_here_document(t_bundle *bundle)
 	pid_t	pid;
 	int		status;
 	int		read_doc;
-	int		fd;
+	int		fd[2];
 
-	fd = open("tem", O_WRONLY | O_EXCL | O_CREAT, 0666);
+	if (pipe(fd) < 0)
+		return (-1);
 	pid = fork();
 	if (pid < 0)
 		return (-1);
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
-		while (fd > 0)
+		while (fd[1] > 0)
 		{
 			read_doc = readline("> ");
 			if (!ft_strcmp(read_doc, bundle->token->next))
-				fd = -1;
+				fd[1] = -1;
 			else
-				write(fd, read_doc, ft_strlen(read_doc));
+				write(fd[1], read_doc, ft_strlen(read_doc));
 			free(read_doc);
 		}
 		child_exit(bundle);
@@ -40,9 +41,11 @@ int	read_here_document(t_bundle *bundle)
 	else
 	{
 		waitpid(pid, &status, 0);
+		dup2(fd[0], STDIN_FILENO);
 		return (0);
 	}
 }
+
 int	d_redir_cmd(t_bundle *bundle, t_token *token)
 {
 	int	fd_num[2];
@@ -66,11 +69,11 @@ int	d_redir_cmd(t_bundle *bundle, t_token *token)
 			dup2(fd_num[0], STDIN_FILENO);
 		if (fd_num[0] < 0)
 		{
-			read_here_document(bundle);
 			if (fd_num[0] < 0)
 				print_error("redir open file error", EXIT_FAILURE);
 		}
 		dup2(fd_num[0], STDOUT_FILENO);
+		read_here_document(bundle);
 	}
 }
 
