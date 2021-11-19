@@ -1,13 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_simple_cmd.c                                 :+:      :+:    :+:   */
+/*   ft_arrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: g_ulee <g_ulee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/12 17:45:38 by hyospark         ###   ########.fr       */
+/*   Created: 2021/11/19 18:41:33 by g_ulee            #+#    #+#             */
+/*   Updated: 2021/11/19 18:44:25 by g_ulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
+
+int	ft_arrlen(char **arr)
+{
+	int len;
+
+	if (arr == NULL || *arr == NULL)
+		return (0);
+	len = 0;
+	while (arr[len])
+		len++;
+	return (len);
+}

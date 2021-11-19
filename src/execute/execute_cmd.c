@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 16:08:52 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/19 19:54:26 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,24 +50,32 @@ int	pipe_cmd(t_bundle *bundle, t_token *token)
 	}
 }
 
+t_token *check_cmd(t_bundle *bundle)
+{
+	t_token *ret_token;
+
+	ret_token = is_builtin(bundle, bundle->token);
+	if (ret_token)
+		return (ret_token);
+	ret_token = is_bin(bundle, bundle->token);
+	if (ret_token)
+		return (ret_token);
+	return (NULL);
+}
+
 int	execute_cmd(t_bundle *bundle)
 {
 	int result;
 	t_token *temp;
 	int	child_ps;
 
-	while (bundle->token->content)
+	while (bundle->token)
 	{
-		temp = bundle->token;
 		if (bundle->token->pipe == PIPE)
-		{
 			child_ps = pipe_cmd(bundle, bundle->token);
-		}
 		// if (bundle->token->redir > 0)
 		// 	redir_cmd();
-		temp = is_builtin(bundle, bundle->token);
-		if (temp == NULL)
-			temp = is_simple_cmd();
+		result = check_cmd(bundle);
 		if (child_ps)
 			return (-1);
 		bundle->token = temp->next;

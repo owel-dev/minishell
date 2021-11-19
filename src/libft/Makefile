@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+         #
+#    By: g_ulee <g_ulee@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/17 14:49:10 by ulee              #+#    #+#              #
-#    Updated: 2021/10/27 15:21:49 by hyospark         ###   ########.fr        #
+#    Updated: 2021/11/19 18:44:44 by g_ulee           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ FILES = ft_memset \
 		ft_putstr_fd \
 		ft_putendl_fd \
 		ft_putnbr_fd \
-		ft_strcmp
+		ft_strcmp \
+		ft_arrlen
 
 SRCS_DIR = ./
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))

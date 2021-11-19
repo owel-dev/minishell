@@ -6,7 +6,7 @@
 /*   By: g_ulee <g_ulee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 18:54:17 by ulee              #+#    #+#             */
-/*   Updated: 2021/11/12 14:49:29 by g_ulee           ###   ########.fr       */
+/*   Updated: 2021/11/19 18:44:29 by g_ulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int					ft_printf(const char *s, ...);
 int					ft_istype(int c);
 int					ft_strcmp(char *one, char *two);
 int					is_space(int c);
+int					ft_arrlen(char **arr);
 char				**all_free(char **result);
 
 #endif
