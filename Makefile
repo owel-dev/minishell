@@ -6,8 +6,13 @@ LIBFT = -L./src/libft -lft
 RM = rm -f
 
 FILE = 	main \
-		builtin/check_builtin \
-		builtin/command \
+		builtin/ft_cd \
+		builtin/ft_echo \
+		builtin/ft_env \
+		builtin/ft_export \
+		builtin/ft_getenv \
+		builtin/ft_pwd \
+		builtin/ft_unset \
 		error/free_error \
 		error/print_error \
 		utils/list_utils \
@@ -18,7 +23,7 @@ FILE = 	main \
 		parsing/parsing_tokens \
 		parsing/parsing_str \
 		execute/execute_cmd \
-		command/command \
+		command/check_cmd \
 		iohandler/pipe_handler \
 		iohandler/redir_handler \
 

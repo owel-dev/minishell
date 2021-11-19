@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: g_ulee <g_ulee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/17 17:39:04 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/19 16:14:50 by g_ulee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,25 +47,31 @@ t_token	*pipe_cmd(t_bundle *bundle, t_token *token)
 	}
 }
 
+t_token *check_cmd(t_bundle *bundle)
+{
+	t_token *ret_token;
+
+	ret_token = is_builtin(bundle, bundle->token);
+	if (ret_token)
+		return (ret_token);
+	ret_token = is_bin(bundle, bundle->token);
+	if (ret_token)
+		return (ret_token);
+	return (NULL);
+}
+
 int	execute_cmd(t_bundle *bundle)
 {
 	int result;
-	t_token *temp;
+	int child_ps;
 
-	while (bundle->token->content)
+	while (bundle->token)
 	{
-		temp = bundle->token;
 		if (bundle->token->pipe == PIPE)
-		{
-			bundle->token = pipe_cmd(bundle, bundle->token);
-			continue ;
-		}
-		// if (bundle->token->redir > 0)
-		// 	redir_cmd();
-		temp = is_builtin(bundle, bundle->token);
-		if (temp == NULL)
-			temp = is_simple_cmd();
-		bundle->token = temp->next;
+			child_ps = pipe_cmd(bundle, bundle->token);
+		result = check_cmd(bundle);
+		if (child_ps)
+			return (-1);
 	}
 	return (result);
 }
