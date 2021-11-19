@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 20:07:17 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/20 03:29:18 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,21 @@ int			parsing_quote_str(char *str, int start, int quote);
 
 //builtin
 int			is_builtin(t_bundle *bundle, t_token *token);
+
+//io_handler
+void		redir_handler(t_bundle *bundle);
+int			*set_fd(t_token *token, int	fd_num[]);
+void		redir_in(t_token *token);
+void		redir_out(t_token *token);
+void		d_redir_out(t_token *token);
+void 		d_redir_in(t_bundle *bundle, t_token *token);
+int			read_here_document(t_bundle *bundle);
+void		get_readline(int fd[], t_bundle *bundle);
+
 //error
 void		print_error(char *str, int error_num);
 void		free_bundle(t_bundle *bundles, int i);
-void		child_exit(t_bundle *bundles);
+void		child_exit(t_bundle *bundles, int status);
 
 //command
 int			ft_cd(t_token *token);

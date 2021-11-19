@@ -6,17 +6,31 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:24:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 20:07:11 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/20 03:28:26 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	get_readline(int fd[], t_bundle *bundle)
+{
+	int		read_doc;
+
+	while (fd[1] > 0)
+	{
+		read_doc = readline("> ");
+		if (!ft_strcmp(read_doc, bundle->token->next))
+			fd[1] = -1;
+		else
+			write(fd[1], read_doc, ft_strlen(read_doc));
+		free(read_doc);
+	}
+}
+
 int	read_here_document(t_bundle *bundle)
 {
 	pid_t	pid;
 	int		status;
-	int		read_doc;
 	int		fd[2];
 
 	if (pipe(fd) < 0)
@@ -27,84 +41,14 @@ int	read_here_document(t_bundle *bundle)
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
-		while (fd[1] > 0)
-		{
-			read_doc = readline("> ");
-			if (!ft_strcmp(read_doc, bundle->token->next))
-				fd[1] = -1;
-			else
-				write(fd[1], read_doc, ft_strlen(read_doc));
-			free(read_doc);
-		}
-		child_exit(bundle);
+		get_readline(fd, bundle);
+		child_exit(bundle, status);
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
 		dup2(fd[0], STDIN_FILENO);
 		return (0);
-	}
-}
-
-int	d_redir_cmd(t_bundle *bundle, t_token *token)
-{
-	int	fd_num[2];
-
-	set_fd(token, fd_num);
-	if (token->token_type == D_REDIR_OUT)
-	{
-		if (fd_num[0] > -1)
-			dup2(fd_num[0], STDIN_FILENO);
-		if (fd_num[0] < 0)
-		{
-			fd_num[0] = open(token->next->content, O_WRONLY | O_APPEND | O_CREAT, 0666);
-			if (fd_num[0] < 0)
-				print_error("redir open file error", EXIT_FAILURE);
-		}
-		dup2(fd_num[0], STDOUT_FILENO);
-	}
-	if (token->token_type == D_REDIR_IN)
-	{
-		if (fd_num[0] > -1)
-			dup2(fd_num[0], STDIN_FILENO);
-		if (fd_num[0] < 0)
-		{
-			if (fd_num[0] < 0)
-				print_error("redir open file error", EXIT_FAILURE);
-		}
-		dup2(fd_num[0], STDOUT_FILENO);
-		read_here_document(bundle);
-	}
-}
-
-int	redir_cmd(t_bundle *s_bundle, t_token *token)
-{
-	int	fd_num[2];
-
-	set_fd(token, fd_num);
-	if (token->token_type == REDIR_OUT)
-	{
-		if (fd_num[0] > -1)
-			dup2(fd_num[0], STDIN_FILENO);
-		if (fd_num[1] < 0)
-		{
-			fd_num[1] = open(token->next->content, O_WRONLY | O_TRUNC | O_CREAT, 0666);
-			if (fd_num[1] < 0)
-				print_error("redir open file error", EXIT_FAILURE);
-		}
-		dup2(fd_num[1], STDOUT_FILENO);
-	}
-	if (token->token_type == REDIR_IN)
-	{
-		if (fd_num[0] > -1)
-			dup2(fd_num[0], STDIN_FILENO);
-		if (fd_num[1] < 0)
-		{
-			fd_num[1] = open(token->next->content, O_RDONLY);
-			if (fd_num[1] < 0)
-				print_error("redir opne file error", EXIT_FAILURE);
-		}
-		dup2(fd_num[1], STDIN_FILENO);
 	}
 }
 
@@ -121,29 +65,14 @@ int	*set_fd(t_token *token, int	fd_num[])
 	return (fd_num);
 }
 
-int	redir_handler(t_bundle *bundle, t_token *token)
+void	redir_handler(t_bundle *bundle)
 {
-	int	pid;
-	int status;
-
-	pid = fork();
-	if (pid < 0)
-		print_error("redir fork error", EXIT_FAILURE);
-	if (pid == 0)
-	{
-		if (token->token_type == D_REDIR_IN || token->token_type == D_REDIR_OUT)
-		{
-			status = d_redir_cmd(bundle, token);
-		}
-		else if (token->token_type == REDIR_IN || token->token_type == REDIR_OUT)
-		{
-			status = redir_cmd(bundle, token);
-		}
-		exit(status);
-	}
-	else
-	{
-		wait(&status);
-		exit(status);
-	}
+	if (bundle->token->token_type == D_REDIR_OUT)
+		d_redir_out(bundle->token);
+	else if (bundle->token->token_type == D_REDIR_IN)
+		d_redir_in(bundle, bundle->token);
+	else if (bundle->token->token_type == REDIR_IN)
+		redir_in(bundle->token);
+	else if (bundle->token->token_type == REDIR_OUT)
+		redir_out(bundle->token);
 }
