@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:28:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/07 17:47:10 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/19 17:19:50 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_bundle	*split_bundle(char **env, char const *str)
 	bundles = (t_bundle *)malloc(sizeof(t_bundle) * (bundles_num + 1));
 	if (bundles == NULL)
 		return (NULL);
-	set_bundle(bundles, env, bundles_num);
+	set_bundle(bundles, env, bundles_num, str);
 	i = cut_cmd(bundles, str);
 	if (i > -1)
 		free_bundle(bundles, i);

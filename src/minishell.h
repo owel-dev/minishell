@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 16:20:50 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/19 17:19:48 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_bundle
 	char		*cmd_line;
 	char		**env;
 	t_token		*pipe_token;
+	char		*input;
 }				t_bundle;
 
 // main
@@ -75,7 +76,7 @@ int			execute_cmd(t_bundle *bundle);
 
 //parsing_bundle
 int			set_bundle_line(t_bundle *bundle, int word_len);
-void		set_bundle(t_bundle *bundle, char **env, int bundles_num);
+void	set_bundle(t_bundle *bundle, char **env, int bundles_num, char *str);
 
 //parsing_token
 int			set_token_type(int token_type, t_bundle *bnde, int i);
@@ -117,7 +118,7 @@ t_bundle		*is_builtin(t_bundle *bundle, t_token *token);
 //error
 void		print_error(char *str, int error_num);
 void		free_bundle(t_bundle *bundles, int i);
-void		child_exit(t_bundle *bundles);
+void		child_exit(t_bundle *bundles, char *input);
 //command
 void		ft_cd(char *path);
 void		ft_env(char **env);
