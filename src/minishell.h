@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/17 17:23:11 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/19 16:20:50 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_token
 typedef struct s_bundle
 {
 	t_token		*token;
+	t_token		*head;
 	int			quote;
 	int			priority;
 	int			is_pipe;
@@ -87,7 +88,7 @@ int			parsing_quote_str(char *str, int start, int quote);
 int			parsing_env_str(char *str, int start);
 
 //fd_utils
-int	is_fdnum(char *str, int back);
+int			is_fdnum(char *str, int back);
 
 
 //lst_utils
@@ -111,11 +112,12 @@ int			check_vaild_str(char *str, int start);
 int			parsing_quote_str(char *str, int start, int quote);
 
 //builtin
-int	is_builtin(t_bundle *bundle, t_token *token);
-//error
-void	print_error(char *str, int error_num);
-void		free_bundle(t_bundle *bundles, int i);
+t_bundle		*is_builtin(t_bundle *bundle, t_token *token);
 
+//error
+void		print_error(char *str, int error_num);
+void		free_bundle(t_bundle *bundles, int i);
+void		child_exit(t_bundle *bundles);
 //command
 void		ft_cd(char *path);
 void		ft_env(char **env);

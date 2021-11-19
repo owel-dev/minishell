@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 02:23:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/17 16:28:13 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/19 16:19:59 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int	parsing_token_list(t_bundle *bundle)
 		set_iotoken(bundle);
 		i++;
 	}
+	bundle->head = bundle->token;
 	// t_token *temp;
 	// int size = ft_lstsize(bundle->token);
 	// temp = bundle->token;

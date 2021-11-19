@@ -8,7 +8,7 @@ RM = rm -f
 FILE = 	main \
 		builtin/check_builtin \
 		builtin/command \
-		error/free_error \
+		error/free_exit \
 		error/print_error \
 		utils/list_utils \
 		utils/str_utils \
@@ -18,7 +18,7 @@ FILE = 	main \
 		parsing/parsing_tokens \
 		parsing/parsing_str \
 		execute/execute_cmd \
-		command/command \
+		builtin/check_builtin \
 		iohandler/pipe_handler \
 		iohandler/redir_handler \
 

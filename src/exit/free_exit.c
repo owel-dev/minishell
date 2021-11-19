@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_error.c                                       :+:      :+:    :+:   */
+/*   free_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 01:47:17 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/07 19:24:05 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/19 16:17:51 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,23 @@ void	free_bundle(t_bundle *bundles, int i)
 		if (bundles[i].cmd_line)
 		{
 			free(bundles[i].cmd_line);
-			ft_lstclear(&bundles[i].token);
+			ft_lstclear(&bundles[i].head);
 		}
 		i--;
 	}
 	free(bundles);
+}
+
+void	child_exit(t_bundle *bundles)
+{
+	int	i;
+
+	i = 0;
+	while (bundles[i].cmd_line)
+	{
+		free(bundles[i].cmd_line);
+		ft_lstclear(&bundles[i].head);
+		i++;
+	}
+	exit(1);
 }
