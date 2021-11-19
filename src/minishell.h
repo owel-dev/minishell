@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 17:19:48 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/19 20:04:35 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ t_bundle		*is_builtin(t_bundle *bundle, t_token *token);
 //error
 void		print_error(char *str, int error_num);
 void		free_bundle(t_bundle *bundles, int i);
-void		child_exit(t_bundle *bundles, char *input);
+void		child_exit(t_bundle *bundles);
+
 //command
 void		ft_cd(char *path);
 void		ft_env(char **env);
