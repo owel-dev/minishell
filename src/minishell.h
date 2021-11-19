@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: g_ulee <g_ulee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 19:34:18 by g_ulee           ###   ########.fr       */
+/*   Updated: 2021/11/19 19:54:21 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,14 @@ typedef struct s_token
 typedef struct s_bundle
 {
 	t_token		*token;
+	t_token		*head;
 	int			quote;
 	int			priority;
 	int			is_pipe;
 	char		*cmd_line;
 	char		**env;
 	t_token		*pipe_token;
+	char		*input;
 }				t_bundle;
 
 // main
@@ -76,7 +78,7 @@ int			execute_cmd(t_bundle *bundle);
 
 //parsing_bundle
 int			set_bundle_line(t_bundle *bundle, int word_len);
-void		set_bundle(t_bundle *bundle, char **env, int bundles_num);
+void	set_bundle(t_bundle *bundle, char **env, int bundles_num, char *str);
 
 //parsing_token
 int			set_token_type(int token_type, t_bundle *bnde, int i);
@@ -89,7 +91,7 @@ int			parsing_quote_str(char *str, int start, int quote);
 int			parsing_env_str(char *str, int start);
 
 //fd_utils
-int	is_fdnum(char *str, int back);
+int			is_fdnum(char *str, int back);
 
 
 //lst_utils
@@ -117,7 +119,7 @@ int			is_builtin(t_bundle *bundle, t_token *token);
 //error
 void		print_error(char *str, int error_num);
 void		free_bundle(t_bundle *bundles, int i);
-
+void		child_exit(t_bundle *bundles, char *input);
 //command
 int			ft_cd(t_token *token);
 int			ft_env(char **env, t_token *token);

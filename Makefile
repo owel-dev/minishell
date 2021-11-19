@@ -13,7 +13,7 @@ FILE = 	main \
 		builtin/ft_getenv \
 		builtin/ft_pwd \
 		builtin/ft_unset \
-		error/free_error \
+		error/free_exit \
 		error/print_error \
 		utils/list_utils \
 		utils/str_utils \

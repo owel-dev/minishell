@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: g_ulee <g_ulee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 16:14:50 by g_ulee           ###   ########.fr       */
+/*   Updated: 2021/11/19 19:54:26 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token	*pipe_cmd(t_bundle *bundle, t_token *token)
+int	pipe_cmd(t_bundle *bundle, t_token *token)
 {
-	int	pid;
-	int status;
-	int fd[2];
+	pid_t	pid;
+	int		status;
+	int		fd[2];
 	t_token *tem;
 
 	pid = fork();
@@ -29,7 +29,7 @@ t_token	*pipe_cmd(t_bundle *bundle, t_token *token)
 	{
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
-		return (token);
+		return (1);
 	}
 	else
 	{
@@ -37,13 +37,16 @@ t_token	*pipe_cmd(t_bundle *bundle, t_token *token)
 		dup2(fd[0], STDIN_FILENO);
 		tem = token->next;
 		token = tem;
-		while(token->next->content && token->pipe == PIPE)
+		while(token->next->content)
 		{
 			tem = token->next;
 			token = tem;
+			if (token->token_type == PIPE)
+				break ;
 		}
-		wait(&status);
-		return (token);
+		bundle->token = token->next;
+		waitpid(pid ,&status, 0);
+		return (0);
 	}
 }
 
@@ -63,15 +66,19 @@ t_token *check_cmd(t_bundle *bundle)
 int	execute_cmd(t_bundle *bundle)
 {
 	int result;
-	int child_ps;
+	t_token *temp;
+	int	child_ps;
 
 	while (bundle->token)
 	{
 		if (bundle->token->pipe == PIPE)
 			child_ps = pipe_cmd(bundle, bundle->token);
+		// if (bundle->token->redir > 0)
+		// 	redir_cmd();
 		result = check_cmd(bundle);
 		if (child_ps)
 			return (-1);
+		bundle->token = temp->next;
 	}
 	return (result);
 }
