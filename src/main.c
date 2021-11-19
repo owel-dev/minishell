@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 16:15:47 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/19 16:25:24 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	start_sh(char **env, char *input)
 	while (bundles[i].cmd_line) // 우선순위체크 및 cmd 실행
 	{
 		result = execute_cmd(&bundles[i]);
-		if (result < -1)
+		if (result < 0)
 			child_exit(bundles);
 		if ((result == TRUE && bundles[i].priority == P_OR) \
 		|| (result == FALSE && bundles[i].priority == P_AND))
