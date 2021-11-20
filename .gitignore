@@ -2,3 +2,5 @@
 .DS_Store
 minishell
 src/test
+src/builtin/a.out
+src/builtin/a.out.dSYM
