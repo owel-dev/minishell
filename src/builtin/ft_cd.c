@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:39:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 19:27:15 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/20 20:26:36 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 int  ft_cd(t_bundle *bundle)
 {
-	int ret_chdir;
-	char *dir;
-	t_token *next_token;
+	int		ret_chdir;
+	char	*dir;
+	t_token	*next_token;
 
-	if (bundle == NULL || bundle->token == NULL)
-		return (FAIL);
 	next_token = bundle->token->next;
 	if (next_token && next_token->next)
 	{

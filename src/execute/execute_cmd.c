@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 19:45:24 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/20 20:02:29 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_cmd(t_bundle *bundle)
 {
-	int result;
+	int	result;
 
 	result = is_builtin(bundle);
 	if (!result)

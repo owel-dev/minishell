@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:54 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 14:29:30 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/20 20:43:42 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,19 @@
 int ft_env(t_bundle *bundle)
 {
 	int i = 0;
-	if (bundle == NULL || bundle->env == NULL || bundle->token == NULL)
+	if (bundle->env == NULL)
 		return (FAIL);
-	if (bundle->token->next == NULL || bundle->token->next->token_type == PIPE)
+	if (bundle->token->next && bundle->token->next->token_type < ENV)
 	{
-		while (bundle->env[i])
-			printf("%s\n", (bundle->env)[i++]);
-		return (SUCCESS);
+		printf("env: %s: No such file or directory\n", bundle->token->next->content);
+		return (FAIL);
 	}
 	while (bundle->token && bundle->token->token_type != PIPE)
+	{
+		//redirction 
 		bundle->token = bundle->token->next;
-	return (FAIL);
+	}
+	while (bundle->env[i])
+		printf("%s\n", (bundle->env)[i++]);
+	return (SUCCESS);
 }

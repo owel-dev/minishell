@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 03:54:58 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 14:32:33 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/20 21:02:27 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,9 @@ char *ft_getenv(t_bundle *bundle, char *key)
 		if (ft_strcmp(split[0], key) == 0)
 		{
 			ret = ft_strdup(split[1]);
-			if (ret == NULL)
-			{
-				all_free(split);
-				return (NULL);
-			}
 			all_free(split);
+			if (ret == NULL)
+				return (NULL);
 			return (ret);
 		}
 		all_free(split);
