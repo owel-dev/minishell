@@ -6,15 +6,15 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:24:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 17:30:55 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/20 19:33:05 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	get_readline(int fd[], t_bundle *bundle)
 {
-	int		read_doc;
+	char	*read_doc;
 
 	while (fd[1] > 0)
 	{

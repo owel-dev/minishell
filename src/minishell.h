@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 17:30:59 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/20 19:38:50 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,14 @@ int			execute_cmd(t_bundle *bundle);
 
 //parsing_bundle
 int			set_bundle_line(t_bundle *bundle, int word_len);
-void	set_bundle(t_bundle *bundle, char **env, int bundles_num, char *str);
+void		set_bundle(t_bundle *bundle, char **env, int bundles_num, char const *str);
 
 //parsing_token
 int			set_token_type(int token_type, t_bundle *bnde, int i);
 int			parsing_token(t_bundle *bundles);
 char		*make_token(char *str, int start, int end, int token_type);
 int			get_token(t_bundle *bnde, int i, int start);
+
 //parsing_str
 int			check_quote(char *str, int start, int end);
 int			parsing_quote_str(char *str, int start, int quote);
@@ -117,7 +118,7 @@ int			parsing_quote_str(char *str, int start, int quote);
 //builtin
 int			is_builtin(t_bundle *bundle, t_token *token);
 
-//io_handler
+//redir_handler
 void		redir_handler(t_bundle *bundle);
 int			*set_fd(t_token *token, int	fd_num[]);
 void		redir_in(t_token *token);
@@ -127,6 +128,8 @@ void 		d_redir_in(t_bundle *bundle);
 int			read_here_document(t_bundle *bundle);
 void		get_readline(int fd[], t_bundle *bundle);
 
+//pipe_handler
+int	pipe_cmd(t_bundle *bundle);
 //error
 void		print_error(char *str, int error_num);
 void		free_bundle(t_bundle *bundles, int i);

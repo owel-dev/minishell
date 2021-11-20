@@ -5,7 +5,7 @@ INCS = -I./src/libft -I./ -I/usr/local/opt/readline/include
 LIBFT = -L./src/libft -lft
 RM = rm -f
 
-FILE = 	main \
+FILE =	main \
 		builtin/ft_cd \
 		builtin/ft_echo \
 		builtin/ft_env \
@@ -13,8 +13,8 @@ FILE = 	main \
 		builtin/ft_getenv \
 		builtin/ft_pwd \
 		builtin/ft_unset \
-		error/free_exit \
-		error/print_error \
+		exit/free_exit \
+		exit/print_error \
 		utils/list_utils \
 		utils/str_utils \
 		utils/split_utils \
@@ -26,6 +26,7 @@ FILE = 	main \
 		command/check_cmd \
 		iohandler/pipe_handler \
 		iohandler/redir_handler \
+		iohandler/set_redir_fd
 
 SRCS = $(addprefix ./src/, $(addsuffix .c, $(FILE)))
 OBJS = $(addprefix ./src/, $(addsuffix .o, $(FILE)))

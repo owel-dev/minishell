@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:36:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 19:49:31 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/20 18:33:00 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int ft_unset(t_bundle *bundle, t_token *token)
 	{
 		env_copy = (char **)malloc(sizeof(char *) * (len + 1));
 		if (env_copy == NULL)
-			return (NULL);
+			return (FAIL);
 		env_copy = arr_cpy(bundle, token, env_copy, len);
 		if (env_copy == NULL)
 			return (FAIL);

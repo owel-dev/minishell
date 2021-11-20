@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:36 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 19:49:40 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/20 18:32:05 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int replace_env(t_bundle *bundle, t_token *token, char *key)
 {
 	int i;
 	char **env_split;
-	char *key;
 
 	if (bundle == NULL || token == NULL || key == NULL)
 		return (FAIL);

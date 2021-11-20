@@ -6,41 +6,35 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 18:17:56 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/20 19:22:52 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token *check_cmd(t_bundle *bundle)
+int	check_cmd(t_bundle *bundle)
 {
-	t_token *ret_token;
+	int result;
 
-	ret_token = is_builtin(bundle, bundle->token);
-	if (ret_token)
-		return (ret_token);
-	ret_token = is_bin(bundle, bundle->token);
-	if (ret_token)
-		return (ret_token);
-	return (NULL);
+	result = is_builtin(bundle, bundle->token);
+	// if (!result)
+	// 	result = is_bin(bundle, bundle->token);
+	return (result);
 }
 
 int	execute_cmd(t_bundle *bundle)
 {
 	int result;
-	t_token *temp;
 	int	child_ps;
 
 	while (bundle->token)
 	{
 		if (bundle->token->pipe == PIPE)
-			child_ps = pipe_cmd(bundle, bundle->token);
-		// if (bundle->token->redir > 0)
-		// 	redir_cmd();
+			child_ps = pipe_cmd(bundle);
 		result = check_cmd(bundle);
 		if (child_ps)
 			child_exit(bundle, result);
-		bundle->token = temp->next;
+		bundle->token = bundle->token->next;
 	}
 	return (result);
 }
