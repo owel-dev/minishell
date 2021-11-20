@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 18:13:48 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/20 19:28:27 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 int is_builtin(t_bundle *bundle)
 {
-	if (bundle->token->back_space || bundle->token->pipe || bundle->token->redir)
+	if (bundle->token->back_space || bundle->token->next->token_type >= REDIR_IN)
 	{
 		if (ft_strcmp(bundle->token->content, "cd") == 0)
 			return (ft_cd(bundle));

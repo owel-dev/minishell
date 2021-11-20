@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 01:47:17 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 19:20:09 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/19 20:33:51 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	free_bundle(t_bundle *bundles, int i)
 	free(bundles);
 }
 
-void	child_exit(t_bundle *bundles)
+void	child_exit(t_bundle *bundles, int status)
 {
 	int	i;
 
@@ -38,5 +38,5 @@ void	child_exit(t_bundle *bundles)
 		ft_lstclear(&bundles[i].head);
 		i++;
 	}
-	exit(1);
+	exit(status);
 }

@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 17:36:25 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/20 19:27:21 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@
 # define S_OPEN 2
 # define S_CLOSE 10
 # define D_CLOSE 11
+# define ENV 3
 # define REDIR_IN 4
 # define REDIR_OUT 5
 # define D_REDIR_IN 6
 # define D_REDIR_OUT 7
 # define PIPE 8
-# define ENV 9
 # define P_OR 1
 # define P_AND 2
 # define SUCCESS 0
@@ -116,10 +116,21 @@ int			parsing_quote_str(char *str, int start, int quote);
 
 //builtin
 int			is_builtin(t_bundle *bundle);
+
+//io_handler
+void		redir_handler(t_bundle *bundle);
+int			*set_fd(t_token *token, int	fd_num[]);
+void		redir_in(t_token *token);
+void		redir_out(t_token *token);
+void		d_redir_out(t_token *token);
+void 		d_redir_in(t_bundle *bundle);
+int			read_here_document(t_bundle *bundle);
+void		get_readline(int fd[], t_bundle *bundle);
+
 //error
 void		print_error(char *str, int error_num);
 void		free_bundle(t_bundle *bundles, int i);
-void		child_exit(t_bundle *bundles);
+void		child_exit(t_bundle *bundles, int status);
 
 //command
 int			ft_cd(t_bundle *bundle);

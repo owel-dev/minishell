@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 23:18:36 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/20 19:24:56 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	start_sh(char **env, char *input)
 	{
 		result = execute_cmd(&bundles[i]);
 		if (result < 0)
-			child_exit(bundles);
+			child_exit(bundles, 1);
 		if ((result == TRUE && bundles[i].priority == P_OR) \
 		|| (result == FALSE && bundles[i].priority == P_AND))
 		{
