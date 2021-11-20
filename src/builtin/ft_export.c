@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:36 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 19:49:40 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/20 18:00:41 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int replace_env(t_bundle *bundle, t_token *token, char *key)
 {
 	int i;
 	char **env_split;
-	char *key;
 
 	if (bundle == NULL || token == NULL || key == NULL)
 		return (FAIL);
@@ -64,22 +63,27 @@ int replace_env(t_bundle *bundle, t_token *token, char *key)
 	return (FAIL);
 }
 
-int ft_export(t_bundle *bundle, t_token *token)
+int ft_export(t_bundle *bundle)
 {
 	char **content_split;
 	char *key;
 	char *value;
+	int result;
 
-	if (token == NULL)
+	if (bundle == NULL || bundle->token == NULL)
 		return (FAIL);
-	if (ft_strchr(token->content, '=') == NULL)
+	if (ft_strchr(bundle->token->next->content, '=') == NULL)
 		return (FAIL);
-	content_split = ft_split(token->content, '=');
+	content_split = ft_split(bundle->token->next->content, '=');
 	if (content_split == NULL)
 		return (FAIL);
 	key = content_split[0];
 	value = ft_getenv(bundle, key);
-	if (value != NULL)
-		return (replace_env(bundle, token, key));
-	return (append_env(bundle, token));
+	if (value)
+		result = replace_env(bundle, bundle->token->next, key);
+	else
+		result = append_env(bundle, bundle->token->next);
+	while (bundle->token && bundle->token->token_type != PIPE)
+		bundle->token = bundle->token->next;
+	return (result);
 }

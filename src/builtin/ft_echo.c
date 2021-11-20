@@ -6,33 +6,37 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:54 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 19:49:19 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/20 17:24:28 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_echo(t_token *token)
+int	ft_echo(t_bundle *bundle)
 {
 	int n_option;
 
-	if (token == NULL)
+	// printf("hello\n");
+	if (bundle == NULL)
 		return (FAIL);
-	if (token->next == NULL)
+	if (bundle->token->next == NULL)
 	{
 		write(1, "\n", 1);
 		return (SUCCESS);
 	}
 	n_option = 0;
-	if (ft_strcmp(token->next->content, "-n") == 0)
+	if (ft_strcmp(bundle->token->next->content, "-n") == 0)
 	{
-		token = token->next;
+		bundle->token = bundle->token->next;
 		n_option = 1;
 	}
-	while (token)
+	bundle->token = bundle->token->next;
+	while (bundle->token && bundle->token->token_type != PIPE)
 	{
-		write(1, token->content, ft_strlen(token->content));
-		token = token->next;
+		write(1, bundle->token->content, ft_strlen(bundle->token->content));
+		if (bundle->token->next)
+			write(1, " ", 1);
+		bundle->token = bundle->token->next;
 	}
 	if (n_option == 0)
 		write(1, "\n", 1);

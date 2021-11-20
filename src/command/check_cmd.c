@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: g_ulee <g_ulee@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 19:31:45 by g_ulee           ###   ########.fr       */
+/*   Updated: 2021/11/20 18:13:48 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@
 
 // }
 
-int is_builtin(t_bundle *bundle, t_token *token)
+int is_builtin(t_bundle *bundle)
 {
-	if (token->back_space || token->pipe || token->redir)
+	if (bundle->token->back_space || bundle->token->pipe || bundle->token->redir)
 	{
-		if (ft_strcmp(token->content, "cd") == 0)
-			return (ft_cd(token->next));
-		else if (ft_strcmp(token->content, "env") == 0)
-			return (ft_env(bundle->env, token->next));
-		else if (ft_strcmp(token->content, "pwd") == 0)
-			return (ft_pwd(token->next));
-		else if (ft_strcmp(token->content, "export") == 0)
-			return (ft_export(bundle, token->next);
-		else if (ft_strcmp(token->content, "unset") == 0)
-			return (ft_unset(bundle, token->next));
-		else if (ft_strcmp(token->content, "echo") == 0)
-			return (ft_echo(token));
+		if (ft_strcmp(bundle->token->content, "cd") == 0)
+			return (ft_cd(bundle));
+		else if (ft_strcmp(bundle->token->content, "env") == 0)
+			return (ft_env(bundle));
+		else if (ft_strcmp(bundle->token->content, "pwd") == 0)
+			return (ft_pwd(bundle));
+		else if (ft_strcmp(bundle->token->content, "export") == 0)
+			return (ft_export(bundle));
+		else if (ft_strcmp(bundle->token->content, "unset") == 0)
+			return (ft_unset(bundle));
+		else if (ft_strcmp(bundle->token->content, "echo") == 0)
+			return (ft_echo(bundle));
 	}
 	return (FAIL);
 }

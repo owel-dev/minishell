@@ -6,28 +6,32 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:39:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 19:49:18 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/20 13:39:44 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int  ft_cd(t_token *token)
+int  ft_cd(t_bundle *bundle)
 {
 	int ret_chdir;
 	char *dir;
+	t_token *next_token;
 
-	if (token->next != NULL)
+	if (bundle == NULL || bundle->token == NULL)
+		return (FAIL);
+	next_token = bundle->token->next;
+	if (next_token && next_token->next)
 	{
-		printf("error\n");
-		while (token != NULL || token->next->token_type != PIPE)
-			token = token->next;
+		printf("cd error\n");
+		while (bundle->token && bundle->token->token_type != PIPE)
+			bundle->token = bundle->token->next;
 		return (FAIL);
 	}
-	if (token == NULL || token->next->token_type == PIPE)
+	if (next_token == NULL || next_token->token_type == PIPE)
 		dir = "~";
 	else
-		dir = token->content;
+		dir = next_token->content;
 	ret_chdir = chdir(dir);
 	if (ret_chdir == -1)
 	{

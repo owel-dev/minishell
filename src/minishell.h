@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 20:07:17 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/20 17:36:25 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,19 +115,19 @@ int			check_vaild_str(char *str, int start);
 int			parsing_quote_str(char *str, int start, int quote);
 
 //builtin
-int			is_builtin(t_bundle *bundle, t_token *token);
+int			is_builtin(t_bundle *bundle);
 //error
 void		print_error(char *str, int error_num);
 void		free_bundle(t_bundle *bundles, int i);
 void		child_exit(t_bundle *bundles);
 
 //command
-int			ft_cd(t_token *token);
-int			ft_env(char **env, t_token *token);
-int			ft_export(t_bundle *bundle, t_token *token);
-int			ft_pwd(t_token *token);
+int			ft_cd(t_bundle *bundle);
+int			ft_env(t_bundle *bundle);
+int			ft_export(t_bundle *bundle);
+int			ft_pwd(t_bundle *bundle);
 char		*ft_getenv(t_bundle *bundle, char *key);
-int			ft_unset(t_bundle *bundle, t_token *token);
-int			ft_echo(t_token *token);
+int			ft_unset(t_bundle *bundle);
+int			ft_echo(t_bundle *bundle);
 
 #endif
