@@ -6,24 +6,24 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:54 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 19:49:20 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/20 14:29:30 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_env(char **env, t_token *token)
+int ft_env(t_bundle *bundle)
 {
 	int i = 0;
-	if (env == NULL || *env == NULL)
+	if (bundle == NULL || bundle->env == NULL || bundle->token == NULL)
 		return (FAIL);
-	if (token != NULL || token->next->token_type != PIPE)
+	if (bundle->token->next == NULL || bundle->token->next->token_type == PIPE)
 	{
-		while (token != NULL || token->next->token_type != PIPE)
-			token = token->next;
-		return (FAIL);
+		while (bundle->env[i])
+			printf("%s\n", (bundle->env)[i++]);
+		return (SUCCESS);
 	}
-	while (env[i])
-		printf("%s\n", env[i++]);
-	return (SUCCESS);
+	while (bundle->token && bundle->token->token_type != PIPE)
+		bundle->token = bundle->token->next;
+	return (FAIL);
 }

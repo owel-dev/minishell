@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 20:34:02 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/20 19:24:56 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ void	loop(char **env)
 	}
 }
 
-int main(int argc, char const *argv[], char **envp)
-{
-	loop(dup_envp(envp));
-	return 0;
-}
+// int main(int argc, char const *argv[], char **envp)
+// {
+// 	loop(dup_envp(envp));
+// 	return 0;
+// }

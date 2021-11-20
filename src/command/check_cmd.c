@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 19:22:14 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/20 19:43:14 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@
 
 // }
 
-int is_builtin(t_bundle *bundle, t_token *token)
+int is_builtin(t_bundle *bundle)
 {
-	if (token->back_space || token->next->token_type >= REDIR_IN)
+	if (bundle->token->back_space || bundle->token->next->token_type >= REDIR_IN)
 	{
-		if (ft_strcmp(token->content, "cd") == 0)
-			return (ft_cd(token->next));
-		else if (ft_strcmp(token->content, "env") == 0)
-			return (ft_env(bundle->env, token->next));
-		else if (ft_strcmp(token->content, "pwd") == 0)
-			return (ft_pwd(token->next));
-		else if (ft_strcmp(token->content, "export") == 0)
-			return (ft_export(bundle, token->next));
-		else if (ft_strcmp(token->content, "unset") == 0)
-			return (ft_unset(bundle, token->next));
-		else if (ft_strcmp(token->content, "echo") == 0)
-			return (ft_echo(token));
+		if (ft_strcmp(bundle->token->content, "cd") == 0)
+			return (ft_cd(bundle));
+		else if (ft_strcmp(bundle->token->content, "env") == 0)
+			return (ft_env(bundle));
+		else if (ft_strcmp(bundle->token->content, "pwd") == 0)
+			return (ft_pwd(bundle));
+		else if (ft_strcmp(bundle->token->content, "export") == 0)
+			return (ft_export(bundle));
+		else if (ft_strcmp(bundle->token->content, "unset") == 0)
+			return (ft_unset(bundle));
+		else if (ft_strcmp(bundle->token->content, "echo") == 0)
+			return (ft_echo(bundle));
 	}
 	return (FAIL);
 }

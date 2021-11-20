@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 19:38:50 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/20 19:44:44 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int			check_vaild_str(char *str, int start);
 int			parsing_quote_str(char *str, int start, int quote);
 
 //builtin
-int			is_builtin(t_bundle *bundle, t_token *token);
+int			is_builtin(t_bundle *bundle);
 
 //redir_handler
 void		redir_handler(t_bundle *bundle);
@@ -136,12 +136,12 @@ void		free_bundle(t_bundle *bundles, int i);
 void		child_exit(t_bundle *bundles, int status);
 
 //command
-int			ft_cd(t_token *token);
-int			ft_env(char **env, t_token *token);
-int			ft_export(t_bundle *bundle, t_token *token);
-int			ft_pwd(t_token *token);
+int			ft_cd(t_bundle *bundle);
+int			ft_env(t_bundle *bundle);
+int			ft_export(t_bundle *bundle);
+int			ft_pwd(t_bundle *bundle);
 char		*ft_getenv(t_bundle *bundle, char *key);
-int			ft_unset(t_bundle *bundle, t_token *token);
-int			ft_echo(t_token *token);
+int			ft_unset(t_bundle *bundle);
+int			ft_echo(t_bundle *bundle);
 
 #endif
