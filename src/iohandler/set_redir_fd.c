@@ -6,17 +6,17 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 03:18:22 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 03:28:46 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/20 17:30:13 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	d_redir_in(t_bundle *bundle, t_token *token)
+void	d_redir_in(t_bundle *bundle)
 {
 	int	fd_num[2];
 
-	set_fd(token, fd_num);
+	set_fd(bundle->token, fd_num);
 	if (fd_num[0] > -1)
 		dup2(fd_num[0], STDIN_FILENO);
 	if (fd_num[0] < 0)

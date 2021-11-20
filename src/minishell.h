@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 03:29:18 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/20 17:30:59 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@
 # define S_OPEN 2
 # define S_CLOSE 10
 # define D_CLOSE 11
+# define ENV 3
 # define REDIR_IN 4
 # define REDIR_OUT 5
 # define D_REDIR_IN 6
 # define D_REDIR_OUT 7
 # define PIPE 8
-# define ENV 9
 # define P_OR 1
 # define P_AND 2
 # define SUCCESS 0
@@ -123,7 +123,7 @@ int			*set_fd(t_token *token, int	fd_num[]);
 void		redir_in(t_token *token);
 void		redir_out(t_token *token);
 void		d_redir_out(t_token *token);
-void 		d_redir_in(t_bundle *bundle, t_token *token);
+void 		d_redir_in(t_bundle *bundle);
 int			read_here_document(t_bundle *bundle);
 void		get_readline(int fd[], t_bundle *bundle);
 
