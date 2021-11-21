@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 02:23:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 16:19:59 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 00:41:03 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,13 @@ int	parsing_token_list(t_bundle *bundle)
 	bundle->head = bundle->token;
 	// t_token *temp;
 	// int size = ft_lstsize(bundle->token);
+	// int lok = 0;
 	// temp = bundle->token;
-	// while (size--)
+	// while (lok < size)
 	// {
-	// 	printf("%s %d %d\n", temp->content, temp->token_type, bundle->is_pipe);
-	// 	bundle->token = temp->next;
-	// 	temp = bundle->token;
+	// 	printf("%s %d\n", temp->content, temp->token_type);
+	// 	temp = temp->next;
+	// 	lok++;
 	// } // test 출력
 	return (1);
 }

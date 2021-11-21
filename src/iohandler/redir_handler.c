@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:24:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 19:33:05 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 00:44:30 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	get_readline(int fd[], t_bundle *bundle)
 	while (fd[1] > 0)
 	{
 		read_doc = readline("> ");
-		if (!ft_strcmp(read_doc, bundle->token->next))
+		if (!ft_strcmp(read_doc, bundle->token->next->content))
 			fd[1] = -1;
 		else
 			write(fd[1], read_doc, ft_strlen(read_doc));
@@ -48,8 +48,8 @@ int	read_here_document(t_bundle *bundle)
 	{
 		waitpid(pid, &status, 0);
 		dup2(fd[0], STDIN_FILENO);
-		return (0);
 	}
+	return (0);
 }
 
 int	*set_fd(t_token *token, int	fd_num[])
