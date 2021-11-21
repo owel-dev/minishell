@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:58:22 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 23:20:36 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 14:04:45 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	set_bundle(t_bundle *bundle, char **env, int bundles_num, char const *str)
 		bundle[i].token = NULL;
 		bundle[i].pipe_token = NULL;
 		bundle[i].input = (char *)str;
+		bundle[i].cmd_line = NULL;
 		i++;
 	}
 }

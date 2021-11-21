@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:54 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 20:43:42 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 14:16:06 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int ft_env(t_bundle *bundle)
 		printf("env: %s: No such file or directory\n", bundle->token->next->content);
 		return (FAIL);
 	}
-	while (bundle->token && bundle->token->token_type != PIPE)
+	while (bundle->token->next && bundle->token->token_type != PIPE)
 	{
 		//redirction 
 		bundle->token = bundle->token->next;

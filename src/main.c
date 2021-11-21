@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 00:45:12 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 14:05:20 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ void	start_sh(char **env, char *input)
 	bundles = split_bundle(env, input); //별개의 명령어별 bundle 생성 및 우선순위 setting
 	parsing_token(bundles); // bundle 별 cmd 연결리스트 parsing
 	i = 0;
-	// while (bundles[i].cmd_line) // 우선순위체크 및 cmd 실행
-	// {
-	// 	result = execute_cmd(&bundles[i]);
-	// 	if (result < 0)
-	// 		child_exit(bundles, 1);
-	// 	if ((result == TRUE && bundles[i].priority == P_OR) \
-	// 	|| (result == FALSE && bundles[i].priority == P_AND))
-	// 	{
-	// 		i++;
-	// 	}
-	// 	i++;
-	// }
+	while (bundles[i].cmd_line) // 우선순위체크 및 cmd 실행
+	{
+		result = execute_cmd(&bundles[i]);
+		// if (result < 0)
+		// 	child_exit(bundles, 1);
+		if ((result == TRUE && bundles[i].priority == P_OR) \
+		|| (result == FALSE && bundles[i].priority == P_AND))
+		{
+			i++;
+		}
+		i++;
+	}
 }
 
 char	**dup_envp(char **envp)

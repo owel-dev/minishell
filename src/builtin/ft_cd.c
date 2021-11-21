@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:39:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 20:26:36 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 14:15:17 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int  ft_cd(t_bundle *bundle)
 	if (next_token && next_token->next)
 	{
 		printf("cd error\n");
-		while (bundle->token && bundle->token->token_type != PIPE)
+		while (bundle->token->next && bundle->token->token_type != PIPE)
 			bundle->token = bundle->token->next;
 		return (FAIL);
 	}
