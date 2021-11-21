@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 17:33:20 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/21 17:41:40 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int is_bin(t_bundle *bundle)
 	char *bin_cmd;
 	char **arr;
 	t_token *dup;
+	int	status;
 	int pid;
 	t_token *one;
 
@@ -97,11 +98,18 @@ int is_bin(t_bundle *bundle)
 		else
 			list_last(dup)->next = one;
 	}
-	arr = list_to_arr(dup);
 	pid = fork();
+	if (pid < 0)
+		return (FAIL);
 	if (pid == 0)
+	{
+		arr = list_to_arr(dup);
 		execve(bin_cmd, arr, bundle->env);
-	waitpid(pid, NULL, 0);
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+	}
 	return (SUCCESS);
 }
 
