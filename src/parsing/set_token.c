@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:37:09 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 17:00:43 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/22 00:28:56 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char	*make_token(char *str, int start, int end, int token_type)
 		start++;
 		end--;
 	}
+	else if (token_type == ENV)
+		start++;
 	new_str = (char *)malloc(sizeof(char) * (end - start + 1));
 	if (new_str == NULL)
 		return (NULL);

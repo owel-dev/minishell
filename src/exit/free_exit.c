@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 01:47:17 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 17:28:06 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:45:45 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_bundle(t_bundle *bundles)
 	while (bundles[i].cmd_line != NULL)
 	{
 		free(bundles[i].cmd_line);
-		if (bundles[i].head);
+		if (bundles[i].head)
 			ft_lstclear(bundles[i].head);
 		i++;
 	}

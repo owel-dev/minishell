@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:54 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 17:32:47 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/22 00:30:48 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int	ft_echo(t_bundle *bundle)
 			n_option = 1;
 			continue ;
 		}
-		if (bundle->token->token_type == 1)
-			write(1, bundle->token->content, ft_strlen(bundle->token->content));
+		write(1, bundle->token->content, ft_strlen(bundle->token->content));
 		if (bundle->token->next && bundle->token->back_space)
 			write(1, " ", 1);
 		// if (bundle->token->next && bundle->token->redir >= REDIR_IN)
