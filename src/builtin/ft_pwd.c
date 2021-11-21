@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 19:44:21 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/20 20:10:35 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_pwd(t_token *token)
+int	ft_pwd(t_bundle *bundle)
 {
 	char	*ret_pwd;
 	char	dir[1000];
