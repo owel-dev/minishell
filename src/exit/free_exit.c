@@ -6,22 +6,23 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 01:47:17 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/19 20:33:51 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:28:06 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../minishell.h"
 
-void	free_bundle(t_bundle *bundles, int i)
+void	free_bundle(t_bundle *bundles)
 {
-	while (i >= 0)
+	int	i;
+
+	i = 0;
+	while (bundles[i].cmd_line != NULL)
 	{
-		if (bundles[i].cmd_line)
-		{
-			free(bundles[i].cmd_line);
-			ft_lstclear(&bundles[i].head);
-		}
-		i--;
+		free(bundles[i].cmd_line);
+		if (bundles[i].head);
+			ft_lstclear(bundles[i].head);
+		i++;
 	}
 	free(bundles);
 }
@@ -35,7 +36,7 @@ void	child_exit(t_bundle *bundles, int status)
 	while (bundles[i].cmd_line)
 	{
 		free(bundles[i].cmd_line);
-		ft_lstclear(&bundles[i].head);
+		ft_lstclear(bundles[i].head);
 		i++;
 	}
 	exit(status);
