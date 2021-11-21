@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 19:24:56 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/21 14:05:20 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	start_sh(char **env, char *input)
 	while (bundles[i].cmd_line) // 우선순위체크 및 cmd 실행
 	{
 		result = execute_cmd(&bundles[i]);
-		if (result < 0)
-			child_exit(bundles, 1);
+		// if (result < 0)
+		// 	child_exit(bundles, 1);
 		if ((result == TRUE && bundles[i].priority == P_OR) \
 		|| (result == FALSE && bundles[i].priority == P_AND))
 		{
@@ -82,8 +82,8 @@ void	loop(char **env)
 {
 	char	*input;
 
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
+	// signal(SIGINT, sig_handler);
+	// signal(SIGQUIT, sig_handler);
 	while(TRUE)
 	{
 		input = readline("minishell$ ");
@@ -93,8 +93,8 @@ void	loop(char **env)
 	}
 }
 
-// int main(int argc, char const *argv[], char **envp)
-// {
-// 	loop(dup_envp(envp));
-// 	return 0;
-// }
+int main(int argc, char const *argv[], char **envp)
+{
+	loop(dup_envp(envp));
+	return 0;
+}

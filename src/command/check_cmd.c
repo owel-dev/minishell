@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 14:40:59 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/21 14:59:30 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,6 @@ int is_bin(t_bundle *bundle)
 		else
 			list_last(dup)->next = bundle->token;
 	}
-
-	list
-
-
-
-
-
 
 
 }

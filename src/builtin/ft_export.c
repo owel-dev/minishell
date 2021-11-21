@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:36 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 19:44:27 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/20 21:03:07 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int replace_env(t_bundle *bundle, t_token *token, char *key)
 	int i;
 	char **env_split;
 
-	if (bundle == NULL || token == NULL || key == NULL)
-		return (FAIL);
 	i = 0;
 	while (bundle->env[i])
 	{
@@ -63,27 +61,33 @@ int replace_env(t_bundle *bundle, t_token *token, char *key)
 	return (FAIL);
 }
 
-int ft_export(t_bundle *bundle)
+int	ft_export(t_bundle *bundle)
 {
-	char **content_split;
-	char *key;
-	char *value;
-	int result;
+	char	**content_split;
+	char	*value;
+	int		result;
 
-	if (bundle == NULL || bundle->token == NULL)
-		return (FAIL);
-	if (ft_strchr(bundle->token->next->content, '=') == NULL)
-		return (FAIL);
-	content_split = ft_split(bundle->token->next->content, '=');
-	if (content_split == NULL)
-		return (FAIL);
-	key = content_split[0];
-	value = ft_getenv(bundle, key);
-	if (value)
-		result = replace_env(bundle, bundle->token->next, key);
-	else
-		result = append_env(bundle, bundle->token->next);
-	while (bundle->token && bundle->token->token_type != PIPE)
+	while (bundle->token->next && bundle->token->next->token_type != PIPE)
+	{
 		bundle->token = bundle->token->next;
+		//redirection
+		if (!ft_strncmp(bundle->token->content, "=", 1))
+		{
+			printf("export: %s: not a valid identifier\n", \
+			bundle->token->content);
+			continue ;
+		}
+		if (ft_strchr(bundle->token->content, '=') == NULL)
+			continue ;
+		content_split = ft_split(bundle->token->content, '=');
+		if (content_split == NULL)
+			return (FAIL);
+		value = ft_getenv(bundle, content_split[0]);
+		if (value)
+			result = replace_env(bundle, bundle->token, content_split[0]);
+		else
+			result = append_env(bundle, bundle->token);
+		all_free(content_split);
+	}
 	return (result);
 }

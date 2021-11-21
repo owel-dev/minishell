@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:36:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 19:43:38 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/20 21:11:40 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,14 @@ char **arr_cpy(t_bundle *bundle, t_token *token, int len)
 	return (env_copy);
 }
 
-int ft_unset(t_bundle *bundle)
+int	ft_unset(t_bundle *bundle)
 {
-	char **env_copy;
-	int len;
+	char	**env_copy;
+	int		len;
 
-	if (bundle == NULL || bundle->token == NULL)
+	while (bundle->token->next && bundle->token->next->token_type != PIPE)
 	{
-		printf("not enough argument\n");
-		return (FAIL);
-	}
-	bundle->token = bundle->token->next;
-	while (bundle->token && bundle->token->token_type != PIPE)
-	{
+		bundle->token = bundle->token->next;
 		len = ft_arrlen(bundle->env);
 		if (len == 0)
 			return (FAIL);
@@ -65,7 +60,6 @@ int ft_unset(t_bundle *bundle)
 			all_free(bundle->env);
 			bundle->env = env_copy;
 		}
-		bundle->token = bundle->token->next;
 	}
 	return (SUCCESS);
 }
