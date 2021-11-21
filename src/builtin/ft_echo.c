@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:54 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 14:51:55 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 16:24:29 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ int	ft_echo(t_bundle *bundle)
 	while (bundle->token->next && bundle->token->token_type != PIPE) //전체적으로 env 치환 기능 추가
 	{
 		bundle->token = bundle->token->next;
-		if (ft_strcmp(bundle->token->content, "-n") == 0) //strncmp 수정 
+		if (ft_strcmp(bundle->token->content, "-n") == 0) //strncmp 수정
 		{
 			n_option = 1;
 			continue ;
 		}
-		if (bundle->token->next && bundle->token->redir >= REDIR_IN)
-			redir_handler(bundle);
 		if (bundle->token->token_type == 1)
 			write(1, bundle->token->content, ft_strlen(bundle->token->content));
 		if (bundle->token->next && bundle->token->back_space)
 			write(1, " ", 1);
+		// if (bundle->token->next && bundle->token->redir >= REDIR_IN)
+		// 	redir_handler(bundle);
 	}
 	if (n_option == 0)
 		write(1, "\n", 1);

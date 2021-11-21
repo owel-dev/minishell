@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 14:59:30 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/21 17:21:52 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,93 @@ t_token *list_last(t_token *token)
 {
 	t_token *temp;
 
-	if (token == NULL)
-		return ;
 	temp = token;
 	while (temp->next != NULL)
 		temp = temp->next;
 	return (temp);
 }
 
+int list_len(t_token *dup)
+{
+	int len;
+
+	len = 0;
+	while (dup)
+	{
+		len++;
+		dup = dup->next;
+	}
+	return (len);
+}
+
+t_token *dup_token(t_token *token)
+{
+	t_token *ret;
+
+	ret = malloc(sizeof(t_token));
+	ret->pre = token->pre;
+	ret->next = token->next;
+	ret->pipe = token->pipe;
+	ret->redir = token->redir;
+	ret->content = token->content;
+	ret->token_type = token->token_type;
+	ret->back_space = token->back_space;
+
+	return (ret);
+}
+
+char **list_to_arr(t_token *dup)
+{
+	char **ret;
+	int len;
+	int i;
+
+	len = list_len(dup);
+	ret = (char **)malloc(sizeof(char *) * (len + 2));
+	if (ret == NULL)
+		return (NULL);
+	ret[len + 1] = NULL;
+	ret[0] = " ";
+	i = 1;
+	while (i <= len)
+	{
+		ret[i] = ft_strdup(dup->content);
+		i++;
+		dup = dup->next;
+	}
+	return (ret);
+}
 int is_bin(t_bundle *bundle)
 {
-	char *bin;
 	char *cmd;
 	char *bin_cmd;
+	char **arr;
 	t_token *dup;
+	int pid;
+	t_token *one;
 
-	bin = ft_strdup("/bin/");
 	cmd = ft_strdup(bundle->token->content);
-	bin_cmd = ft_strjoin(bin, cmd);
-
+	bin_cmd = ft_strjoin("/bin/", cmd);
+	if (bin_cmd == NULL)
+		return (FAIL);
+	free(cmd);
 	dup = NULL;
-	while (bundle->token->next && bundle->token->token_type != PIPE)
+	while (bundle->token->next && bundle->token->next->token_type != PIPE)
 	{
 		bundle->token = bundle->token->next;
+		one = dup_token(bundle->token);
+		one->next = NULL;
 		if (dup == NULL)
-			dup = bundle->token;
+			dup = one;
 		else
-			list_last(dup)->next = bundle->token;
+			list_last(dup)->next = one;
 	}
-
-
+	arr = list_to_arr(dup);
+	pid = fork();
+	if (pid == 0)
+		execve(bin_cmd, arr, bundle->env);
+	waitpid(pid, NULL, 0);
+	return (SUCCESS);
 }
 
 int is_builtin(t_bundle *bundle)
