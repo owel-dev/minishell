@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 19:44:44 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 14:07:36 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int			check_vaild_str(char *str, int start);
 int			parsing_quote_str(char *str, int start, int quote);
 
 //builtin
+int			is_bin(t_bundle *bundle);
 int			is_builtin(t_bundle *bundle);
 
 //redir_handler

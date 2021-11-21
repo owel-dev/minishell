@@ -3,19 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 19:43:14 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 14:40:59 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// int is_bin(t_bundle *bundle, t_token *token)
-// {
+t_token *list_last(t_token *token)
+{
+	t_token *temp;
 
-// }
+	if (token == NULL)
+		return ;
+	temp = token;
+	while (temp->next != NULL)
+		temp = temp->next;
+	return (temp);
+}
+
+int is_bin(t_bundle *bundle)
+{
+	char *bin;
+	char *cmd;
+	char *bin_cmd;
+	t_token *dup;
+
+	bin = ft_strdup("/bin/");
+	cmd = ft_strdup(bundle->token->content);
+	bin_cmd = ft_strjoin(bin, cmd);
+
+	dup = NULL;
+	while (bundle->token->next && bundle->token->token_type != PIPE)
+	{
+		bundle->token = bundle->token->next;
+		if (dup == NULL)
+			dup = bundle->token;
+		else
+			list_last(dup)->next = bundle->token;
+	}
+
+	list
+
+
+
+
+
+
+
+}
 
 int is_builtin(t_bundle *bundle)
 {
