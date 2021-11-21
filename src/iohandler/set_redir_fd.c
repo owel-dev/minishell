@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 03:18:22 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 17:30:13 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 14:47:49 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,5 @@ void	redir_in(t_token *token)
 		if (fd_num[1] < 0)
 			print_error("redir opne file error", EXIT_FAILURE);
 	}
-	dup2(fd_num[1], STDIN_FILENO);
+	dup2(fd_num[1], STDOUT_FILENO);
 }

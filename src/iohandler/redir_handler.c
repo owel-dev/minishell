@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:24:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 00:44:30 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 14:28:42 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ int	*set_fd(t_token *token, int	fd_num[])
 
 void	redir_handler(t_bundle *bundle)
 {
-	if (bundle->token->token_type == D_REDIR_OUT)
-		d_redir_out(bundle->token);
-	else if (bundle->token->token_type == D_REDIR_IN)
+	if (bundle->token->next->token_type == D_REDIR_OUT)
+		d_redir_out(bundle->token->next);
+	else if (bundle->token->next->token_type == D_REDIR_IN)
 		d_redir_in(bundle);
-	else if (bundle->token->token_type == REDIR_IN)
-		redir_in(bundle->token);
-	else if (bundle->token->token_type == REDIR_OUT)
-		redir_out(bundle->token);
+	else if (bundle->token->next->token_type == REDIR_IN)
+		redir_in(bundle->token->next);
+	else if (bundle->token->next->token_type == REDIR_OUT)
+		redir_out(bundle->token->next);
 }
