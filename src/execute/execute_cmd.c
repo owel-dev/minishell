@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/22 00:02:45 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/22 01:25:19 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	execute_cmd(t_bundle *bundle)
 	{
 		if (bundle->token->pipe == PIPE)
 			child_ps = pipe_cmd(bundle);
+		if (is_redir_token(bundle->token))
+			result = redir_handler(bundle);
 		result = check_cmd(bundle);
 		// if (child_ps)
 		// 	child_exit(bundle, result);

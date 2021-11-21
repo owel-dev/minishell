@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:24:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 14:28:42 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/22 01:37:01 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,26 @@ int	read_here_document(t_bundle *bundle)
 
 int	*set_fd(t_token *token, int	fd_num[])
 {
-	if (is_fdnum(token->pre->content, 0) == 1 && token->pre->back_space == 0)
+	if (token->pre && is_fdnum(token->pre->content, 0) == 1 && token->pre->back_space == 0)
 		fd_num[0] = token->pre->content[0] + '0';
 	else
 		fd_num[0] = -1;
-	if (is_fdnum(token->next->content, 1) == 2 && token->back_space == 0)
+	if (token->next && is_fdnum(token->next->content, 1) == 2 && token->back_space == 0)
 		fd_num[1] = (token->pre->content[1] + '0');
 	else
 		fd_num[1] = -1;
 	return (fd_num);
 }
 
-void	redir_handler(t_bundle *bundle)
+int	redir_handler(t_bundle *bundle)
 {
-	if (bundle->token->next->token_type == D_REDIR_OUT)
-		d_redir_out(bundle->token->next);
-	else if (bundle->token->next->token_type == D_REDIR_IN)
-		d_redir_in(bundle);
-	else if (bundle->token->next->token_type == REDIR_IN)
-		redir_in(bundle->token->next);
-	else if (bundle->token->next->token_type == REDIR_OUT)
-		redir_out(bundle->token->next);
+	if (bundle->token->token_type == D_REDIR_OUT)
+		return(d_redir_out(bundle->token));
+	else if (bundle->token->token_type == D_REDIR_IN)
+		return (d_redir_in(bundle));
+	else if (bundle->token->token_type == REDIR_IN)
+		return (redir_in(bundle->token));
+	else if (bundle->token->token_type == REDIR_OUT)
+		return (redir_out(bundle->token));
+	return (FAIL);
 }

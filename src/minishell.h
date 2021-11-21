@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 17:33:27 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/22 01:21:34 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,19 +128,19 @@ int			is_bin(t_bundle *bundle);
 int			is_builtin(t_bundle *bundle);
 
 //redir_handler
-void		redir_handler(t_bundle *bundle);
+int			redir_handler(t_bundle *bundle);
 int			*set_fd(t_token *token, int	fd_num[]);
-void		redir_in(t_token *token);
-void		redir_out(t_token *token);
-void		d_redir_out(t_token *token);
-void 		d_redir_in(t_bundle *bundle);
+int			redir_in(t_token *token);
+int			redir_out(t_token *token);
+int			d_redir_out(t_token *token);
+int	 		d_redir_in(t_bundle *bundle);
 int			read_here_document(t_bundle *bundle);
 void		get_readline(int fd[], t_bundle *bundle);
 
 //pipe_handler
 int	pipe_cmd(t_bundle *bundle);
 //error
-void		print_error(char *str, int error_num);
+int			print_error(char *str, int error_num);
 void		free_bundle(t_bundle *bundles);
 void		child_exit(t_bundle *bundles, int status);
 
