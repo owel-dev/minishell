@@ -6,68 +6,12 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 02:23:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 14:18:35 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 16:57:50 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	set_iotoken(t_bundle *bundle)
-{
-	int	type;
-
-	type = ft_lstlast(bundle->token)->token_type;
-	if (type == PIPE)
-	{
-		bundle->pipe_token = NULL;
-		return ;
-	}
-	if (bundle->pipe_token == NULL)
-		bundle->pipe_token = ft_lstlast(bundle->token);
-}
-
-int	set_token_type(int token_type, t_bundle *bnde, int i)
-{
-	if (token_type == ENV)
-		i = parsing_env_str(bnde->cmd_line, i); // env 토큰 문자열 길이 체크
-	else if ((token_type == REDIR_IN || token_type == REDIR_OUT))
-		ft_lstlast(bnde->token)->redir = token_type;
-	else if (token_type == D_REDIR_IN || token_type == D_REDIR_OUT)
-	{
-		ft_lstlast(bnde->token)->redir = token_type;
-		i++;
-	}
-	else if (token_type == S_CLOSE || token_type == D_CLOSE)
-		i = parsing_quote_str(bnde->cmd_line, i, token_type); // quote 토큰 문자열 길이 체크
-	else if (token_type == PIPE)
-	{
-		bnde->pipe_token->pipe = token_type;
-		bnde->is_pipe = TRUE;
-	}
-	return (i);
-}
-
-char	*make_token(char *str, int start, int end, int token_type)
-{
-	char	*new_str;
-	int		i;
-
-	if (token_type == S_CLOSE || token_type == D_CLOSE) //quote 문자 자르기
-	{
-		start++;
-		end--;
-	}
-	new_str = (char *)malloc(sizeof(char) * (end - start + 1));
-	if (new_str == NULL)
-		return (NULL);
-	i = 0;
-	while (start < end + 1)
-	{
-		new_str[i++] = str[start++];
-	}
-	new_str[i] = '\0';
-	return (new_str);
-}
 
 int	get_token(t_bundle *bnde, int i, int start)
 {
@@ -93,6 +37,36 @@ int	get_token(t_bundle *bnde, int i, int start)
 	return (i);
 }
 
+
+int	check_vaild_token_list(t_bundle *bundle)
+{
+	t_token *temp;
+	int size;
+	int error;
+
+	temp = bundle->token;
+	size = ft_lstsize(bundle->token);
+	error = 0;
+	while (temp)
+	{
+		if (is_redir_token(temp))
+		{
+			if (temp->next == NULL)
+				error = printf("minishell: syntax error near unexpected token 'newline'\n");
+			else if (temp->next->token_type >= REDIR_IN)
+				error = printf("minishell: syntax error near unexpected token '%s'\n", temp->next->content);
+		}
+		else if (temp->token_type == PIPE && bundle->head == temp)
+			error = printf("minishell: syntax error near unexpected token `|'\n");
+		else if (temp->token_type == ENV)
+			replace_env_token(temp, bundle);
+		if (error)
+			return (FAIL);
+		temp = temp->next;
+	}
+	return (SUCCESS);
+}
+
 int	parsing_token_list(t_bundle *bundle)
 {
 	int		i;
@@ -111,17 +85,9 @@ int	parsing_token_list(t_bundle *bundle)
 		i++;
 	}
 	bundle->head = bundle->token;
-	// t_token *temp;
-	// int size = ft_lstsize(bundle->token);
-	// int lok = 0;
-	// temp = bundle->token;
-	// while (lok < size)
-	// {
-	// 	printf("%s %d\n", temp->content, temp->token_type);
-	// 	temp = temp->next;
-	// 	lok++;
-	// } // test 출력
-	return (1);
+	if (check_vaild_token_list(bundle) == FAIL)
+		return (FAIL);
+	return (SUCCESS);
 }
 
 int	parsing_token(t_bundle *bundles)
@@ -132,8 +98,9 @@ int	parsing_token(t_bundle *bundles)
 	while (bundles[i].cmd_line)
 	{
 		bundles[i].quote = 0;
-		parsing_token_list(&bundles[i]); //bundle 별 token 리스트 생성
+		if (parsing_token_list(&bundles[i]) == FAIL) //bundle 별 token 리스트 생성
+			return (FAIL);
 		i++;
 	}
-	return (0);
+	return (SUCCESS);
 }

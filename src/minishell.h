@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 20:16:15 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 16:26:43 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void		start_sh(char **env, char *input);
 char		**dup_envp(char **envp);
 void		loop(char **env);
 
+char *ft_getenv(t_bundle *bundle, char *key);
+
 //execute
 int			execute_cmd(t_bundle *bundle);
 
@@ -107,6 +109,7 @@ int			sh_count_word(char const *s);
 int			sh_make_word(t_bundle *bundle, char const *s, int j, int word_len);
 int			cut_cmd(t_bundle *bundles, char const *s);
 t_bundle	*split_bundle(char **env, char const *str);
+void		set_iotoken(t_bundle *bundle);
 
 //utils_str
 int			is_space_str(char *str);
@@ -114,6 +117,11 @@ int			check_priority(const char *str, int start);
 int			is_quote(char str, int preval);
 int			check_vaild_str(char *str, int start);
 int			parsing_quote_str(char *str, int start, int quote);
+
+//token_utils
+int			is_redir_token(t_token *token);
+int			is_io_token(t_token *token);
+void		replace_env_token(t_token *temp, t_bundle *bundle);
 
 //builtin
 int			is_builtin(t_bundle *bundle);
@@ -132,7 +140,7 @@ void		get_readline(int fd[], t_bundle *bundle);
 int	pipe_cmd(t_bundle *bundle);
 //error
 void		print_error(char *str, int error_num);
-void		free_bundle(t_bundle *bundles, int i);
+void		free_bundle(t_bundle *bundles);
 void		child_exit(t_bundle *bundles, int status);
 
 //command

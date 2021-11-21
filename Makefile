@@ -19,9 +19,11 @@ FILE =	main \
 		utils/str_utils \
 		utils/split_utils \
 		utils/fd_utils \
+		utils/token_utils \
 		parsing/parsing_bundles \
 		parsing/parsing_tokens \
 		parsing/parsing_str \
+		parsing/set_token \
 		execute/execute_cmd \
 		command/check_cmd \
 		iohandler/pipe_handler \
