@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 16:26:43 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:05:09 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int			is_io_token(t_token *token);
 void		replace_env_token(t_token *temp, t_bundle *bundle);
 
 //builtin
+int			is_bin(t_bundle *bundle);
 int			is_builtin(t_bundle *bundle);
 
 //redir_handler
