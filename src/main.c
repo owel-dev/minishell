@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 17:02:38 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:09:39 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	start_sh(char **env, char *input)
 	bundles = split_bundle(env, input); //별개의 명령어별 bundle 생성 및 우선순위 setting
 	if (parsing_token(bundles) == FAIL) // bundle 별 cmd 연결리스트 parsing
 	{
-		// free_bundle(bundles);
+		free_bundle(bundles);
 		return ;
 	}
 	i = 0;

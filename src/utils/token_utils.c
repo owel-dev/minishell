@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:40:42 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 16:18:20 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:06:54 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	is_io_token(t_token *token)
 void	replace_env_token(t_token *temp, t_bundle *bundle)
 {
 	t_token	*delete_token;
-	int		env_tem;
+	char	*env_tem;
 
 	env_tem = ft_getenv(bundle, temp->content);
 	free(temp->content);

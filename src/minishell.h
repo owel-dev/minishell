@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 17:05:09 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:27:53 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int			is_fdnum(char *str, int back);
 //lst_utils
 t_token		*ft_lstnew(char *content, int token_type, int back_space);
 void		ft_lstadd_back(t_token **lst, t_token *new);
-void		ft_lstclear(t_token **lst);
+void		ft_lstclear(t_token *lst);
 int			ft_lstsize(t_token *lst);
 t_token		*ft_lstlast(t_token *lst);
 

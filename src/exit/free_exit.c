@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 01:47:17 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 16:41:01 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:28:06 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,11 @@ void	free_bundle(t_bundle *bundles)
 	int	i;
 
 	i = 0;
-	while (bundles[i].cmd_line)
+	while (bundles[i].cmd_line != NULL)
 	{
-		if (bundles[i].cmd_line)
-		{
-			free(bundles[i].cmd_line);
-			ft_lstclear(&bundles[i].head);
-		}
+		free(bundles[i].cmd_line);
+		if (bundles[i].head);
+			ft_lstclear(bundles[i].head);
 		i++;
 	}
 	free(bundles);
@@ -38,7 +36,7 @@ void	child_exit(t_bundle *bundles, int status)
 	while (bundles[i].cmd_line)
 	{
 		free(bundles[i].cmd_line);
-		ft_lstclear(&bundles[i].head);
+		ft_lstclear(bundles[i].head);
 		i++;
 	}
 	exit(status);

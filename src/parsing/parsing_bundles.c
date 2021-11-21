@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:58:22 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 16:52:51 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:19:45 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	set_bundle(t_bundle *bundle, char **env, int bundles_num, char const *str)
 	int		i;
 
 	i = 0;
-	while (i < bundles_num)
+	while (i <= bundles_num)
 	{
 		bundle[i].env = env;
 		bundle[i].quote = 0;
