@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 02:23:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/22 01:42:13 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/22 20:57:29 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	get_token(t_bundle *bnde, int i, int start)
 	return (i);
 }
 
-
 int	check_vaild_token_list(t_bundle *bundle)
 {
 	t_token *temp;
@@ -55,6 +54,7 @@ int	check_vaild_token_list(t_bundle *bundle)
 				error = printf("minishell: syntax error near unexpected token 'newline'\n");
 			else if (temp->next->token_type >= REDIR_IN)
 				error = printf("minishell: syntax error near unexpected token '%s'\n", temp->next->content);
+			set_fd(temp);
 		}
 		else if (temp->token_type == PIPE && bundle->head == temp)
 			error = printf("minishell: syntax error near unexpected token `|'\n");

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:24:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/22 01:37:01 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/22 20:56:12 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,34 +46,37 @@ int	read_here_document(t_bundle *bundle)
 	}
 	else
 	{
-		waitpid(pid, &status, 0);
 		dup2(fd[0], STDIN_FILENO);
+		waitpid(pid, &status, 0);
 	}
 	return (0);
 }
 
-int	*set_fd(t_token *token, int	fd_num[])
+void	set_fd(t_token *token)
 {
-	if (token->pre && is_fdnum(token->pre->content, 0) == 1 && token->pre->back_space == 0)
-		fd_num[0] = token->pre->content[0] + '0';
-	else
-		fd_num[0] = -1;
-	if (token->next && is_fdnum(token->next->content, 1) == 2 && token->back_space == 0)
-		fd_num[1] = (token->pre->content[1] + '0');
-	else
-		fd_num[1] = -1;
-	return (fd_num);
+	if (token->pre && is_fdnum(token->pre->content, 0) == 1 && 
+	token->pre->back_space == 0)
+	{
+		token->fd[0] = ft_atoi(token->pre->content);
+		ft_lst_delete(token->pre);
+	}
+	if (token->next && is_fdnum(token->next->content, 1) == 2 && \
+	token->back_space == 0)
+	{
+		token->fd[1] = ft_atoi(ft_strndup(token->pre->content, 1));
+		ft_lst_delete(token->next);
+	}
 }
 
 int	redir_handler(t_bundle *bundle)
 {
 	if (bundle->token->token_type == D_REDIR_OUT)
-		return(d_redir_out(bundle->token));
+		return(d_redir_out(bundle));
 	else if (bundle->token->token_type == D_REDIR_IN)
 		return (d_redir_in(bundle));
 	else if (bundle->token->token_type == REDIR_IN)
-		return (redir_in(bundle->token));
+		return (redir_in(bundle));
 	else if (bundle->token->token_type == REDIR_OUT)
-		return (redir_out(bundle->token));
+		return (redir_out(bundle));
 	return (FAIL);
 }

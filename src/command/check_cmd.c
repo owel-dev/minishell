@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/22 00:05:40 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/22 20:55:39 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_token *dup_token(t_token *token)
 	ret->next = token->next;
 	ret->pipe = token->pipe;
 	ret->redir = token->redir;
+	ret->fd[0] = token->fd[0];
+	ret->fd[1] = token->fd[1];
 	ret->content = token->content;
 	ret->token_type = token->token_type;
 	ret->back_space = token->back_space;
