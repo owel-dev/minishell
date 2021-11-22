@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 17:47:48 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/22 20:24:29 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	start_sh(char **env, char *input)
 		result = execute_cmd(&bundles[i]);
 		// if (result < 0)
 		// 	child_exit(bundles, 1);
-		if ((result == TRUE && bundles[i].priority == P_OR) \
-		|| (result == FALSE && bundles[i].priority == P_AND))
+		if ((result == SUCCESS && bundles[i].priority == P_OR) \
+		|| (result == FAIL && bundles[i].priority == P_AND))
 		{
 			i++;
 		}
@@ -86,8 +86,8 @@ void	loop(char **env)
 {
 	char	*input;
 
-	// signal(SIGINT, sig_handler);
-	// signal(SIGQUIT, sig_handler);
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, sig_handler);
 	while(TRUE)
 	{
 		input = readline("minishell$ ");

@@ -6,11 +6,7 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:54 by hyospark          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/11/22 19:18:58 by ulee             ###   ########.fr       */
-=======
-/*   Updated: 2021/11/22 19:00:51 by ulee             ###   ########.fr       */
->>>>>>> d96a578e64dcc94f79aa84356b50f97f485a2d58
+/*   Updated: 2021/11/22 21:17:27 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +43,8 @@ int	ft_echo(t_bundle *bundle)
 			n_option = 1;
 			continue ;
 		}
-		if (is_redir_token(bundle->token))
-			redir_handler(bundle);
+		// if (is_redir_token(bundle->token))
+		// 	redir_handler(bundle);
 		buf_output = append_buf(bundle, buf_output);
 		if (buf_output == NULL)
 			return (FAIL);

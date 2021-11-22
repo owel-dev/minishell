@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/22 00:05:40 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/22 21:18:13 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ int is_bin(t_bundle *bundle)
 
 int is_builtin(t_bundle *bundle)
 {
-	if (!bundle->token->next || bundle->token->back_space || is_io_token(bundle->token->next))
+	// if (!bundle->token->next || bundle->token->back_space || is_io_token(bundle->token->next))
+	if (!bundle->token->next || bundle->token->back_space)
 	{
 		if (ft_strcmp(bundle->token->content, "cd") == 0)
 			return (ft_cd(bundle));

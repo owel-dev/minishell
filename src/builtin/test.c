@@ -56,18 +56,18 @@ int main(int ac, char **av, char **env)
 	token2 = NULL;
 	token3 = NULL;
 
-	printf("===========ls===========\n");
-	append_token(&token, "ls");
-	append_token(&token, "ll");
-	append_token(&token, "||");
-	append_token(&token, "-al");
-	// append_token(&token2, "pwd");
-	bundle.token = token;
-	is_builtin(&bundle);
-	is_bin(&bundle);
-	// bundle.token = token2;
+	// printf("===========ls===========\n");
+	// append_token(&token, "ls");
+	// append_token(&token, "ll");
+	// append_token(&token, "||");
+	// append_token(&token, "-al");
+	// // append_token(&token2, "pwd");
+	// bundle.token = token;
 	// is_builtin(&bundle);
-	printf("========================\n\n");
+	// is_bin(&bundle);
+	// // bundle.token = token2;
+	// // is_builtin(&bundle);
+	// printf("========================\n\n");
 
 	// printf("===========cd===========\n");
 	// append_token(&token, "cd");
@@ -92,18 +92,31 @@ int main(int ac, char **av, char **env)
 	// is_builtin(&bundle);
 	// printf("========================\n\n");
 
-	// printf("=========export=========\n");
-	// token = NULL;
-	// token2 = NULL;
-	// append_token(&token, "export");
-	// append_token(&token, "USER2=ttttlee");
-	// append_token(&token, "USER3=ttttlee");
-	// append_token(&token2, "env");
-	// bundle.token = token;
-	// is_builtin(&bundle);
-	// bundle.token = token2;
-	// is_builtin(&bundle);
-	// printf("========================\n\n");
+	printf("=========export=========\n");
+	token = NULL;
+	token2 = NULL;
+	append_token(&token, "export");
+	append_token(&token, "USER2=ttttlee");
+	append_token(&token, "USER3=ttttlee");
+	append_token(&token2, "env");
+	bundle.token = token;
+	is_builtin(&bundle);
+	bundle.token = token2;
+	is_builtin(&bundle);
+	printf("========================\n\n");
+
+	printf("=========export=========\n");
+	token = NULL;
+	token2 = NULL;
+	append_token(&token, "export");
+	append_token(&token, "USER2=ttttlee");
+	append_token(&token, "USER3=ttttlee");
+	append_token(&token2, "env");
+	bundle.token = token;
+	is_builtin(&bundle);
+	bundle.token = token2;
+	is_builtin(&bundle);
+	printf("========================\n\n");
 
 	// printf("=========unset=========\n");
 	// token = NULL;
