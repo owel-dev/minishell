@@ -13,22 +13,22 @@ FILE =	main \
 		builtin/ft_getenv \
 		builtin/ft_pwd \
 		builtin/ft_unset \
+		command/check_cmd \
+		execute/execute_cmd \
 		exit/free_exit \
 		exit/print_error \
+		iohandler/pipe_handler \
+		iohandler/redir_handler \
+		iohandler/set_redir_fd \
+		parsing/parsing_bundles \
+		parsing/parsing_tokens \
+		parsing/parsing_str \
+		parsing/set_token \
 		utils/list_utils \
 		utils/str_utils \
 		utils/split_utils \
 		utils/fd_utils \
 		utils/token_utils \
-		parsing/parsing_bundles \
-		parsing/parsing_tokens \
-		parsing/parsing_str \
-		parsing/set_token \
-		execute/execute_cmd \
-		command/check_cmd \
-		iohandler/pipe_handler \
-		iohandler/redir_handler \
-		iohandler/set_redir_fd
 
 SRCS = $(addprefix ./src/, $(addsuffix .c, $(FILE)))
 OBJS = $(addprefix ./src/, $(addsuffix .o, $(FILE)))

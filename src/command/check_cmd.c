@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/22 20:55:39 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/22 23:39:09 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ int is_bin(t_bundle *bundle)
 
 int is_builtin(t_bundle *bundle)
 {
-	if (!bundle->token->next || bundle->token->back_space || is_io_token(bundle->token->next))
+	// if (!bundle->token->next || bundle->token->back_space || is_io_token(bundle->token->next))
+	if (!bundle->token->next || bundle->token->back_space)
 	{
 		if (ft_strcmp(bundle->token->content, "cd") == 0)
 			return (ft_cd(bundle));
