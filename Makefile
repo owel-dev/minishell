@@ -1,5 +1,5 @@
 NAME = minishell
-CC = gcc
+CC = gcc -g
 CFLAGS = -Wall -Wextra -Werror -lreadline -L /usr/local/opt/readline/lib -I/usr/local/opt/readline/include
 INCS = -I./src/libft -I./ -I/usr/local/opt/readline/include
 LIBFT = -L./src/libft -lft

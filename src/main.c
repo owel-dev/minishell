@@ -6,25 +6,25 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/22 20:24:29 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/23 21:08:21 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	start_sh(char **env, char *input)
+char **start_sh(char **env, char *input)
 {
 	t_bundle	*bundles;
 	int			i;
 	int			result;
 
 	if (is_space_str(input)) // check space input
-		return ;
+		return (NULL);
 	bundles = split_bundle(env, input); //별개의 명령어별 bundle 생성 및 우선순위 setting
 	if (parsing_token(bundles) == FAIL) // bundle 별 cmd 연결리스트 parsing
 	{
 		free_bundle(bundles);
-		return ;
+		return (NULL);
 	}
 	i = 0;
 	while (bundles[i].cmd_line) // 우선순위체크 및 cmd 실행
@@ -39,6 +39,7 @@ void	start_sh(char **env, char *input)
 		}
 		i++;
 	}
+	return (bundles->env);
 }
 
 char	**dup_envp(char **envp)
@@ -82,7 +83,7 @@ void sig_handler(int signum)
 	}
 }
 
-void	loop(char **env)
+void	loop(char **env, char **av)
 {
 	char	*input;
 
@@ -91,14 +92,21 @@ void	loop(char **env)
 	while(TRUE)
 	{
 		input = readline("minishell$ ");
-		add_history(input);
-		start_sh(env, input);
+		// add_history(input);
+		env = start_sh(env, input);
+		if (env == NULL) // 이 부분 어떻게?
+			return ;
 		free(input);
 	}
 }
 
-int main(int argc, char const *argv[], char **envp)
+int main(int argc, char **av, char **envp)
 {
-	loop(dup_envp(envp));
+	char **dup_env;
+	char **dup_av;
+	dup_env = dup_envp(envp);
+	dup_av = dup_envp(av);
+
+	loop(dup_env, dup_av);
 	return 0;
 }

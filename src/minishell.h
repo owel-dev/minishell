@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/22 01:21:34 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/23 20:47:11 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ typedef struct s_bundle
 }				t_bundle;
 
 // main
-void		start_sh(char **env, char *input);
+char		**start_sh(char **env, char *input);
 char		**dup_envp(char **envp);
-void		loop(char **env);
+// void		loop(char **env);
 
 char *ft_getenv(t_bundle *bundle, char *key);
 

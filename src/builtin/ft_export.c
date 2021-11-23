@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:36 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/22 21:55:52 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/23 20:29:07 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,17 @@ int append_env(t_bundle *bundle, t_token *token)
 	len = ft_arrlen(bundle->env);
 	if (len == 0)
 		return (FAIL);
-	env_copy = (char **)malloc(sizeof(char *) * len + 2);
+	env_copy = (char **)malloc(sizeof(char *) * (len + 2));
 	if (env_copy == NULL)
 		return (FAIL);
 	env_copy[len + 1] = NULL;
-	env_copy[len] = token->content;
+	env_copy[len] = ft_strdup(token->content);
 	i = 0;
 	while (i < len)
 	{
 		env_copy[i] = ft_strdup(bundle->env[i]);
 		i++;
 	}
-	all_free(bundle->env);
 	bundle->env = env_copy;
 	return (SUCCESS);
 }
@@ -55,7 +54,7 @@ int replace_env(t_bundle *bundle, t_token *token, char *key)
 			bundle->env[i] = ft_strdup(token->content);
 			return (SUCCESS);
 		}
-		all_free(env_split);
+		// all_free(env_split);
 		i++;
 	}
 	return (FAIL);

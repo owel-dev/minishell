@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/22 21:13:13 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/23 20:32:54 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	execute_cmd(t_bundle *bundle)
 		if (is_redir_token(bundle->token))
 			result = redir_handler(bundle);
 		result = check_cmd(bundle);
+
 		// if (child_ps)
 		// 	child_exit(bundle, result);
 		bundle->token = bundle->token->next;

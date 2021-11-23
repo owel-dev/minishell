@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:54 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 14:16:06 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/23 21:02:00 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int ft_env(t_bundle *bundle)
 	}
 	while (bundle->token->next && bundle->token->token_type != PIPE)
 	{
-		//redirction 
+		//redirction
 		bundle->token = bundle->token->next;
 	}
 	while (bundle->env[i])
