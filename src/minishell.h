@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/23 20:47:11 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/23 21:14:32 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ typedef struct s_token
 	struct s_token	*next;
 	int				pipe;
 	int				redir;
+	int				fd[2];
 	char			*content;
 	int				token_type;
 	int				back_space;
+
 }				t_token;
 
 typedef struct s_bundle
@@ -93,6 +95,7 @@ int			check_quote(char *str, int start, int end);
 int			parsing_quote_str(char *str, int start, int quote);
 int			parsing_env_str(char *str, int start);
 
+
 //fd_utils
 int			is_fdnum(char *str, int back);
 
@@ -103,7 +106,7 @@ void		ft_lstadd_back(t_token **lst, t_token *new);
 void		ft_lstclear(t_token *lst);
 int			ft_lstsize(t_token *lst);
 t_token		*ft_lstlast(t_token *lst);
-
+void		ft_lst_delete(t_token *lst);
 //utils_split
 int			sh_count_word(char const *s);
 int			sh_make_word(t_bundle *bundle, char const *s, int j, int word_len);
@@ -117,6 +120,8 @@ int			check_priority(const char *str, int start);
 int			is_quote(char str, int preval);
 int			check_vaild_str(char *str, int start);
 int			parsing_quote_str(char *str, int start, int quote);
+char		*ft_strndup(const char *s, int start);
+
 
 //token_utils
 int			is_redir_token(t_token *token);
@@ -129,10 +134,10 @@ int			is_builtin(t_bundle *bundle);
 
 //redir_handler
 int			redir_handler(t_bundle *bundle);
-int			*set_fd(t_token *token, int	fd_num[]);
-int			redir_in(t_token *token);
-int			redir_out(t_token *token);
-int			d_redir_out(t_token *token);
+void		set_fd(t_token *token);
+int			redir_in(t_bundle *bundle);
+int			redir_out(t_bundle *bundle);
+int			d_redir_out(t_bundle *bundle);
 int	 		d_redir_in(t_bundle *bundle);
 int			read_here_document(t_bundle *bundle);
 void		get_readline(int fd[], t_bundle *bundle);

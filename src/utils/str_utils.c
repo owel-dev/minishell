@@ -6,11 +6,29 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:36:12 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/23 20:51:34 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/23 21:14:22 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*ft_strndup(const char *s, int start)
+{
+	char	*result;
+	int		len;
+
+	len = ft_strlen(s) - start;
+	result = malloc(sizeof(char) * (len + 1));
+	if (result == NULL)
+		return (NULL);
+	while (start < len)
+	{
+		result[start] = s[start];
+		start++;
+	}
+	result[len] = 0;
+	return (result);
+}
 
 int	is_space_str(char *str)
 {
