@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:24:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/22 20:56:12 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/24 17:55:54 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,17 @@ int	read_here_document(t_bundle *bundle)
 
 void	set_fd(t_token *token)
 {
-	if (token->pre && is_fdnum(token->pre->content, 0) == 1 && 
+	if (token->pre && is_fdnum(token->pre->content, 0) == 1 &&
 	token->pre->back_space == 0)
 	{
 		token->fd[0] = ft_atoi(token->pre->content);
-		ft_lst_delete(token->pre);
+		tokenlst_delete(token->pre);
 	}
 	if (token->next && is_fdnum(token->next->content, 1) == 2 && \
 	token->back_space == 0)
 	{
 		token->fd[1] = ft_atoi(ft_strndup(token->pre->content, 1));
-		ft_lst_delete(token->next);
+		tokenlst_delete(token->next);
 	}
 }
 

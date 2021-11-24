@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:37:09 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/22 20:54:49 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/24 17:54:27 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void	set_iotoken(t_bundle *bundle)
 {
 	int	type;
 
-	type = ft_lstlast(bundle->token)->token_type;
+	type = tokenlst_last(bundle->token)->token_type;
 	if (type == PIPE)
 	{
 		bundle->pipe_token = NULL;
 		return ;
 	}
 	if (bundle->pipe_token == NULL)
-		bundle->pipe_token = ft_lstlast(bundle->token);
+		bundle->pipe_token = tokenlst_last(bundle->token);
 }
 
 int	set_token_type(int token_type, t_bundle *bnde, int i)
@@ -34,14 +34,14 @@ int	set_token_type(int token_type, t_bundle *bnde, int i)
 	{
 		if (bnde->token == NULL)
 			return (i);
-		ft_lstlast(bnde->token)->redir = token_type;
+		tokenlst_last(bnde->token)->redir = token_type;
 	}
 	else if (token_type == D_REDIR_IN || token_type == D_REDIR_OUT)
 	{
 		i++;
 		if (bnde->token == NULL)
 			return (i);
-		ft_lstlast(bnde->token)->redir = token_type;
+		tokenlst_last(bnde->token)->redir = token_type;
 	}
 	else if (token_type == S_CLOSE || token_type == D_CLOSE)
 		i = parsing_quote_str(bnde->cmd_line, i, token_type); // quote 토큰 문자열 길이 체크

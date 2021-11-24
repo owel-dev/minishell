@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 01:47:17 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/23 15:40:21 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/24 17:56:50 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_bundle(t_bundle *bundles)
 	{
 		free(bundles[i].cmd_line);
 		if (bundles[i].head)
-			ft_lstclear(bundles[i].head);
+			tokenlst_clear(bundles[i].head);
 		i++;
 	}
 	free(bundles);
@@ -36,7 +36,7 @@ void	child_exit(t_bundle *bundles, int status)
 	while (bundles[i].cmd_line)
 	{
 		free(bundles[i].cmd_line);
-		ft_lstclear(bundles[i].head);
+		tokenlst_clear(bundles[i].head);
 		i++;
 	}
 	exit(status);

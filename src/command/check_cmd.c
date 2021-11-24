@@ -6,60 +6,82 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/23 21:14:41 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/24 23:46:01 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token *list_last(t_token *token)
+int other_cmd(t_bundle *bundle, char *env_path, char *cmd, char **arr)
 {
+	int pid;
+	char *full_path;
+	int status;
+	int exec_status;
+
+	full_path = ft_strjoin(env_path, "/");
+	full_path = ft_strjoin(full_path, cmd);
+	pid = fork();
+	if (pid == -1)
+		return (FAIL);
+	if (pid == 0)
+	{
+		exec_status = execve(full_path, arr, bundle->env);
+		// printf("%s\n", strerror(errno));
+		exit(1);
+	}
+	waitpid(pid, &status, 0);
+	if (status == 256)
+		return (FAIL);
+	return (SUCCESS);
+}
+
+int current_cmd(t_bundle *bundle, char *cmd, char **arr)
+{
+	int pid;
+	int status;
+	int exec_status;
+
+	pid = fork();
+	if (pid == -1)
+		return (FAIL);
+	if (pid == 0)
+	{
+		exec_status = execve(cmd, arr, bundle->env);
+		printf("%s\n", strerror(errno));
+		exit(1);
+	}
+	waitpid(pid, &status, 0);
+	if (status == 256)
+		return (FAIL);
+	return (SUCCESS);
+}
+
+t_list *make_list(t_bundle *bundle)
+{
+	char *token_content;
+	t_list *list;
 	t_token *temp;
 
-	temp = token;
-	while (temp->next != NULL)
-		temp = temp->next;
-	return (temp);
-}
 
-int list_len(t_token *dup)
-{
-	int len;
-
-	len = 0;
-	while (dup)
+	list = NULL;
+	temp = bundle->token;
+	while (temp->next && temp->next->token_type != PIPE)
 	{
-		len++;
-		dup = dup->next;
+		temp = temp->next;
+		token_content = ft_strdup(temp->content);
+		ft_lstadd_back(&list, ft_lstnew(token_content));
 	}
-	return (len);
+	return (list);
 }
 
-t_token *dup_token(t_token *token)
-{
-	t_token *ret;
-
-	ret = malloc(sizeof(t_token));
-	ret->pre = token->pre;
-	ret->next = token->next;
-	ret->pipe = token->pipe;
-	ret->redir = token->redir;
-	ret->fd[0] = token->fd[0];
-	ret->fd[1] = token->fd[1];
-	ret->content = token->content;
-	ret->token_type = token->token_type;
-	ret->back_space = token->back_space;
-
-	return (ret);
-}
-
-char **list_to_arr(t_token *dup)
+char **list_to_arr(t_list *list)
 {
 	char **ret;
 	int len;
 	int i;
 
-	len = list_len(dup);
+	len = ft_lstsize(list);
 	ret = (char **)malloc(sizeof(char *) * (len + 2));
 	if (ret == NULL)
 		return (NULL);
@@ -68,51 +90,37 @@ char **list_to_arr(t_token *dup)
 	i = 1;
 	while (i <= len)
 	{
-		ret[i] = ft_strdup(dup->content);
-		i++;
-		dup = dup->next;
+		ret[i++] = ft_strdup(list->content);
+		list = list->next;
 	}
+
+	ft_lstclear(&list);
 	return (ret);
 }
 int is_bin(t_bundle *bundle)
 {
-	char *cmd;
-	char *bin_cmd;
 	char **arr;
-	t_token *dup;
-	int	status;
-	int pid;
-	t_token *one;
+	char *path_env;
+	char **paths;
+	char *cmd;
+	int i;
+	int status;
 
+	arr = list_to_arr(make_list(bundle));
 	cmd = ft_strdup(bundle->token->content);
-	bin_cmd = ft_strjoin("/bin/", cmd);
-	if (bin_cmd == NULL)
-		return (FAIL);
-	free(cmd);
-	dup = NULL;
-	while (bundle->token->next && bundle->token->next->token_type != PIPE)
+	if (ft_strncmp(cmd, "./", 2) == 0)
+		return (current_cmd(bundle, cmd, arr));
+	path_env = ft_getenv(bundle, "PATH");
+	paths = ft_split(path_env, ':');
+	while (paths[i])
 	{
-		bundle->token = bundle->token->next;
-		one = dup_token(bundle->token);
-		one->next = NULL;
-		if (dup == NULL)
-			dup = one;
-		else
-			list_last(dup)->next = one;
+		status = other_cmd(bundle, paths[i++], cmd, arr);
+		if (status == SUCCESS)
+			return (SUCCESS);
 	}
-	pid = fork();
-	if (pid < 0)
-		return (FAIL);
-	if (pid == 0)
-	{
-		arr = list_to_arr(dup);
-		execve(bin_cmd, arr, bundle->env);
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-	}
-	return (SUCCESS);
+	if (status == SUCCESS)
+		return (SUCCESS);
+	return (FAIL);
 }
 
 int is_builtin(t_bundle *bundle)

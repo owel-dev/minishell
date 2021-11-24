@@ -2,9 +2,16 @@
 
 int	main(int ac, char **av, char **env)
 {
+	int i;
+	int status;
+
+	status = 99;
 	int pid = fork();
 	if (pid == 0)
-		execve("/bin/ls", av, env);
-	waitpid(pid, NULL, 0);
-	printf("%s", av[0]);
+	{
+		i = execve("/bin/ls2", av, env);
+		exit(1);
+	}
+	waitpid(pid, &status, 0);
+	printf("status: %d\n", status);
 }

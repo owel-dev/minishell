@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/23 21:14:32 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/24 17:57:02 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,12 @@ int			is_fdnum(char *str, int back);
 
 
 //lst_utils
-t_token		*ft_lstnew(char *content, int token_type, int back_space);
-void		ft_lstadd_back(t_token **lst, t_token *new);
-void		ft_lstclear(t_token *lst);
-int			ft_lstsize(t_token *lst);
-t_token		*ft_lstlast(t_token *lst);
-void		ft_lst_delete(t_token *lst);
+t_token		*tokenlst_new(char *content, int token_type, int back_space);
+void		tokenlst_add_back(t_token **lst, t_token *new);
+void		tokenlst_clear(t_token *lst);
+int			tokenlst_size(t_token *lst);
+t_token		*tokenlst_last(t_token *lst);
+void		tokenlst_delete(t_token *lst);
 //utils_split
 int			sh_count_word(char const *s);
 int			sh_make_word(t_bundle *bundle, char const *s, int j, int word_len);
