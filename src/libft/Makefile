@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: g_ulee <g_ulee@student.42.fr>              +#+  +:+       +#+         #
+#    By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/17 14:49:10 by ulee              #+#    #+#              #
-#    Updated: 2021/11/19 18:44:44 by g_ulee           ###   ########.fr        #
+#    Updated: 2021/11/24 18:08:30 by ulee             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,15 @@ FILES = ft_memset \
 		ft_putstr_fd \
 		ft_putendl_fd \
 		ft_putnbr_fd \
+		ft_lstnew \
+		ft_lstadd_front \
+		ft_lstadd_back \
+		ft_lstdelone \
+		ft_lstclear \
+		ft_lstlast \
+		ft_lstsize \
+		ft_lstdelone \
+		ft_lstmap \
 		ft_strcmp \
 		ft_arrlen
 

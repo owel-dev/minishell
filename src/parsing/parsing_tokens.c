@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 02:23:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/22 20:57:29 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/24 17:54:46 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	get_token(t_bundle *bnde, int i, int start)
 	}
 	if ((bnde->cmd_line[i] && is_space(bnde->cmd_line[i + 1])) || !bnde->cmd_line[i]) // 해당 토큰이 공백으로 종료되었는지 (quote의 공백없이 종료와 구분)
 		back_space = TRUE;
-	ft_lstadd_back(&bnde->token, ft_lstnew(make_token \
+	tokenlst_add_back(&bnde->token, tokenlst_new(make_token \
 	(bnde->cmd_line, start, i, token_type), token_type, back_space)); // 토큰 생성 후 연결리스트에 추가
 	return (i);
 }
@@ -44,7 +44,7 @@ int	check_vaild_token_list(t_bundle *bundle)
 	int error;
 
 	temp = bundle->token;
-	size = ft_lstsize(bundle->token);
+	size = tokenlst_size(bundle->token);
 	error = 0;
 	while (temp)
 	{

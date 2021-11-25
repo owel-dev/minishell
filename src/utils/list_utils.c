@@ -6,13 +6,13 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 00:31:12 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/24 23:12:02 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/25 22:43:06 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token	*ft_lstnew(char *content, int token_type, int back_space)
+t_token	*tokenlst_new(char *content, int token_type, int back_space)
 {
 	t_token	*new;
 
@@ -33,7 +33,7 @@ t_token	*ft_lstnew(char *content, int token_type, int back_space)
 	return (new);
 }
 
-void	ft_lst_delete(t_token *lst)
+void	tokenlst_delete(t_token *lst)
 {
 	if (lst->pre && lst->next)
 	{
@@ -52,7 +52,7 @@ void	ft_lst_delete(t_token *lst)
 	free(lst);
 }
 
-void	ft_lstadd_back(t_token **lst, t_token *new)
+void	tokenlst_add_back(t_token **lst, t_token *new)
 {
 	t_token	*last;
 
@@ -63,12 +63,12 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 		*lst = new;
 		return ;
 	}
-	last = ft_lstlast(*lst);
+	last = tokenlst_last(*lst);
 	new->pre = last;
 	last->next = new;
 }
 
-void	ft_lstclear(t_token *lst)
+void	tokenlst_clear(t_token *lst)
 {
 	t_token	*temp;
 
@@ -82,7 +82,7 @@ void	ft_lstclear(t_token *lst)
 	lst = NULL;
 }
 
-int	ft_lstsize(t_token *lst)
+int	tokenlst_size(t_token *lst)
 {
 	int	len;
 
@@ -95,7 +95,7 @@ int	ft_lstsize(t_token *lst)
 	return (len);
 }
 
-t_token	*ft_lstlast(t_token *lst)
+t_token	*tokenlst_last(t_token *lst)
 {
 	if (lst == NULL)
 		return (NULL);

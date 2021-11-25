@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:28:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/23 15:35:53 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/24 20:08:03 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_bundle	*split_bundle(char **env, char const *str)
 	bundles[bundles_num].cmd_line = NULL;
 	set_bundle(bundles, env, bundles_num, str);
 	i = cut_cmd(bundles, str);
-	// if (i > -1)
-	// 	free_bundle(bundles);
+	if (i > -1)
+		free_bundle(bundles);
 	return (bundles);
 }
