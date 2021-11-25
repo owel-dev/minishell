@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 03:18:22 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/24 23:14:07 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/26 00:46:17 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,11 @@ int	redir_out(t_bundle *bundle)
 		if (bundle->token->fd[1] < 0)
 			return (print_error("redir_out open file error", FAIL));
 		dup2(bundle->token->fd[1], STDOUT_FILENO);
-		bundle->token = bundle->token->next->next;
+		bundle->token = bundle->token->next;
 	}
 	else
 	{
 		dup2(bundle->token->fd[1], STDOUT_FILENO);
-		bundle->token = bundle->token->next;
 	}
 	return (SUCCESS);
 }
