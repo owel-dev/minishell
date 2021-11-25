@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 03:18:22 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/26 00:46:17 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/26 01:54:34 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,7 @@ int	redir_out(t_bundle *bundle)
 		bundle->token = bundle->token->next;
 	}
 	else
-	{
 		dup2(bundle->token->fd[1], STDOUT_FILENO);
-	}
 	return (SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/24 02:27:28 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/26 03:12:43 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ char **start_sh(char **env, char *input)
 		result = execute_cmd(&bundles[i]);
 		// if (result < 0)
 		// 	child_exit(bundles, 1);
-		if ((result == SUCCESS && bundles[i].priority == P_OR) \
+		i++;
+		if (bundles[i].cmd_line != NULL && 
+		(result == SUCCESS && bundles[i].priority == P_OR) \
 		|| (result == FAIL && bundles[i].priority == P_AND))
 		{
 			i++;
 		}
-		i++;
 	}
 	return (bundles->env);
 }
@@ -89,6 +90,7 @@ void	loop(char **env, char **av)
 	char	**dup_env;
 	// signal(SIGINT, sig_handler);
 	// signal(SIGQUIT, sig_handler);
+
 	dup_env = dup_envp(env);
 	while(TRUE)
 	{

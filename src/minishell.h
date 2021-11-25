@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/24 17:57:02 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/26 02:43:02 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_bundle
 	int			quote;
 	int			priority;
 	int			is_pipe;
+	int			is_redir;
 	char		*cmd_line;
 	char		**env;
 	t_token		*pipe_token;
@@ -98,6 +99,7 @@ int			parsing_env_str(char *str, int start);
 
 //fd_utils
 int			is_fdnum(char *str, int back);
+void	init_fd(void);
 
 
 //lst_utils

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:58:22 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/21 17:19:45 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/26 02:49:27 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	set_bundle(t_bundle *bundle, char **env, int bundles_num, char const *str)
 		bundle[i].env = env;
 		bundle[i].quote = 0;
 		bundle[i].priority = 0;
+		bundle[i].is_redir = 0;
 		bundle[i].token = NULL;
 		bundle[i].pipe_token = NULL;
 		bundle[i].input = (char *)str;
