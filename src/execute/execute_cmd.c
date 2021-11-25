@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/23 21:14:17 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/24 22:35:50 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	check_cmd(t_bundle *bundle)
 	int	result;
 
 	result = is_builtin(bundle);
-	// if (result == FAIL)
-	result = is_bin(bundle);
+	if (result == FAIL)
+		result = is_bin(bundle);
 	return (result);
 }
 
@@ -34,7 +34,7 @@ int	execute_cmd(t_bundle *bundle)
 		if (is_redir_token(bundle->token))
 			result = redir_handler(bundle);
 		result = check_cmd(bundle);
-
+		bundle->token = bundle->token->next;
 		// if (child_ps)
 		// 	child_exit(bundle, result);
 	}
