@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:30:02 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/28 15:56:00 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/29 03:07:33 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ int	pipe_cmd(t_bundle *bundle)
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		waitpid(pid ,&status, 0);
-		while(bundle->token && bundle->token->token_type != PIPE)
+		while(bundle->token->next && bundle->token->token_type != PIPE)
 			bundle->token = bundle->token->next;
-		bundle->token = bundle->token->next;
 		return (0);
 	}
 }

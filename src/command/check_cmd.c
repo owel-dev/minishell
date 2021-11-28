@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/28 21:01:18 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/29 01:23:30 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int current_cmd(t_bundle *bundle, char *cmd, char **arr)
 		return (FAIL);
 	return (SUCCESS);
 }
+
 
 t_list *make_list(t_bundle *bundle)
 {

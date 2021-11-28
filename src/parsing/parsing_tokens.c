@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 02:23:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/28 17:25:45 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/29 03:12:01 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	check_vaild_token_list(t_bundle *bundle)
 	error = 0;
 	while (temp)
 	{
+		printf("%s %d;\n", temp->content, temp->pipe);
 		if (is_redir_token(temp))
 		{
 			if (temp->next == NULL || is_space_str(temp->next->content))
@@ -79,6 +80,8 @@ int	parsing_token_list(t_bundle *bundle)
 	{
 		while (bundle->cmd_line[i] && is_space(bundle->cmd_line[i])) // 스페이스 제거
 			i++;
+		if (!bundle->cmd_line[i])
+			break ;
 		start = i;
 		i = get_token(bundle, i, start); //token 문자열 생성 및 타입 지정
 		set_iotoken(bundle);

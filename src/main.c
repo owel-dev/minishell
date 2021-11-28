@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/26 03:12:43 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/29 03:39:49 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	loop(char **env, char **av)
 {
 	char	*input;
 	char	**dup_env;
-	// signal(SIGINT, sig_handler);
+	signal(SIGINT, sig_handler);
 	// signal(SIGQUIT, sig_handler);
 
 	dup_env = dup_envp(env);

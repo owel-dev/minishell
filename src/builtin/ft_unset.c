@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:36:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/22 21:18:36 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/29 03:08:45 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,14 @@ int	ft_unset(t_bundle *bundle)
 	char	**env_copy;
 	int		len;
 
-	while (bundle->token->next && bundle->token->next->token_type != PIPE)
+	while (bundle->token->next && bundle->token->token_type != PIPE)
 	{
 		bundle->token = bundle->token->next;
+		if (is_redir_token(bundle->token))
+		{
+			redir_handler(bundle);
+			continue ;
+		}
 		len = ft_arrlen(bundle->env);
 		if (len == 0)
 			return (FAIL);

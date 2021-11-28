@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:36 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/23 20:29:07 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/29 03:08:35 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,14 @@ int	ft_export(t_bundle *bundle)
 	char	*value;
 	int		result;
 
-	while (bundle->token->next && bundle->token->next->token_type != PIPE)
+	while (bundle->token->next && bundle->token->token_type != PIPE)
 	{
 		bundle->token = bundle->token->next;
-		//redirection
+		if (is_redir_token(bundle->token))
+		{
+			redir_handler(bundle);
+			continue ;
+		}
 		if (!ft_strncmp(bundle->token->content, "=", 1))
 		{
 			printf("export: %s: not a valid identifier\n", \
