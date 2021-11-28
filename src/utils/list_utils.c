@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 00:31:12 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/25 22:43:06 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/28 17:27:06 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_token	*tokenlst_new(char *content, int token_type, int back_space)
 	new->fd[0] = -1;
 	new->fd[1] = -1;
 	new->pipe = 0;
-	new->next = 0;
+	new->next = NULL;
 	return (new);
 }
 
@@ -99,7 +99,7 @@ t_token	*tokenlst_last(t_token *lst)
 {
 	if (lst == NULL)
 		return (NULL);
-	while (lst->next != 0)
+	while (lst->next != NULL)
 		lst = lst->next;
 	return (lst);
 }

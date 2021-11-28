@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:24:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/26 02:59:12 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/28 20:15:00 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ void	get_readline(int fd[], t_bundle *bundle)
 {
 	char	*read_doc;
 
+	read_doc = readline("heredoc> ");
 	while (fd[1] > 0)
 	{
-		read_doc = readline("> ");
 		if (!ft_strcmp(read_doc, bundle->token->next->content))
 			fd[1] = -1;
 		else
 			write(fd[1], read_doc, ft_strlen(read_doc));
 		free(read_doc);
+		read_doc = readline("heredoc> ");
 	}
 }
 
@@ -46,8 +47,8 @@ int	read_here_document(t_bundle *bundle)
 	}
 	else
 	{
-		dup2(fd[0], STDIN_FILENO);
 		waitpid(pid, &status, 0);
+		dup2(fd[0], STDIN_FILENO);
 	}
 	return (0);
 }

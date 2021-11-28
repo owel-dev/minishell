@@ -6,12 +6,11 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 02:23:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/26 03:02:04 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/28 17:25:45 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 int	get_token(t_bundle *bnde, int i, int start)
 {

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/26 02:43:02 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/28 15:57:36 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,8 @@ void		get_readline(int fd[], t_bundle *bundle);
 //pipe_handler
 int	pipe_cmd(t_bundle *bundle);
 //error
-int			print_error(char *str, int error_num);
+void		print_error_exit(char *str, int error_num);
+void		print_error(char *str);
 void		free_bundle(t_bundle *bundles);
 void		child_exit(t_bundle *bundles, int status);
 

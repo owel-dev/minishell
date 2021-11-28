@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:30:02 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/20 18:30:12 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/28 15:56:00 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	pipe_cmd(t_bundle *bundle)
 	int		fd[2];
 
 	if (pipe(fd) < 0)
-		print_error("pipe function error", EXIT_FAILURE);
+		print_error_exit("pipe function error", EXIT_FAILURE);
 	pid = fork();
 	if (pid < 0)
-		print_error("pipe fork error", EXIT_FAILURE);
+		print_error_exit("pipe fork error", EXIT_FAILURE);
 	if(pid == 0)
 	{
 		close(fd[0]);

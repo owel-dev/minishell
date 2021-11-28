@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/26 00:57:51 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/28 21:01:18 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int current_cmd(t_bundle *bundle, char *cmd, char **arr)
 	if (pid == 0)
 	{
 		exec_status = execve(cmd, arr, bundle->env);
-		printf("%s\n", strerror(errno));
+		print_error(strerror(errno));
 		exit(1);
 	}
 	waitpid(pid, &status, 0);
@@ -61,15 +61,17 @@ t_list *make_list(t_bundle *bundle)
 {
 	char *token_content;
 	t_list *list;
-	t_token *temp;
-
 
 	list = NULL;
-	temp = bundle->token;
-	while (temp->next && temp->next->token_type != PIPE)
+	while (bundle->token->next && bundle->token->next->token_type != PIPE)
 	{
-		temp = temp->next;
-		token_content = ft_strdup(temp->content);
+		bundle->token = bundle->token->next;
+		if (is_redir_token(bundle->token))
+		{
+			redir_handler(bundle);
+			continue ;
+		}
+		token_content = ft_strdup(bundle->token->content);
 		ft_lstadd_back(&list, ft_lstnew(token_content));
 	}
 	return (list);
@@ -93,10 +95,10 @@ char **list_to_arr(t_list *list)
 		ret[i++] = ft_strdup(list->content);
 		list = list->next;
 	}
-
 	ft_lstclear(&list);
 	return (ret);
 }
+
 int is_bin(t_bundle *bundle)
 {
 	char **arr;
@@ -106,8 +108,8 @@ int is_bin(t_bundle *bundle)
 	int i;
 	int status;
 
-	arr = list_to_arr(make_list(bundle));
 	cmd = ft_strdup(bundle->token->content);
+	arr = list_to_arr(make_list(bundle));
 	if (ft_strncmp(cmd, "./", 2) == 0)
 		return (current_cmd(bundle, cmd, arr));
 	path_env = ft_getenv(bundle, "PATH");
