@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:36 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/29 03:08:35 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/25 13:01:15 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,33 @@ int replace_env(t_bundle *bundle, t_token *token, char *key)
 	return (FAIL);
 }
 
+void print_env(t_bundle *bundle)
+{
+	int i;
+	char *env_line;
+
+	i = 0;
+	while (bundle->env[i])
+	{
+		env_line = ft_strjoin("declare -x ", bundle->env[i]);
+		printf("%s\n", env_line);
+		free(env_line);
+		i++;
+	}
+}
+
 int	ft_export(t_bundle *bundle)
 {
 	char	**content_split;
 	char	*value;
 	int		result;
 
-	while (bundle->token->next && bundle->token->token_type != PIPE)
+	if (bundle->token->next == NULL)
+	{
+		print_env(bundle);
+		return (SUCCESS);
+	}
+	while (bundle->token->next && bundle->token->next->token_type != PIPE)
 	{
 		bundle->token = bundle->token->next;
 		if (is_redir_token(bundle->token))

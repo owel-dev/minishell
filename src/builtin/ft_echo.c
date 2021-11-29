@@ -34,7 +34,7 @@ int	ft_echo(t_bundle *bundle)
 	char *buf_output;
 
 	n_option = 0;
-	buf_output = NULL;
+	buf_output = "";
 	while (bundle->token->next && bundle->token->token_type != PIPE) //전체적으로 env 치환 기능 추가
 	{
 		bundle->token = bundle->token->next;
