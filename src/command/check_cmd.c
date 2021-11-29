@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/24 23:46:01 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/28 18:40:16 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int other_cmd(t_bundle *bundle, char *env_path, char *cmd, char **arr)
 	return (SUCCESS);
 }
 
-int current_cmd(t_bundle *bundle, char *cmd, char **arr)
+int exec_cmd(t_bundle *bundle, char *cmd, char **arr)
 {
 	int pid;
 	int status;
@@ -75,7 +75,7 @@ t_list *make_list(t_bundle *bundle)
 	return (list);
 }
 
-char **list_to_arr(t_list *list)
+char **make_arr(t_list *list)
 {
 	char **ret;
 	int len;
@@ -106,21 +106,23 @@ int is_bin(t_bundle *bundle)
 	int i;
 	int status;
 
-	arr = list_to_arr(make_list(bundle));
+	arr = make_arr(make_list(bundle));
 	cmd = ft_strdup(bundle->token->content);
-	if (ft_strncmp(cmd, "./", 2) == 0)
-		return (current_cmd(bundle, cmd, arr));
-	path_env = ft_getenv(bundle, "PATH");
-	paths = ft_split(path_env, ':');
-	while (paths[i])
+	if (ft_strchr(cmd, '/'))
+		return (exec_cmd(bundle, cmd, arr));
+	else
 	{
-		status = other_cmd(bundle, paths[i++], cmd, arr);
-		if (status == SUCCESS)
-			return (SUCCESS);
+		path_env = ft_getenv(bundle, "PATH");
+		paths = ft_split(path_env, ':');
+		while (paths[i])
+		{
+			status = other_cmd(bundle, paths[i++], cmd, arr);
+			if (status == SUCCESS)
+				return (SUCCESS);
+		}
 	}
-	if (status == SUCCESS)
-		return (SUCCESS);
-	return (FAIL);
+	exec_cmd(bundle, cmd, arr);
+	return (SUCCESS);
 }
 
 int is_builtin(t_bundle *bundle)
