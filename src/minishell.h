@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/29 01:22:50 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/29 20:26:57 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ int			d_redir_out(t_bundle *bundle);
 int	 		d_redir_in(t_bundle *bundle);
 int			read_here_document(t_bundle *bundle);
 void		get_readline(int fd[], t_bundle *bundle);
+void		check_env_token(t_token *token, t_bundle *bundle);
 
 //pipe_handler
 int	pipe_cmd(t_bundle *bundle);
