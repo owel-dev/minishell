@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 01:47:17 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/24 17:56:50 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/29 04:32:41 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ void	child_exit(t_bundle *bundles, int status)
 	int	i;
 
 	i = 0;
-	free(bundles->input);
-	while (bundles[i].cmd_line)
-	{
-		free(bundles[i].cmd_line);
-		tokenlst_clear(bundles[i].head);
-		i++;
-	}
+	// free(bundles->input);
+	// while (bundles[i].cmd_line)
+	// {
+	// 	free(bundles[i].cmd_line);
+	// 	tokenlst_clear(bundles[i].head);
+	// 	i++;
+	// }
 	exit(status);
 }

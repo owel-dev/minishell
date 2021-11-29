@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/29 03:38:56 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/29 21:03:25 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,26 @@ int	execute_cmd(t_bundle *bundle)
 	int result;
 	pid_t	child_ps;
 
-	child_ps = 0;
+	child_ps = -1;
 	if (bundle->is_redir)
 		return (execute_redir_cmd(bundle));
 	while (bundle->token)
 	{
 		if (bundle->token->pipe == PIPE)
+		{
 			child_ps = pipe_cmd(bundle);
+			if (!child_ps)
+				continue ;
+		}
 		result = check_cmd(bundle);
-		if (!bundle->token)
-			break ;
 		bundle->token = bundle->token->next;
-		if (child_ps)
+		if (child_ps > 0)
 			child_exit(bundle, result);
+		if (child_ps == 0)
+		{
+			close(STDIN_FILENO);
+			dup2(0, STDIN_FILENO);
+		}
 	}
 	return (result);
 }

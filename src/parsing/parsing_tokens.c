@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 02:23:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/29 03:12:01 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/29 20:28:48 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	check_vaild_token_list(t_bundle *bundle)
 		}
 		else if (temp->token_type == PIPE && bundle->head == temp)
 			error = printf("minishell: syntax error near unexpected token `|'\n");
+		else if (temp->token_type == D_CLOSE)
+			check_env_token(temp, bundle);
 		else if (temp->token_type == ENV)
 			replace_env_token(temp, bundle);
 		if (error)
