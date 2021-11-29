@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:37:09 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/24 17:54:27 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/29 03:36:26 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,8 @@ void	set_iotoken(t_bundle *bundle)
 
 	type = tokenlst_last(bundle->token)->token_type;
 	if (type == PIPE)
-	{
 		bundle->pipe_token = NULL;
-		return ;
-	}
-	if (bundle->pipe_token == NULL)
+	else if (bundle->pipe_token == NULL)
 		bundle->pipe_token = tokenlst_last(bundle->token);
 }
 

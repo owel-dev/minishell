@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:24:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/24 17:55:54 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/29 02:42:25 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@ void	get_readline(int fd[], t_bundle *bundle)
 {
 	char	*read_doc;
 
+	close(fd[0]);
 	while (fd[1] > 0)
 	{
-		read_doc = readline("> ");
+		read_doc = readline("heredoc> ");
 		if (!ft_strcmp(read_doc, bundle->token->next->content))
 			fd[1] = -1;
 		else
+		{
 			write(fd[1], read_doc, ft_strlen(read_doc));
+			write(fd[1], "\n", 1);
+		}
 		free(read_doc);
 	}
 }
@@ -46,6 +50,7 @@ int	read_here_document(t_bundle *bundle)
 	}
 	else
 	{
+		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		waitpid(pid, &status, 0);
 	}
@@ -61,7 +66,7 @@ void	set_fd(t_token *token)
 		tokenlst_delete(token->pre);
 	}
 	if (token->next && is_fdnum(token->next->content, 1) == 2 && \
-	token->back_space == 0)
+	token->back_space == 0 && token->token_type != D_REDIR_IN)
 	{
 		token->fd[1] = ft_atoi(ft_strndup(token->pre->content, 1));
 		tokenlst_delete(token->next);

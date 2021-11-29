@@ -19,12 +19,15 @@ int  ft_cd(t_bundle *bundle)
 	t_token	*next_token;
 
 	next_token = bundle->token->next;
-	if (next_token && next_token->next)
+	while (bundle->token->next && bundle->token->token_type != PIPE)
 	{
-		printf("cd error\n");
-		while (bundle->token->next && bundle->token->token_type != PIPE)
-			bundle->token = bundle->token->next;
-		return (FAIL);
+		bundle->token = bundle->token->next;
+		if (is_redir_token(bundle->token))
+			redir_handler(bundle);
+	}
+	if (next_token == NULL || is_io_token(next_token))
+	{
+		dir = ft_getenv(bundle, "HOME");
 	}
 	if (next_token == NULL || next_token->token_type == PIPE)
 		dir = ft_getenv(bundle, "HOME");
@@ -33,7 +36,7 @@ int  ft_cd(t_bundle *bundle)
 	ret_chdir = chdir(dir);
 	if (ret_chdir == -1)
 	{
-		printf("%s\n", strerror(errno));
+		print_error(strerror(errno));
 		return (FAIL);
 	}
 	return (SUCCESS);

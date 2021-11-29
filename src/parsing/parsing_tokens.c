@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 02:23:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/24 17:54:46 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/29 03:12:01 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 int	get_token(t_bundle *bnde, int i, int start)
 {
@@ -48,13 +47,15 @@ int	check_vaild_token_list(t_bundle *bundle)
 	error = 0;
 	while (temp)
 	{
+		printf("%s %d;\n", temp->content, temp->pipe);
 		if (is_redir_token(temp))
 		{
-			if (temp->next == NULL)
+			if (temp->next == NULL || is_space_str(temp->next->content))
 				error = printf("minishell: syntax error near unexpected token 'newline'\n");
 			else if (temp->next->token_type >= REDIR_IN)
 				error = printf("minishell: syntax error near unexpected token '%s'\n", temp->next->content);
 			set_fd(temp);
+			bundle->is_redir = 1;
 		}
 		else if (temp->token_type == PIPE && bundle->head == temp)
 			error = printf("minishell: syntax error near unexpected token `|'\n");
@@ -79,6 +80,8 @@ int	parsing_token_list(t_bundle *bundle)
 	{
 		while (bundle->cmd_line[i] && is_space(bundle->cmd_line[i])) // 스페이스 제거
 			i++;
+		if (!bundle->cmd_line[i])
+			break ;
 		start = i;
 		i = get_token(bundle, i, start); //token 문자열 생성 및 타입 지정
 		set_iotoken(bundle);

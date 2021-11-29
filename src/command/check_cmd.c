@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
 /*   Updated: 2021/11/28 18:40:16 by ulee             ###   ########.fr       */
@@ -48,7 +48,7 @@ int exec_cmd(t_bundle *bundle, char *cmd, char **arr)
 	if (pid == 0)
 	{
 		exec_status = execve(cmd, arr, bundle->env);
-		printf("%s\n", strerror(errno));
+		print_error(strerror(errno));
 		exit(1);
 	}
 	waitpid(pid, &status, 0);
@@ -57,19 +57,22 @@ int exec_cmd(t_bundle *bundle, char *cmd, char **arr)
 	return (SUCCESS);
 }
 
+
 t_list *make_list(t_bundle *bundle)
 {
 	char *token_content;
 	t_list *list;
-	t_token *temp;
-
 
 	list = NULL;
-	temp = bundle->token;
-	while (temp->next && temp->next->token_type != PIPE)
+	while (bundle->token->next && bundle->token->next->token_type != PIPE)
 	{
-		temp = temp->next;
-		token_content = ft_strdup(temp->content);
+		bundle->token = bundle->token->next;
+		if (is_redir_token(bundle->token))
+		{
+			redir_handler(bundle);
+			continue ;
+		}
+		token_content = ft_strdup(bundle->token->content);
 		ft_lstadd_back(&list, ft_lstnew(token_content));
 	}
 	return (list);
@@ -93,10 +96,10 @@ char **make_arr(t_list *list)
 		ret[i++] = ft_strdup(list->content);
 		list = list->next;
 	}
-
 	ft_lstclear(&list);
 	return (ret);
 }
+
 int is_bin(t_bundle *bundle)
 {
 	char **arr;
@@ -127,8 +130,7 @@ int is_bin(t_bundle *bundle)
 
 int is_builtin(t_bundle *bundle)
 {
-	// if (!bundle->token->next || bundle->token->back_space || is_io_token(bundle->token->next))
-	if (!bundle->token->next || bundle->token->back_space)
+	if (!bundle->token->next || bundle->token->back_space || is_io_token(bundle->token->next))
 	{
 		if (ft_strcmp(bundle->token->content, "cd") == 0)
 			return (ft_cd(bundle));

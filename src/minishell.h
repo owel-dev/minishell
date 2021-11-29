@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/24 17:57:02 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/29 01:22:50 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_bundle
 	int			quote;
 	int			priority;
 	int			is_pipe;
+	int			is_redir;
 	char		*cmd_line;
 	char		**env;
 	t_token		*pipe_token;
@@ -98,6 +99,7 @@ int			parsing_env_str(char *str, int start);
 
 //fd_utils
 int			is_fdnum(char *str, int back);
+void	init_fd(void);
 
 
 //lst_utils
@@ -122,7 +124,6 @@ int			check_vaild_str(char *str, int start);
 int			parsing_quote_str(char *str, int start, int quote);
 char		*ft_strndup(const char *s, int start);
 
-
 //token_utils
 int			is_redir_token(t_token *token);
 int			is_io_token(t_token *token);
@@ -145,7 +146,8 @@ void		get_readline(int fd[], t_bundle *bundle);
 //pipe_handler
 int	pipe_cmd(t_bundle *bundle);
 //error
-int			print_error(char *str, int error_num);
+void		print_error_exit(char *str, int error_num);
+void		print_error(char *str);
 void		free_bundle(t_bundle *bundles);
 void		child_exit(t_bundle *bundles, int status);
 

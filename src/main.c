@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/23 21:14:26 by ulee             ###   ########.fr       */
+/*   Updated: 2021/11/29 03:39:49 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ char **start_sh(char **env, char *input)
 		result = execute_cmd(&bundles[i]);
 		// if (result < 0)
 		// 	child_exit(bundles, 1);
-		if ((result == SUCCESS && bundles[i].priority == P_OR) \
+		i++;
+		if (bundles[i].cmd_line != NULL && 
+		(result == SUCCESS && bundles[i].priority == P_OR) \
 		|| (result == FAIL && bundles[i].priority == P_AND))
 		{
 			i++;
 		}
-		i++;
 	}
 	return (bundles->env);
 }
@@ -86,27 +87,30 @@ void sig_handler(int signum)
 void	loop(char **env, char **av)
 {
 	char	*input;
-
+	char	**dup_env;
 	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
+	// signal(SIGQUIT, sig_handler);
+
+	dup_env = dup_envp(env);
 	while(TRUE)
 	{
 		input = readline("minishell$ ");
-		// add_history(input);
-		env = start_sh(env, input);
-		if (env == NULL) // 이 부분 어떻게?
-			return ;
+		add_history(input);
+		dup_env = start_sh(env, input);
 		free(input);
+		if (env == NULL)
+			env = dup_env;
 	}
+	free(env);
 }
 
 int main(int argc, char **av, char **envp)
 {
 	char **dup_env;
 	char **dup_av;
+
 	dup_env = dup_envp(envp);
 	dup_av = dup_envp(av);
-
 	loop(dup_env, dup_av);
 	return 0;
 }
