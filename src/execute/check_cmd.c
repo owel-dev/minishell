@@ -57,6 +57,8 @@ int is_builtin(t_bundle *bundle)
 			return (ft_unset(bundle));
 		else if (ft_strcmp(bundle->token->content, "echo") == 0)
 			return (ft_echo(bundle));
+		else if (ft_strcmp(bundle->token->content, "exit") == 0)
+			return (ft_exit(bundle));
 	}
 	return (FAIL);
 }
