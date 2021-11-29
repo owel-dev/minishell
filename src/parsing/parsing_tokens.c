@@ -47,7 +47,6 @@ int	check_vaild_token_list(t_bundle *bundle)
 	error = 0;
 	while (temp)
 	{
-		printf("%s %d;\n", temp->content, temp->pipe);
 		if (is_redir_token(temp))
 		{
 			if (temp->next == NULL || is_space_str(temp->next->content))

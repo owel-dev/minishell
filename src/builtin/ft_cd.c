@@ -25,11 +25,7 @@ int  ft_cd(t_bundle *bundle)
 		if (is_redir_token(bundle->token))
 			redir_handler(bundle);
 	}
-	if (next_token == NULL || is_io_token(next_token))
-	{
-		dir = ft_getenv(bundle, "HOME");
-	}
-	if (next_token == NULL || next_token->token_type == PIPE)
+	if (next_token == NULL || is_io_token(next_token) || !ft_strcmp(next_token->content, "~"))
 		dir = ft_getenv(bundle, "HOME");
 	else
 		dir = next_token->content;

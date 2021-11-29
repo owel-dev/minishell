@@ -151,7 +151,7 @@ void		print_error(char *str);
 void		free_bundle(t_bundle *bundles);
 void		child_exit(t_bundle *bundles, int status);
 
-//command
+//buitin
 int			ft_cd(t_bundle *bundle);
 int			ft_env(t_bundle *bundle);
 int			ft_export(t_bundle *bundle);
@@ -159,5 +159,13 @@ int			ft_pwd(t_bundle *bundle);
 char		*ft_getenv(t_bundle *bundle, char *key);
 int			ft_unset(t_bundle *bundle);
 int			ft_echo(t_bundle *bundle);
+
+//bin
+int			other_cmd(t_bundle *bundle, char *env_path, char *cmd, char **arr);
+int			exec_cmd(t_bundle *bundle, char *cmd, char **arr);
+t_list		*make_list(t_bundle *bundle);
+char		**make_arr(t_list *list);
+
+
 
 #endif

@@ -58,18 +58,18 @@ int	execute_cmd(t_bundle *bundle)
 	pid_t	child_ps;
 
 	child_ps = 0;
-	// if (bundle->is_redir)
-	// 	return (execute_redir_cmd(bundle));
-	// while (bundle->token)
-	// {
-	// 	if (bundle->token->pipe == PIPE)
-	// 		child_ps = pipe_cmd(bundle);
-	// 	result = check_cmd(bundle);
-	// 	if (!bundle->token)
-	// 		break ;
-	// 	bundle->token = bundle->token->next;
-	// 	if (child_ps)
-	// 		child_exit(bundle, result);
-	// }
+	if (bundle->is_redir)
+		return (execute_redir_cmd(bundle));
+	while (bundle->token)
+	{
+		if (bundle->token->pipe == PIPE)
+			child_ps = pipe_cmd(bundle);
+		result = check_cmd(bundle);
+		if (!bundle->token)
+			break ;
+		bundle->token = bundle->token->next;
+		if (child_ps)
+			child_exit(bundle, result);
+	}
 	return (result);
 }
