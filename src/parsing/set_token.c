@@ -27,6 +27,8 @@ int	set_token_type(int token_type, t_bundle *bnde, int i)
 {
 	if (token_type == ENV)
 		i = parsing_env_str(bnde->cmd_line, i); // env 토큰 문자열 길이 체크
+	if (token_type == STATUS)
+		return (i + 1);
 	else if ((token_type == REDIR_IN || token_type == REDIR_OUT))
 	{
 		if (bnde->token == NULL)
@@ -62,6 +64,8 @@ char	*make_token(char *str, int start, int end, int token_type)
 		start++;
 		end--;
 	}
+	if (token_type == STATUS)
+		return (ft_itoa(g_status));
 	else if (token_type == ENV)
 		start++;
 	new_str = (char *)malloc(sizeof(char) * (end - start + 1));

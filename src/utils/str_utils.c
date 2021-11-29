@@ -81,7 +81,11 @@ int	check_vaild_str(char *str, int start)
 	if (str[start] == '>')
 		return (REDIR_OUT);
 	if (str[start] == '$')
+	{
+		if (str[start + 1] && str[start + 1] == '?')
+			return (STATUS);
 		return (ENV);
+	}
 	if (is_space(str[start + 1]) || ft_strchr("|<>$", str[start + 1]) ||
 	check_quote(str, start + 1, ft_strlen(str)))
 		return (1);

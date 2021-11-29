@@ -104,6 +104,7 @@ void	loop(char **env, char **av)
 
 int main(int argc, char **av, char **envp)
 {
+	while (1){}
 	char **dup_env;
 	char **dup_av;
 	dup_env = dup_envp(envp);

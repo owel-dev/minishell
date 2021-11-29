@@ -39,6 +39,7 @@
 # define D_REDIR_IN 6
 # define D_REDIR_OUT 7
 # define PIPE 8
+# define STATUS 9
 # define P_OR 1
 # define P_AND 2
 # define SUCCESS 0
@@ -167,5 +168,5 @@ t_list		*make_list(t_bundle *bundle);
 char		**make_arr(t_list *list);
 
 
-
+int g_status;
 #endif

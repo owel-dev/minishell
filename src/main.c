@@ -33,7 +33,7 @@ char **start_sh(char **env, char *input)
 		// if (result < 0)
 		// 	child_exit(bundles, 1);
 		i++;
-		if (bundles[i].cmd_line != NULL && 
+		if (bundles[i].cmd_line != NULL &&
 		(result == SUCCESS && bundles[i].priority == P_OR) \
 		|| (result == FAIL && bundles[i].priority == P_AND))
 		{
@@ -73,14 +73,15 @@ void sig_handler(int signum)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+		g_status = 130;
 	}
 	else if (signum == SIGQUIT)
 	{
-		printf("zsh: quit           %s", "a.out");
-		rl_replace_line("               ", 0);
+		printf("Quit: 3           ");
+		rl_replace_line("                  ", 0);
 		rl_redisplay();
+		g_status = 131;
 		printf("%c\n", 27);
-		exit(0);
 	}
 }
 
@@ -89,7 +90,7 @@ void	loop(char **env, char **av)
 	char	*input;
 	char	**dup_env;
 	signal(SIGINT, sig_handler);
-	// signal(SIGQUIT, sig_handler);
+	signal(SIGQUIT, sig_handler);
 
 	dup_env = dup_envp(env);
 	while(TRUE)
@@ -109,6 +110,7 @@ int main(int argc, char **av, char **envp)
 	char **dup_env;
 	char **dup_av;
 
+	g_status = 0;
 	dup_env = dup_envp(envp);
 	dup_av = dup_envp(av);
 	loop(dup_env, dup_av);
