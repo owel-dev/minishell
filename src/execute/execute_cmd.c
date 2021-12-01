@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/29 21:03:25 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/01 19:37:12 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ int	check_cmd(t_bundle *bundle)
 
 int execute_redir_cmd(t_bundle *bundle)
 {
-	int result;
+	int		result;
 	pid_t	child_ps;
 	int		status;
+	t_token *temp;
 
 	result = FAIL;
 	child_ps = fork();
@@ -37,13 +38,22 @@ int execute_redir_cmd(t_bundle *bundle)
 		while (bundle->token)
 		{
 			if (bundle->token->pipe == PIPE)
+			{
 				child_ps = pipe_cmd(bundle);
-			if (is_redir_token(bundle->token))
-				result = redir_handler(bundle);
+				if (!child_ps)
+					continue ;
+			}
+			result = set_redir_fd(bundle, bundle->token);
 			result = check_cmd(bundle);
 			bundle->token = bundle->token->next;
-			if (child_ps)
+			if (child_ps > 0)
 				child_exit(bundle, result);
+			if (child_ps == 0)
+			{
+				close(STDIN_FILENO);
+				dup2(0, STDIN_FILENO);
+			}
+			init_fd();
 		}
 		exit(result);
 	}
@@ -54,7 +64,7 @@ int execute_redir_cmd(t_bundle *bundle)
 
 int	execute_cmd(t_bundle *bundle)
 {
-	int result;
+	int		result;
 	pid_t	child_ps;
 
 	child_ps = -1;
@@ -69,7 +79,6 @@ int	execute_cmd(t_bundle *bundle)
 				continue ;
 		}
 		result = check_cmd(bundle);
-		bundle->token = bundle->token->next;
 		if (child_ps > 0)
 			child_exit(bundle, result);
 		if (child_ps == 0)
@@ -77,6 +86,7 @@ int	execute_cmd(t_bundle *bundle)
 			close(STDIN_FILENO);
 			dup2(0, STDIN_FILENO);
 		}
+		bundle->token = bundle->token->next;
 	}
 	return (result);
 }

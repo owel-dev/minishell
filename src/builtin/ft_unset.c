@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:36:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/29 03:08:45 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/01 16:53:32 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,6 @@ int	ft_unset(t_bundle *bundle)
 	while (bundle->token->next && bundle->token->token_type != PIPE)
 	{
 		bundle->token = bundle->token->next;
-		if (is_redir_token(bundle->token))
-		{
-			redir_handler(bundle);
-			continue ;
-		}
 		len = ft_arrlen(bundle->env);
 		if (len == 0)
 			return (FAIL);

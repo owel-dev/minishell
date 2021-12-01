@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:36 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/25 13:01:15 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/01 16:53:29 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,6 @@ int	ft_export(t_bundle *bundle)
 	while (bundle->token->next && bundle->token->next->token_type != PIPE)
 	{
 		bundle->token = bundle->token->next;
-		if (is_redir_token(bundle->token))
-		{
-			redir_handler(bundle);
-			continue ;
-		}
 		if (!ft_strncmp(bundle->token->content, "=", 1))
 		{
 			printf("export: %s: not a valid identifier\n", \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:39:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/28 18:42:29 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/01 16:53:21 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int  ft_cd(t_bundle *bundle)
 	while (bundle->token->next && bundle->token->token_type != PIPE)
 	{
 		bundle->token = bundle->token->next;
-		if (is_redir_token(bundle->token))
-			redir_handler(bundle);
 	}
 	if (next_token == NULL || is_io_token(next_token) || !ft_strcmp(next_token->content, "~"))
 		dir = ft_getenv(bundle, "HOME");

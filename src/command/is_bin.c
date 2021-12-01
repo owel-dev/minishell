@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_cmd.c                                        :+:      :+:    :+:   */
+/*   is_bin.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/28 18:40:16 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/01 16:53:35 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,6 @@ t_list *make_list(t_bundle *bundle)
 	while (temp->next && temp->next->token_type != PIPE)
 	{
 		temp = temp->next;
-		if (is_redir_token(temp))
-		{
-			redir_handler(bundle);
-			continue ;
-		}
 		token_content = ft_strdup(temp->content);
 		ft_lstadd_back(&list, ft_lstnew(token_content));
 	}

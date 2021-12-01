@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:54 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/29 03:08:30 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/01 16:53:42 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@ int ft_env(t_bundle *bundle)
 	while (bundle->token->next && bundle->token->token_type != PIPE)
 	{
 		bundle->token = bundle->token->next;
-		if (is_redir_token(bundle->token))
-		{
-			redir_handler(bundle);
-			continue ;
-		}
 	}
 	while (bundle->env[i])
 		printf("%s\n", (bundle->env)[i++]);

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/29 20:26:57 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/01 17:24:47 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_bundle
 	char		**env;
 	t_token		*pipe_token;
 	char		*input;
+	char		*error_msg;
 }				t_bundle;
 
 // main
@@ -100,7 +101,7 @@ int			parsing_env_str(char *str, int start);
 
 //fd_utils
 int			is_fdnum(char *str, int back);
-void	init_fd(void);
+void		init_fd(void);
 
 
 //lst_utils
@@ -135,15 +136,16 @@ int			is_bin(t_bundle *bundle);
 int			is_builtin(t_bundle *bundle);
 
 //redir_handler
-int			redir_handler(t_bundle *bundle);
+int			redir_handler(t_bundle *bundle, t_token *token);
 void		set_fd(t_token *token);
-int			redir_in(t_bundle *bundle);
-int			redir_out(t_bundle *bundle);
-int			d_redir_out(t_bundle *bundle);
-int	 		d_redir_in(t_bundle *bundle);
-int			read_here_document(t_bundle *bundle);
-void		get_readline(int fd[], t_bundle *bundle);
+int			redir_in(t_bundle *bundle, t_token *token);
+int			redir_out(t_bundle *bundle, t_token *token);
+int			d_redir_out(t_bundle *bundle, t_token *token);
+int	 		d_redir_in(t_bundle *bundle, t_token *token);
+int			read_here_document(t_bundle *bundle, t_token *token);
+void		get_readline(int fd[], t_token *t_token);
 void		check_env_token(t_token *token, t_bundle *bundle);
+int	set_redir_fd(t_bundle *bundle, t_token *token);
 
 //pipe_handler
 int	pipe_cmd(t_bundle *bundle);

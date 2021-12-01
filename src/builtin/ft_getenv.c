@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 03:54:58 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/28 21:09:42 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/11/29 21:44:32 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char *ft_getenv(t_bundle *bundle, char *key)
 	char *env_value;
 
 	i = 0;
+	if (key[1] == '?')
+		return (ft_itoa(g_status));
 	while (bundle->env[i])
 	{
 		equal = ft_strchr(bundle->env[i], '=');
