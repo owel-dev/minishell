@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/01 17:24:47 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/02 04:26:13 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int			is_quote(char str, int preval);
 int			check_vaild_str(char *str, int start);
 int			parsing_quote_str(char *str, int start, int quote);
 char		*ft_strndup(const char *s, int start);
-
+int	is_vaild_char(char c);
 //token_utils
 int			is_redir_token(t_token *token);
 int			is_io_token(t_token *token);
