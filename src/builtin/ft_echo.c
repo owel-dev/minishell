@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:54 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/01 16:54:09 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/02 04:37:02 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_echo(t_bundle *bundle)
 
 	n_option = 0;
 	buf_output = "";
-	while (bundle->token->next && bundle->token->token_type != PIPE) //전체적으로 env 치환 기능 추가
+	while (bundle->token->next && bundle->token->next->token_type != PIPE) //전체적으로 env 치환 기능 추가
 	{
 		bundle->token = bundle->token->next;
 		if (ft_strncmp(bundle->token->content, "-n", 2) == 0) //strncmp 수정

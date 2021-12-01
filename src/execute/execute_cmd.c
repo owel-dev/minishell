@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/01 19:37:12 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/02 04:29:57 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	execute_cmd(t_bundle *bundle)
 				continue ;
 		}
 		result = check_cmd(bundle);
+		bundle->token = bundle->token->next;
 		if (child_ps > 0)
 			child_exit(bundle, result);
 		if (child_ps == 0)
@@ -86,7 +87,7 @@ int	execute_cmd(t_bundle *bundle)
 			close(STDIN_FILENO);
 			dup2(0, STDIN_FILENO);
 		}
-		bundle->token = bundle->token->next;
+		init_fd();
 	}
 	return (result);
 }

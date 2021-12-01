@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/01 16:53:39 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/02 04:37:45 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_pwd(t_bundle *bundle)
 	char	*ret_pwd;
 	char	dir[1000];
 
-	while (bundle->token->next && bundle->token->token_type != PIPE)
+	while (bundle->token->next && bundle->token->next->token_type != PIPE)
 	{
 		bundle->token = bundle->token->next;
 	}
