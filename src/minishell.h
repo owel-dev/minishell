@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/02 04:26:13 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/02 16:51:52 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct s_bundle
 // main
 char		**start_sh(char **env, char *input);
 char		**dup_envp(char **envp);
-// void		loop(char **env);
+void		loop(char **env);
 
 char *ft_getenv(t_bundle *bundle, char *key);
 

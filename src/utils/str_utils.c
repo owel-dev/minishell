@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:36:12 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/02 04:23:06 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/02 19:28:24 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,5 @@ int	check_vaild_str(char *str, int start)
 int	is_vaild_char(char c)
 {
 	return (c == '|' || c == '<' || c == '>' || \
-	c == '$' || c == '\'' || c == '\"');
+	c == '$' || c == '\'' || c == '\"' || is_space(c));
 }
