@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/02 20:40:37 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/02 21:06:34 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,6 @@ t_list *make_list(t_bundle *bundle)
 	while (temp->next && temp->next->token_type != PIPE)
 	{
 		temp = temp->next;
-		if (is_redir_token(temp))
-		{
-			redir_handler(bundle);
-			continue ;
-		}
 		token_content = ft_strdup(temp->content);
 		ft_lstadd_back(&list, ft_lstnew(token_content));
 	}

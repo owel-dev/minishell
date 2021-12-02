@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:40:42 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/29 21:01:41 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/02 19:29:02 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*join_env_str(char *content, char *env, int start, int end)
 	char	*pre;
 	char	*new_content;
 
-	if ((start - 2) > 0)
+	if ((start - 1) > 0)
 		pre = ft_substr(content, 0, start - 1);
 	else
 		pre = "";
@@ -49,10 +49,10 @@ void	check_env_token(t_token *token, t_bundle *bundle)
 	start = 1;
 	while (token->content[start])
 	{
-		if (token->content[start - 1] == '$' && !is_space(token->content[start]))
+		if (token->content[start - 1] == '$' && !is_vaild_char(token->content[start]))
 		{
 			end = start;
-			while (token->content[end] && !is_space(token->content[end]))
+			while (token->content[end] && !is_vaild_char(token->content[end]))
 				end++;
 			temp = ft_substr(token->content, start, end - start);
 			env = ft_getenv(bundle, temp);

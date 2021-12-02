@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 16:23:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/26 01:50:55 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/01 19:37:05 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	is_fdnum(char *str, int back)
 void	init_fd(void)
 {
 	close(STDIN_FILENO);
-	close(STDIN_FILENO);
-	// dup2(STDIN_FILENO, 0);
-	// dup2(STDOUT_FILENO, 1);
+	close(STDOUT_FILENO);
+	dup2(0, STDIN_FILENO);
+	dup2(1, STDOUT_FILENO);
 }

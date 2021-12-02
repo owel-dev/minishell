@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/02 20:23:49 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/02 21:06:43 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,20 @@ char **start_sh(char **env, char *input)
 	t_bundle	*bundles;
 	int			i;
 	int			result;
+	char		**return_env;
 
-	if (is_space_str(input)) // check space input
+	if (is_space_str(input))
 		return (NULL);
-	bundles = split_bundle(env, input); //별개의 명령어별 bundle 생성 및 우선순위 setting
-	if (parsing_token(bundles) == FAIL) // bundle 별 cmd 연결리스트 parsing
+	bundles = split_bundle(env, input);
+	if (parsing_token(bundles) == FAIL)
 	{
 		free_bundle(bundles);
 		return (NULL);
 	}
 	i = 0;
-	while (bundles[i].cmd_line) // 우선순위체크 및 cmd 실행
+	while (bundles[i].cmd_line)
 	{
 		result = execute_cmd(&bundles[i]);
-		// if (result < 0)
-		// 	child_exit(bundles, 1);
 		i++;
 		if (bundles[i].cmd_line != NULL &&
 		(result == SUCCESS && bundles[i].priority == P_OR) \
@@ -40,7 +39,9 @@ char **start_sh(char **env, char *input)
 			i++;
 		}
 	}
-	return (bundles->env);
+	return_env = bundles->env;
+	free_bundle(bundles);
+	return (return_env);
 }
 
 char	**dup_envp(char **envp)
@@ -104,13 +105,13 @@ void sig_handler(int signum)
 
 }
 
-void	loop(char **env, char **av)
+void	loop(char **env)
 {
 	char	*input;
 	char	**dup_env;
+
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
-
 	dup_env = dup_envp(env);
 	while(TRUE)
 	{
@@ -136,7 +137,6 @@ int main(int argc, char **av, char **envp)
 
 	g_status = 0;
 	dup_env = dup_envp(envp);
-	dup_av = dup_envp(av);
-	loop(dup_env, dup_av);
+	loop(dup_env);
 	return 0;
 }
