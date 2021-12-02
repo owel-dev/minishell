@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/02 05:23:20 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/02 05:25:02 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	check_cmd(t_bundle *bundle)
 		result = is_bin(bundle);
 	return (result);
 }
+
 void	handle_ps(int child_ps, t_bundle *bundle, int result)
 {
 	if (child_ps > 0)

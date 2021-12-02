@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:37:09 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/29 03:36:26 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/02 05:26:48 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,11 @@ int	set_token_type(int token_type, t_bundle *bnde, int i)
 		i = parsing_env_str(bnde->cmd_line, i); // env 토큰 문자열 길이 체크
 	if (token_type == STATUS)
 		return (i + 1);
-	else if ((token_type == REDIR_IN || token_type == REDIR_OUT))
+	else if (token_type == REDIR_IN || token_type == REDIR_OUT || \
+	token_type == D_REDIR_IN || token_type == D_REDIR_OUT)
 	{
-		if (bnde->token == NULL)
-			return (i);
-		tokenlst_last(bnde->token)->redir = token_type;
-	}
-	else if (token_type == D_REDIR_IN || token_type == D_REDIR_OUT)
-	{
-		i++;
+		if (token_type == D_REDIR_IN || token_type == D_REDIR_OUT)
+			i++;
 		if (bnde->token == NULL)
 			return (i);
 		tokenlst_last(bnde->token)->redir = token_type;
