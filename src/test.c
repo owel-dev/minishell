@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/24 20:03:31 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/01 14:56:13 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	loop(char **env, char **av)
 
 int main(int argc, char **av, char **envp)
 {
-	while (1){}
+	// while (1){}
 	char **dup_env;
 	char **dup_av;
 	dup_env = dup_envp(envp);

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_cmd.c                                        :+:      :+:    :+:   */
+/*   is_bin.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/28 18:40:16 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/02 20:40:37 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int other_cmd(t_bundle *bundle, char *env_path, char *cmd, char **arr)
+int other_cmd(t_bundle *bundle, char *env_path, char *cmd, char **arr, int last_flag)
 {
 	int pid;
 	char *full_path;
@@ -27,13 +27,23 @@ int other_cmd(t_bundle *bundle, char *env_path, char *cmd, char **arr)
 	if (pid == 0)
 	{
 		exec_status = execve(full_path, arr, bundle->env);
-		// printf("%s\n", strerror(errno));
+		if (last_flag == 1)
+			printf("bash: %s: command not found\n", cmd);
 		exit(1);
 	}
 	waitpid(pid, &status, 0);
+	// printf("print status: %d\n", status);
+	if (status == 0)
+		return (SUCCESS);
 	if (status == 256)
-		return (FAIL);
-	return (SUCCESS);
+		g_status = 127;
+	else if (status == 2)
+		g_status = 130;
+	else if (status == 3)
+		g_status = 131;
+	else
+		g_status = 0;
+	return (FAIL);
 }
 
 int exec_cmd(t_bundle *bundle, char *cmd, char **arr)

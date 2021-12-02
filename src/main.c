@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/29 03:39:49 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/02 20:23:49 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,43 @@ char	**dup_envp(char **envp)
 
 void sig_handler(int signum)
 {
+	int pid;
+	int status;
+	pid = waitpid(-1, &status, WNOHANG);
+	// printf("pid: %d, signum: %d\n", pid, signum);
 	if (signum == SIGINT)
 	{
-		rl_on_new_line();
+		if (pid == -1)
+		{
+			rl_on_new_line();
+			rl_redisplay();
+			printf("%c[K\n", 27);
+			rl_replace_line("", 0);
+			rl_on_new_line();
+			rl_redisplay();
+			g_status = 1;
+		}
+		else
+		{
+			g_status = 130;
+			write(1, "\n", 1);
+		}
+	}
+	else if (signum == SIGQUIT && pid != -1)
+	{
+		write(1, "Quit: 3\n", 8);
+		g_status = 131;
+	}
+	else
+	{
 		rl_redisplay();
-		printf("%c[K\n", 27);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		g_status = 130;
+		printf("%c[K", 27);
+		rl_replace_line("", 0);
 	}
-	else if (signum == SIGQUIT)
-	{
-		printf("Quit: 3           ");
-		rl_replace_line("                  ", 0);
-		rl_redisplay();
-		g_status = 131;
-		printf("%c\n", 27);
-	}
+
 }
 
 void	loop(char **env, char **av)
@@ -96,6 +115,11 @@ void	loop(char **env, char **av)
 	while(TRUE)
 	{
 		input = readline("minishell$ ");
+		if (input == NULL)
+		{
+			printf("logout\n");
+			exit(0);
+		}
 		add_history(input);
 		dup_env = start_sh(env, input);
 		free(input);

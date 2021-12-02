@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/28 18:40:16 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/02 20:14:24 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int is_bin(t_bundle *bundle)
 	char *cmd;
 	int i;
 	int status;
+	int path_len;
 
 	arr = make_arr(make_list(bundle));
 	cmd = ft_strdup(bundle->token->content);
@@ -31,9 +32,13 @@ int is_bin(t_bundle *bundle)
 		path_env = ft_getenv(bundle, "PATH");
 		paths = ft_split(path_env, ':');
 		i = 0;
+		path_len = ft_arrlen(paths);
 		while (paths[i])
 		{
-			status = other_cmd(bundle, paths[i++], cmd, arr);
+			if (i == path_len - 1)
+				status = other_cmd(bundle, paths[i++], cmd, arr, 1);
+			else
+				status = other_cmd(bundle, paths[i++], cmd, arr, 0);
 			if (status == SUCCESS)
 				return (SUCCESS);
 		}
@@ -57,7 +62,7 @@ int is_builtin(t_bundle *bundle)
 			return (ft_unset(bundle));
 		else if (ft_strcmp(bundle->token->content, "echo") == 0)
 			return (ft_echo(bundle));
-		else if (ft_strcmp(bundle->token->content, "exit") == 0)
+		else if (ft_strcmp(bundle->token->content, "exit") == 0 && bundle->token == bundle->head)
 			return (ft_exit(bundle));
 	}
 	return (FAIL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/29 20:26:57 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/01 15:21:36 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,9 +161,10 @@ int			ft_pwd(t_bundle *bundle);
 char		*ft_getenv(t_bundle *bundle, char *key);
 int			ft_unset(t_bundle *bundle);
 int			ft_echo(t_bundle *bundle);
+int			ft_exit(t_bundle *bundle);\
 
 //bin
-int			other_cmd(t_bundle *bundle, char *env_path, char *cmd, char **arr);
+int			other_cmd(t_bundle *bundle, char *env_path, char *cmd, char **arr, int last_flag);
 int			exec_cmd(t_bundle *bundle, char *cmd, char **arr);
 t_list		*make_list(t_bundle *bundle);
 char		**make_arr(t_list *list);

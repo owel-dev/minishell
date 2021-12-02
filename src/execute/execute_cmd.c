@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/29 21:03:25 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/02 20:17:15 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	check_cmd(t_bundle *bundle)
 	result = is_builtin(bundle);
 	if (result != SUCCESS)
 		result = is_bin(bundle);
+	else
+		g_status = 0;
 	return (result);
 }
 

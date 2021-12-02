@@ -3,7 +3,7 @@ CC = gcc -g
 # CFLAGS = -Wall -Wextra -Werror -lreadline -L /usr/local/opt/readline/lib -I/usr/local/opt/readline/include
 # INCS = -I./src/libft -I./ -I/usr/local/opt/readline/include
 
-CFLAGS = -Wall -Wextra -Werror -lreadline -L /Users/ulee/Downloads/readline/lib -I/Users/ulee/Downloads/readline/include
+CFLAGS = -Wall -Wextra -Werror -lreadline -L /Users/ulee/Downloads/readline/lib
 INCS = -I./src/libft -I./ -I/Users/ulee/Downloads/readline/include
 
 LIBFT = -L./src/libft -lft
@@ -17,6 +17,7 @@ FILE =	main \
 		builtin/ft_getenv \
 		builtin/ft_pwd \
 		builtin/ft_unset \
+		builtin/ft_exit \
 		command/is_bin \
 		execute/check_cmd \
 		execute/execute_cmd \
@@ -43,6 +44,7 @@ FILE_T =	test \
 			builtin/ft_getenv \
 			builtin/ft_pwd \
 			builtin/ft_unset \
+			builtin/ft_exit \
 			command/is_bin \
 			execute/check_cmd \
 			execute/execute_cmd \
