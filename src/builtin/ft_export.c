@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:36 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/01 16:53:29 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/03 17:48:50 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ int	ft_export(t_bundle *bundle)
 	char	**content_split;
 	char	*value;
 	int		result;
-
 	if (bundle->token->next == NULL)
 	{
 		print_env(bundle);
 		return (SUCCESS);
 	}
+	result = SUCCESS;
 	while (bundle->token->next && bundle->token->next->token_type != PIPE)
 	{
 		bundle->token = bundle->token->next;

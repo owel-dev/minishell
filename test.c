@@ -11,15 +11,24 @@ int main()
 	// printf("hello");
 
 	int status;
-	int pid = fork();
-	signal(SIGCHLD, print);
+	int pid ;
+	int i = 0;
 
-	if (pid == 0)
-	{
-		// while(1){}
-	}
-	waitpid(pid, &status, 0);
-	printf("\n%d\n", status);
+	// while (i < 100)
+	// {
+		pid = fork();
+
+		if (pid == 0)
+		{
+			exit(255);
+		}
+		waitpid(pid, &status, 0);
+	// 	// printf("\n%d\n", 256 << 1);
+	// 	printf("\n%d = %d\n", i, status);
+	// 	printf("%d\n", i << 8);
+	// 	i++;
+	// }
+	printf("%s", strerror(status));
 }
 
 

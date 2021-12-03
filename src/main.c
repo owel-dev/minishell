@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/02 21:06:43 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/03 16:24:21 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void sig_handler(int signum)
 
 }
 
-void	loop(char **env)
+void	loop(char **env, char **av)
 {
 	char	*input;
 	char	**dup_env;
@@ -137,6 +137,7 @@ int main(int argc, char **av, char **envp)
 
 	g_status = 0;
 	dup_env = dup_envp(envp);
-	loop(dup_env);
+	dup_av = dup_envp(av);
+	loop(dup_env, av);
 	return 0;
 }

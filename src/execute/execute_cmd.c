@@ -6,23 +6,11 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/02 21:06:37 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/03 17:21:30 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	check_cmd(t_bundle *bundle)
-{
-	int	result;
-
-	result = is_builtin(bundle);
-	if (result != SUCCESS)
-		result = is_bin(bundle);
-	else
-		g_status = 0;
-	return (result);
-}
 
 void	handle_ps(int child_ps, t_bundle *bundle, int result)
 {
@@ -66,5 +54,7 @@ int	execute_cmd(t_bundle *bundle)
 	}
 	wait(&status);
 	result = status;
+	if (result == EXIT_7)
+		exit(0);
 	return (result);
 }

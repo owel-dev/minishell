@@ -6,45 +6,11 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/02 20:14:24 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/03 17:47:21 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int is_bin(t_bundle *bundle)
-{
-	char **arr;
-	char *path_env;
-	char **paths;
-	char *cmd;
-	int i;
-	int status;
-	int path_len;
-
-	arr = make_arr(make_list(bundle));
-	cmd = ft_strdup(bundle->token->content);
-
-	if (ft_strchr(cmd, '/'))
-		return (exec_cmd(bundle, cmd, arr));
-	else
-	{
-		path_env = ft_getenv(bundle, "PATH");
-		paths = ft_split(path_env, ':');
-		i = 0;
-		path_len = ft_arrlen(paths);
-		while (paths[i])
-		{
-			if (i == path_len - 1)
-				status = other_cmd(bundle, paths[i++], cmd, arr, 1);
-			else
-				status = other_cmd(bundle, paths[i++], cmd, arr, 0);
-			if (status == SUCCESS)
-				return (SUCCESS);
-		}
-		return (FAIL);
-	}
-}
 
 int is_builtin(t_bundle *bundle)
 {
@@ -62,8 +28,26 @@ int is_builtin(t_bundle *bundle)
 			return (ft_unset(bundle));
 		else if (ft_strcmp(bundle->token->content, "echo") == 0)
 			return (ft_echo(bundle));
-		else if (ft_strcmp(bundle->token->content, "exit") == 0 && bundle->token == bundle->head)
-			return (ft_exit(bundle));
+		else if (ft_strcmp(bundle->token->content, "exit") == 0)
+		{
+			if (bundle->token == bundle->head)
+				return (ft_exit(bundle));
+			return (SUCCESS);
+		}
 	}
 	return (FAIL);
+}
+
+int	check_cmd(t_bundle *bundle)
+{
+	int	result;
+
+	result = is_builtin(bundle);
+	if (result == EXIT_7)
+		return (EXIT_7);
+	if (result != SUCCESS)
+		result = is_bin(bundle);
+	else
+		g_status = 0;
+	return (result);
 }

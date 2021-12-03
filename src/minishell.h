@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/02 21:06:46 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/03 17:29:34 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@
 # define P_AND 2
 # define SUCCESS 0
 # define FAIL 1
+# define EXIT_1 1 << 8
+# define EXIT_2 2 << 8
+# define EXIT_3 3 << 8
+# define EXIT_4 4 << 8
+# define EXIT_5 5 << 8
+# define EXIT_6 6 << 8
+# define EXIT_7 7 << 8
 
 typedef struct s_token
 {
@@ -76,12 +83,13 @@ typedef struct s_bundle
 // main
 char		**start_sh(char **env, char *input);
 char		**dup_envp(char **envp);
-void		loop(char **env);
+void		loop(char **env, char **av);
 
 char *ft_getenv(t_bundle *bundle, char *key);
 
 //execute
 int			execute_cmd(t_bundle *bundle);
+int			check_cmd(t_bundle *bundle);
 
 //parsing_bundle
 int			set_bundle_line(t_bundle *bundle, int word_len);

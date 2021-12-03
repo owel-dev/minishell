@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/02 21:06:34 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/03 17:07:43 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,38 @@ char **make_arr(t_list *list)
 	}
 	ft_lstclear(&list);
 	return (ret);
+}
+
+int is_bin(t_bundle *bundle)
+{
+	char **arr;
+	char *path_env;
+	char **paths;
+	char *cmd;
+	int i;
+	int status;
+	int path_len;
+
+	arr = make_arr(make_list(bundle));
+	cmd = ft_strdup(bundle->token->content);
+
+	if (ft_strchr(cmd, '/'))
+		return (exec_cmd(bundle, cmd, arr));
+	else
+	{
+		path_env = ft_getenv(bundle, "PATH");
+		paths = ft_split(path_env, ':');
+		i = 0;
+		path_len = ft_arrlen(paths);
+		while (paths[i])
+		{
+			if (i == path_len - 1)
+				status = other_cmd(bundle, paths[i++], cmd, arr, 1);
+			else
+				status = other_cmd(bundle, paths[i++], cmd, arr, 0);
+			if (status == SUCCESS)
+				return (SUCCESS);
+		}
+		return (FAIL);
+	}
 }
