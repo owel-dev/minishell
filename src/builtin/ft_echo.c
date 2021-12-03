@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:54 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/02 04:37:02 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/03 20:28:02 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,17 @@ char *append_buf(t_bundle *bundle, char *buf)
 	return (ret);
 }
 
+int find_another(char *content, char *another)
+{
+	while (*content)
+	{
+		if (!ft_strchr(another, *content))
+			return (1);
+		content++;
+	}
+	return (0);
+}
+
 int	ft_echo(t_bundle *bundle)
 {
 	int n_option;
@@ -38,7 +49,8 @@ int	ft_echo(t_bundle *bundle)
 	while (bundle->token->next && bundle->token->next->token_type != PIPE) //전체적으로 env 치환 기능 추가
 	{
 		bundle->token = bundle->token->next;
-		if (ft_strncmp(bundle->token->content, "-n", 2) == 0) //strncmp 수정
+		if (!ft_strncmp(bundle->token->content, "-n", 2)&& \
+			!find_another(bundle->token->content, "-ne"))
 		{
 			n_option = 1;
 			continue ;
