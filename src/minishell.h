@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/03 17:29:34 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/03 19:52:47 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,9 @@ int			other_cmd(t_bundle *bundle, char *env_path, char *cmd, char **arr, int las
 int			exec_cmd(t_bundle *bundle, char *cmd, char **arr);
 t_list		*make_list(t_bundle *bundle);
 char		**make_arr(t_list *list);
+
+void sig_handler(int signum);
+
 
 
 int g_status;

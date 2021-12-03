@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/03 18:49:01 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/03 19:56:49 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,37 +70,34 @@ void sig_handler(int signum)
 	int status;
 	pid = waitpid(-1, &status, WNOHANG);
 	// printf("pid: %d, signum: %d\n", pid, signum);
-	if (signum == SIGINT)
+	if (signum == SIGQUIT && pid != -1)
+	{
+		printf("Quit: 3\n");
+		g_status = 131;
+	}
+	else if (signum == SIGINT)
 	{
 		if (pid == -1)
 		{
 			rl_on_new_line();
 			rl_redisplay();
 			printf("%c[K\n", 27);
-			rl_replace_line("", 0);
 			rl_on_new_line();
+			rl_replace_line("", 0);
 			rl_redisplay();
 			g_status = 1;
 		}
 		else
 		{
-			g_status = 130;
 			write(1, "\n", 1);
+			g_status = 130;
 		}
 	}
-	else if (signum == SIGQUIT && pid != -1)
+	else if (signum == SIGQUIT)
 	{
-		write(1, "Quit: 3\n", 8);
-		g_status = 131;
-	}
-	else
-	{
-		rl_redisplay();
-		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 		printf("%c[K", 27);
-		rl_replace_line("", 0);
 	}
 
 }

@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/03 18:50:37 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/03 19:55:06 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	execute_cmd(t_bundle *bundle)
 		return (result);
 	if (child_ps == 0)
 	{
+		signal(SIGINT, NULL);
+		signal(SIGQUIT, NULL);
 		while (bundle->token)
 		{
 			if (bundle->token->pipe == PIPE)
