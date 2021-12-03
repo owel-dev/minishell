@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/03 17:47:21 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/03 18:47:43 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,5 @@ int	check_cmd(t_bundle *bundle)
 		return (EXIT_7);
 	if (result != SUCCESS)
 		result = is_bin(bundle);
-	else
-		g_status = 0;
 	return (result);
 }

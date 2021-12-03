@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/03 17:21:30 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/03 18:50:37 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,14 @@ int	execute_cmd(t_bundle *bundle)
 	}
 	wait(&status);
 	result = status;
+	if (result == 0)
+		g_status = 0;
 	if (result == EXIT_7)
 		exit(0);
+	if (result != SUCCESS && result != FAIL)
+	{
+		g_status = result >> 8;
+		result = SUCCESS;
+	}
 	return (result);
 }
