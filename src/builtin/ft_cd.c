@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:39:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/02 04:37:23 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/04 17:57:00 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int  ft_cd(t_bundle *bundle)
 	ret_chdir = chdir(dir);
 	if (ret_chdir == -1)
 	{
-		print_error(strerror(errno));
+		printf("bash: cd: %s: %s\n", dir, strerror(errno));
+		bundle->token = bundle->token->next;
 		return (FAIL);
 	}
 	return (SUCCESS);

@@ -1,0 +1,8 @@
+Makefile
+README.md
+minishell
+minishell-tester
+src
+test.c
+test_dir
+testttt.txt

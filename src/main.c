@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/04 03:36:03 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/04 19:08:17 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char **start_sh(char **env, char *input)
 		i++;
 		if (bundles[i].cmd_line != NULL &&
 		(result == SUCCESS && bundles[i].priority == P_OR) \
-		|| (result == FAIL && bundles[i].priority == P_AND))
+			|| (result == FAIL && bundles[i].priority == P_AND))
 		{
 			i++;
 		}
@@ -95,17 +95,13 @@ void sig_handler(int signum)
 	}
 	else
 	{
-		rl_redisplay();
-		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 		printf("%c[K", 27);
-		rl_replace_line("", 0);
 	}
-
 }
 
-void	loop(char **env)
+void	loop(char **env, char **av)
 {
 	char	*input;
 
@@ -133,6 +129,7 @@ int main(int argc, char **av, char **envp)
 
 	g_status = 0;
 	dup_env = dup_envp(envp);
-	loop(dup_env);
+	dup_av = dup_envp(av);
+	loop(dup_env, dup_av);
 	return 0;
 }

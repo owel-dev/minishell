@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_bin.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/04 04:05:42 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/04 19:13:34 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,15 @@ t_list *make_list(t_bundle *bundle)
 {
 	char *token_content;
 	t_list *list;
-	t_token *temp;
+	// t_token *temp;
 
 	list = NULL;
-	temp = bundle->token;
-	while (temp->next && temp->next->token_type != PIPE)
+	// temp = bundle->token;
+	while (bundle->token->next && bundle->token->next->token_type != PIPE)
 	{
-		temp = temp->next;
-		token_content = ft_strdup(temp->content);
+		// temp = temp->next;
+		bundle->token = bundle->token->next;
+		token_content = ft_strdup(bundle->token->content);
 		ft_lstadd_back(&list, ft_lstnew(token_content));
 	}
 	return (list);
@@ -114,8 +115,10 @@ int is_bin(t_bundle *bundle)
 	int status;
 	int path_len;
 
-	arr = make_arr(make_list(bundle));
+	if (bundle->token == NULL)
+		return (FAIL);
 	cmd = ft_strdup(bundle->token->content);
+	arr = make_arr(make_list(bundle));
 
 	if (ft_strchr(cmd, '/'))
 		return (exec_cmd(bundle, cmd, arr));
@@ -132,13 +135,22 @@ int is_bin(t_bundle *bundle)
 			else
 				status = other_cmd(bundle, paths[i++], cmd, arr, 0);
 			if (status == SUCCESS)
+			{
+				g_status = 0;
 				return (SUCCESS);
-			if (status == 256)
-				return (127);
+			}
+			// if (status == 256)
+			// 	g_status = 0;
 			else if (status == 2)
-				return (130);
+			{
+				g_status = 130;
+				return (SUCCESS);
+			}
 			else if (status == 3)
-				return (131);
+			{
+				g_status = 131;
+				return (SUCCESS);
+			}
 		}
 		return (FAIL);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/04 13:23:05 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/04 19:14:13 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int	execute_pipe_cmd(t_bundle *bundle)
 	pid_t	child_ps;
 	int		status;
 
-	signal(SIGINT, NULL);
-	signal(SIGQUIT, NULL);
 	while (bundle->token)
 	{
 		if (bundle->token->pipe == PIPE)
@@ -86,17 +84,9 @@ int	execute_cmd(t_bundle *bundle)
 	{
 		result = set_redir_fd(bundle, bundle->token);
 		result = check_cmd(bundle);
-		bundle->token = bundle->token->next;
+		if (bundle->token != NULL)
+			bundle->token = bundle->token->next;
 	}
 	reset_fd(bundle);
-	if (result == 0)
-		g_status = 0;
-	if (result == EXIT_7)
-		exit(0);
-	if (result != SUCCESS && result != FAIL)
-	{
-		g_status = result >> 8;
-		result = SUCCESS;
-	}
 	return (result);
 }
