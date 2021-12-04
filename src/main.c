@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/03 19:56:49 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/04 03:36:03 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char **start_sh(char **env, char *input)
 			i++;
 		}
 	}
-	return_env = bundles->env;
+	return_env = dup_envp(bundles->env);
 	free_bundle(bundles);
 	return (return_env);
 }
@@ -70,46 +70,47 @@ void sig_handler(int signum)
 	int status;
 	pid = waitpid(-1, &status, WNOHANG);
 	// printf("pid: %d, signum: %d\n", pid, signum);
-	if (signum == SIGQUIT && pid != -1)
-	{
-		printf("Quit: 3\n");
-		g_status = 131;
-	}
-	else if (signum == SIGINT)
+	if (signum == SIGINT)
 	{
 		if (pid == -1)
 		{
 			rl_on_new_line();
 			rl_redisplay();
 			printf("%c[K\n", 27);
-			rl_on_new_line();
 			rl_replace_line("", 0);
+			rl_on_new_line();
 			rl_redisplay();
 			g_status = 1;
 		}
 		else
 		{
-			write(1, "\n", 1);
 			g_status = 130;
+			write(1, "\n", 1);
 		}
 	}
-	else if (signum == SIGQUIT)
+	else if (signum == SIGQUIT && pid != -1)
 	{
+		write(1, "Quit: 3\n", 8);
+		g_status = 131;
+	}
+	else
+	{
+		rl_redisplay();
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 		printf("%c[K", 27);
+		rl_replace_line("", 0);
 	}
 
 }
 
-void	loop(char **env, char **av)
+void	loop(char **env)
 {
 	char	*input;
-	char	**dup_env;
 
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
-	dup_env = dup_envp(env);
 	while(TRUE)
 	{
 		input = readline("minishell$ ");
@@ -119,10 +120,8 @@ void	loop(char **env, char **av)
 			exit(0);
 		}
 		add_history(input);
-		dup_env = start_sh(env, input);
+		env = start_sh(env, input);
 		free(input);
-		if (env == NULL)
-			env = dup_env;
 	}
 	free(env);
 }
@@ -134,7 +133,6 @@ int main(int argc, char **av, char **envp)
 
 	g_status = 0;
 	dup_env = dup_envp(envp);
-	dup_av = dup_envp(av);
-	loop(dup_env, av);
+	loop(dup_env);
 	return 0;
 }

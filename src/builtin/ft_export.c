@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:36 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/03 17:48:50 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/04 04:09:16 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	ft_export(t_bundle *bundle)
 	char	**content_split;
 	char	*value;
 	int		result;
+
 	if (bundle->token->next == NULL)
 	{
 		print_env(bundle);
@@ -107,5 +108,6 @@ int	ft_export(t_bundle *bundle)
 			result = append_env(bundle, bundle->token);
 		all_free(content_split);
 	}
+	int i = 0;
 	return (result);
 }
