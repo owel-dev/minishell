@@ -28,7 +28,7 @@ int main()
 	// 	printf("%d\n", i << 8);
 	// 	i++;
 	// }
-	printf("%s", strerror(status));
+	printf("hello\n");
 }
 
 

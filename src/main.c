@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/04 19:08:17 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/05 17:41:19 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,19 @@ void sig_handler(int signum)
 	}
 }
 
+int ft_isallblank(char *str)
+{
+	if (!ft_strcmp(str, ""))
+		return (1);
+	while (*str)
+	{
+		if (!is_space(*str))
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
 void	loop(char **env, char **av)
 {
 	char	*input;
@@ -114,6 +127,11 @@ void	loop(char **env, char **av)
 		{
 			printf("logout\n");
 			exit(0);
+		}
+		if (ft_isallblank(input))
+		{
+			free(input);
+			continue;
 		}
 		add_history(input);
 		env = start_sh(env, input);

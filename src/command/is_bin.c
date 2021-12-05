@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/04 19:13:34 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/05 17:22:49 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int other_cmd(t_bundle *bundle, char *env_path, char *cmd, char **arr, int last_
 		// printf("%d\n", status);
 		return (status);
 	}
+	if (last_flag && status == 256)
+		return (status);
 	return (FAIL);
 }
 
@@ -139,14 +141,17 @@ int is_bin(t_bundle *bundle)
 				g_status = 0;
 				return (SUCCESS);
 			}
-			// if (status == 256)
-			// 	g_status = 0;
-			else if (status == 2)
+			if (status == 256)
+			{
+				g_status = 127;
+				return (FAIL);
+			}
+			if (status == 2)
 			{
 				g_status = 130;
 				return (SUCCESS);
 			}
-			else if (status == 3)
+			if (status == 3)
 			{
 				g_status = 131;
 				return (SUCCESS);
