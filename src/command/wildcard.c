@@ -102,7 +102,6 @@ t_list *get_list_wildcard(char *token_content)
 	t_list *checks;
 	t_list *ret;
 
-	chdir("/Users/ulee/minishell");
 	files = get_list_file();
 	checks = get_list_check(token_content);
 	ret = get_list_needfile(files, checks);
