@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/05 17:41:19 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/06 16:10:49 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ char **start_sh(char **env, char *input)
 	{
 		result = execute_cmd(&bundles[i]);
 		i++;
-		if (bundles[i].cmd_line != NULL &&
-		(result == SUCCESS && bundles[i].priority == P_OR) \
+		if (bundles[i].cmd_line != NULL && \
+			(result == SUCCESS && bundles[i].priority == P_OR) \
 			|| (result == FAIL && bundles[i].priority == P_AND))
 		{
 			i++;

@@ -19,6 +19,7 @@ FILE =	main \
 		builtin/ft_unset \
 		builtin/ft_exit \
 		command/is_bin \
+		command/wildcard \
 		execute/check_cmd \
 		execute/execute_cmd \
 		exit/free_exit \
@@ -46,6 +47,7 @@ FILE_T =	test \
 			builtin/ft_unset \
 			builtin/ft_exit \
 			command/is_bin \
+			command/wildcard \
 			execute/check_cmd \
 			execute/execute_cmd \
 			exit/free_exit \

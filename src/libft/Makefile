@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+         #
+#    By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/17 14:49:10 by ulee              #+#    #+#              #
-#    Updated: 2021/11/24 18:08:30 by ulee             ###   ########.fr        #
+#    Updated: 2021/12/07 14:47:16 by ulee             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ FILES = ft_memset \
 		ft_tolower \
 		ft_calloc \
 		ft_strdup \
+		ft_strendstr \
 		ft_substr \
 		ft_strjoin \
 		ft_strtrim \

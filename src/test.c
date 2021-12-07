@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/03 16:23:49 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/05 18:37:59 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,31 @@ char **start_sh(char **env, char *input)
 	t_bundle	*bundles;
 	int			i;
 	int			result;
+	char		**return_env;
 
-	if (is_space_str(input)) // check space input
+	if (is_space_str(input))
 		return (NULL);
-	bundles = split_bundle(env, input); //별개의 명령어별 bundle 생성 및 우선순위 setting
-	if (parsing_token(bundles) == FAIL) // bundle 별 cmd 연결리스트 parsing
+	bundles = split_bundle(env, input);
+	if (parsing_token(bundles) == FAIL)
 	{
 		free_bundle(bundles);
 		return (NULL);
 	}
 	i = 0;
-	while (bundles[i].cmd_line) // 우선순위체크 및 cmd 실행
+	while (bundles[i].cmd_line)
 	{
 		result = execute_cmd(&bundles[i]);
-		// if (result < 0)
-		// 	child_exit(bundles, 1);
-		if ((result == SUCCESS && bundles[i].priority == P_OR) \
-		|| (result == FAIL && bundles[i].priority == P_AND))
+		i++;
+		if (bundles[i].cmd_line != NULL &&
+		(result == SUCCESS && bundles[i].priority == P_OR) \
+			|| (result == FAIL && bundles[i].priority == P_AND))
 		{
 			i++;
 		}
-		i++;
 	}
-	return (bundles->env);
+	return_env = dup_envp(bundles->env);
+	free_bundle(bundles);
+	return (return_env);
 }
 
 char	**dup_envp(char **envp)
@@ -62,54 +64,92 @@ char	**dup_envp(char **envp)
 	return (env);
 }
 
-// void sig_handler(int signum)
-// {
-// 	if (signum == SIGINT)
-// 	{
-// 		rl_on_new_line();
-// 		rl_redisplay();
-// 		printf("%c[K\n", 27);
-// 		rl_replace_line("", 0);
-// 		rl_on_new_line();
-// 		rl_redisplay();
-// 	}
-// 	else if (signum == SIGQUIT)
-// 	{
-// 		printf("zsh: quit           %s", "a.out");
-// 		rl_replace_line("               ", 0);
-// 		rl_redisplay();
-// 		printf("%c\n", 27);
-// 		exit(0);
-// 	}
-// }
+void sig_handler(int signum)
+{
+	int pid;
+	int status;
+	pid = waitpid(-1, &status, WNOHANG);
+	// printf("pid: %d, signum: %d\n", pid, signum);
+	if (signum == SIGINT)
+	{
+		if (pid == -1)
+		{
+			rl_on_new_line();
+			rl_redisplay();
+			printf("%c[K\n", 27);
+			rl_replace_line("", 0);
+			rl_on_new_line();
+			rl_redisplay();
+			g_status = 1;
+		}
+		else
+		{
+			g_status = 130;
+			write(1, "\n", 1);
+		}
+	}
+	else if (signum == SIGQUIT && pid != -1)
+	{
+		write(1, "Quit: 3\n", 8);
+		g_status = 131;
+	}
+	else
+	{
+		rl_on_new_line();
+		rl_redisplay();
+		printf("%c[K", 27);
+	}
+}
+
+int ft_isallblank(char *str)
+{
+	if (!ft_strcmp(str, ""))
+		return (1);
+	while (*str)
+	{
+		if (!is_space(*str))
+			return (0);
+		str++;
+	}
+	return (1);
+}
 
 void	loop(char **env, char **av)
 {
 	char	*input;
-	int		i;
 
-	// signal(SIGINT, sig_handler);
-	// signal(SIGQUIT, sig_handler);
-	i = 1;
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, sig_handler);
+	int i = 1;
 	while(av[i])
 	{
-		// input = readline("minishell$ ");
-		// add_history(input);
-		env = start_sh(env, av[i]);
-		if (env == NULL) // 이 부분 어떻게?
-			return ;
+		input = av[i];
+		if (input == NULL)
+		{
+			printf("logout\n");
+			exit(0);
+		}
+		if (ft_isallblank(input))
+		{
+			free(input);
+			continue;
+		}
+		add_history(input);
+		env = start_sh(env, input);
+		free(input);
 		i++;
 	}
+	free(env);
 }
 
 int main(int argc, char **av, char **envp)
 {
-	// while (1){}
 	char **dup_env;
 	char **dup_av;
+
+	g_status = 0;
 	dup_env = dup_envp(envp);
 	dup_av = dup_envp(av);
-
 	loop(dup_env, dup_av);
 	return 0;
 }

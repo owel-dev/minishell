@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/05 17:22:49 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/07 18:24:29 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,16 @@ t_list *make_list(t_bundle *bundle)
 {
 	char *token_content;
 	t_list *list;
-	// t_token *temp;
 
 	list = NULL;
-	// temp = bundle->token;
 	while (bundle->token->next && bundle->token->next->token_type != PIPE)
 	{
-		// temp = temp->next;
 		bundle->token = bundle->token->next;
 		token_content = ft_strdup(bundle->token->content);
-		ft_lstadd_back(&list, ft_lstnew(token_content));
+		if (ft_strchr(token_content, '*') != NULL)
+			ft_lstadd_back(&list, get_list_wildcard(token_content));
+		else
+			ft_lstadd_back(&list, ft_lstnew(token_content));
 	}
 	return (list);
 }

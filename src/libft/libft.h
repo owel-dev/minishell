@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 18:54:17 by ulee              #+#    #+#             */
-/*   Updated: 2021/11/24 18:36:24 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/07 14:46:38 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int					ft_isdigit(int c);
 int					ft_isalnum(int c);
 void				*ft_calloc(size_t n, size_t size);
 char				*ft_strdup(const char *s);
+char				*ft_strendstr(const char *str, const char *part);
 int					ft_isascii(int c);
 int					ft_isprint(int c);
 int					ft_toupper(int c);

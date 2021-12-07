@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/04 17:32:48 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/07 17:15:33 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <signal.h>
 # include <string.h>
 # include <errno.h>
+# include <dirent.h>
 # define TRUE 1
 # define FALSE 0
 # define D_OPEN 1
@@ -182,6 +183,7 @@ char		**make_arr(t_list *list);
 
 void sig_handler(int signum);
 
+t_list *get_list_wildcard(char *token_content);
 
 
 int g_status;
