@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/04 19:14:13 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/05 19:37:42 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	execute_pipe_cmd(t_bundle *bundle)
 		result = check_cmd(bundle);
 		bundle->token = bundle->token->next;
 		handle_ps(child_ps, bundle, result);
+		reset_fd(bundle);
 	}
 	if (result == 0)
 		g_status = 0;
