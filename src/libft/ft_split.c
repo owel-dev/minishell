@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 20:19:51 by ulee              #+#    #+#             */
-/*   Updated: 2021/11/20 21:16:55 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/08 13:54:29 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char	**all_free(char **result)
 		i++;
 	}
 	free(result);
-	result = NULL;
 	return (NULL);
 }
 

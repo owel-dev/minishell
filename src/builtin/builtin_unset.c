@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*   builtin_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:36:08 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/02 04:58:43 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/08 16:41:14 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ char **arr_cpy(t_bundle *bundle, t_token *token, int len)
 	return (env_copy);
 }
 
-int	ft_unset(t_bundle *bundle)
+int	builtin_unset(t_bundle *bundle)
 {
 	char	**env_copy;
+	char	*env_current;
 	int		len;
 
 	while (bundle->token->next && bundle->token->next->token_type != PIPE)
@@ -52,7 +53,8 @@ int	ft_unset(t_bundle *bundle)
 		len = ft_arrlen(bundle->env);
 		if (len == 0)
 			return (FAIL);
-		if (ft_getenv(bundle, bundle->token->content) != NULL)
+			env_current = builtin_getenv(bundle, bundle->token->content);
+		if (env_current != NULL)
 		{
 			env_copy = arr_cpy(bundle, bundle->token, len);
 			if (env_copy == NULL)

@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/07 17:15:33 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/08 18:09:58 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 # define P_AND 2
 # define SUCCESS 0
 # define FAIL 1
+# define NO_BUILTIN -1
 # define EXIT_1 1 << 8
 # define EXIT_2 2 << 8
 # define EXIT_3 3 << 8
@@ -88,11 +89,11 @@ char		**dup_envp(char **envp);
 void	loop(char **env, char **av);
 
 
-char *ft_getenv(t_bundle *bundle, char *key);
+char *builtin_getenv(t_bundle *bundle, char *key);
 
 //execute
 int			execute_cmd(t_bundle *bundle);
-int			check_cmd(t_bundle *bundle);
+int			execute_cmd_classify(t_bundle *bundle);
 
 //parsing_bundle
 int			set_bundle_line(t_bundle *bundle, int word_len);
@@ -142,8 +143,8 @@ int			is_io_token(t_token *token);
 void		replace_env_token(t_token *temp, t_bundle *bundle);
 
 //builtin
-int			is_bin(t_bundle *bundle);
-int			is_builtin(t_bundle *bundle);
+int			execute_bin(t_bundle *bundle);
+int			execute_builtin(t_bundle *bundle);
 
 //redir_handler
 int			redir_handler(t_bundle *bundle, t_token *token);
@@ -166,24 +167,25 @@ void		free_bundle(t_bundle *bundles);
 void		child_exit(t_bundle *bundles, int status);
 
 //buitin
-int			ft_cd(t_bundle *bundle);
-int			ft_env(t_bundle *bundle);
-int			ft_export(t_bundle *bundle);
-int			ft_pwd(t_bundle *bundle);
-char		*ft_getenv(t_bundle *bundle, char *key);
-int			ft_unset(t_bundle *bundle);
-int			ft_echo(t_bundle *bundle);
-int			ft_exit(t_bundle *bundle);\
+int			builtin_cd(t_bundle *bundle);
+int			builtin_env(t_bundle *bundle);
+int			builtin_export(t_bundle *bundle);
+int			builtin_pwd(t_bundle *bundle);
+char		*builtin_getenv(t_bundle *bundle, char *key);
+int			builtin_unset(t_bundle *bundle);
+int			builtin_echo(t_bundle *bundle);
+int			builtin_exit(t_bundle *bundle);\
 
 //bin
-int			other_cmd(t_bundle *bundle, char *env_path, char *cmd, char **arr, int last_flag);
+int			run_cmd(t_bundle *bundle, char *env_path, char *cmd, char **arr);
 int			exec_cmd(t_bundle *bundle, char *cmd, char **arr);
 t_list		*make_list(t_bundle *bundle);
 char		**make_arr(t_list *list);
 
 void sig_handler(int signum);
 
-t_list *get_list_wildcard(char *token_content);
+t_list *execute_wildcard(char *token_content);
+char **execute_make_arr(t_bundle *bundle);
 
 
 int g_status;

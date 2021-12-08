@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   builtin_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:54 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/03 20:35:25 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/08 15:53:17 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *append_buf(t_bundle *bundle, char *buf)
+char *append_arg(t_bundle *bundle, char *buf)
 {
+	char *temp;
 	char *ret;
 
 	ret = ft_strjoin(buf, bundle->token->content);
@@ -21,54 +22,55 @@ char *append_buf(t_bundle *bundle, char *buf)
 		return (NULL);
 	if (bundle->token->next && bundle->token->back_space)
 	{
+		temp = ret;
 		ret = ft_strjoin(ret, " ");
 		if (ret == NULL)
 			return (NULL);
+		free(temp);
 	}
 	return (ret);
 }
 
-int find_another(char *content, char *another)
+int find_n_option(char *content)
 {
-	while (*content)
-	{
-		if (!ft_strchr(another, *content))
-			return (1);
-		content++;
-	}
+	if (!ft_strncmp(content, "-n", 2) && !ft_strchr(content, 'e'))
+		return (1);
 	return (0);
 }
 
-int	ft_echo(t_bundle *bundle)
+void print_echo(char *print_word, int n_option)
 {
-	int n_option;
-	int word;
-	char *buf_output;
-
-	n_option = 0;
-	word = 0;
-	buf_output = "";
-	while (bundle->token->next && bundle->token->next->token_type != PIPE) //전체적으로 env 치환 기능 추가
+	if (print_word)
 	{
-		bundle->token = bundle->token->next;
-		if (!ft_strncmp(bundle->token->content, "-n", 2)&& \
-			!find_another(bundle->token->content, "-ne") && \
-			!word)
-		{
-			n_option = 1;
-			continue ;
-		}
-		else
-		{
-			word = 1;
-			buf_output = append_buf(bundle, buf_output);
-			if (buf_output == NULL)
-				return (FAIL);
-		}
+		write(1, print_word, ft_strlen(print_word));
+		ft_free(print_word);
 	}
-	if (buf_output)
-		write(1, buf_output, ft_strlen(buf_output));
 	if (n_option == 0)
 		write(1, "\n", 1);
+}
+
+int	builtin_echo(t_bundle *bundle)
+{
+	int n_option;
+	char *print_word;
+	char *temp;
+
+	n_option = 0;
+	print_word = NULL;
+	while (bundle->token->next && bundle->token->next->token_type != PIPE)
+	{
+		bundle->token = bundle->token->next;
+		if (find_n_option(bundle->token->content) && !print_word)
+			n_option = 1;
+		else
+		{
+			temp = print_word;
+			print_word = append_arg(bundle, print_word);
+			if (print_word == NULL)
+				return (FAIL);
+			ft_free(temp);
+		}
+	}
+	print_echo(print_word, n_option);
 	return (SUCCESS);
 }

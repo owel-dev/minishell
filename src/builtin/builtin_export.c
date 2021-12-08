@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
+/*   builtin_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:38:36 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/04 04:09:16 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/08 12:59:38 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int append_env(t_bundle *bundle, t_token *token)
+void append_env(t_bundle *bundle, t_token *token)
 {
 	int len;
 	int i;
@@ -20,10 +20,10 @@ int append_env(t_bundle *bundle, t_token *token)
 
 	len = ft_arrlen(bundle->env);
 	if (len == 0)
-		return (FAIL);
+		return ;
 	env_copy = (char **)malloc(sizeof(char *) * (len + 2));
 	if (env_copy == NULL)
-		return (FAIL);
+		return ;
 	env_copy[len + 1] = NULL;
 	env_copy[len] = ft_strdup(token->content);
 	i = 0;
@@ -32,11 +32,11 @@ int append_env(t_bundle *bundle, t_token *token)
 		env_copy[i] = ft_strdup(bundle->env[i]);
 		i++;
 	}
+	free(bundle->env);
 	bundle->env = env_copy;
-	return (SUCCESS);
 }
 
-int replace_env(t_bundle *bundle, t_token *token, char *key)
+void replace_env(t_bundle *bundle, t_token *token, char *key)
 {
 	int i;
 	char **env_split;
@@ -46,18 +46,16 @@ int replace_env(t_bundle *bundle, t_token *token, char *key)
 	{
 		env_split = ft_split(bundle->env[i], '=');
 		if (env_split == NULL)
-			return (FAIL);
+			return ;
 		if (ft_strcmp(env_split[0], key) == 0)
 		{
 			all_free(env_split);
 			free(bundle->env[i]);
 			bundle->env[i] = ft_strdup(token->content);
-			return (SUCCESS);
+			return ;
 		}
-		// all_free(env_split);
 		i++;
 	}
-	return (FAIL);
 }
 
 void print_env(t_bundle *bundle)
@@ -75,39 +73,43 @@ void print_env(t_bundle *bundle)
 	}
 }
 
-int	ft_export(t_bundle *bundle)
+int valid_argument(t_bundle *bundle)
+{
+	if (ft_strchr(bundle->token->content, '=') == NULL)
+		return (0);
+	if (!ft_strncmp(bundle->token->content, "=", 1))
+	{
+		printf("export: %s: not a valid identifier\n", \
+		bundle->token->content);
+		return (0);
+	}
+	return (1);
+}
+
+int	builtin_export(t_bundle *bundle)
 {
 	char	**content_split;
-	char	*value;
+	char	*env_value;
 	int		result;
 
-	if (bundle->token->next == NULL)
-	{
-		print_env(bundle);
-		return (SUCCESS);
-	}
 	result = SUCCESS;
+	if (bundle->token->next == NULL)
+		print_env(bundle);
 	while (bundle->token->next && bundle->token->next->token_type != PIPE)
 	{
 		bundle->token = bundle->token->next;
-		if (!ft_strncmp(bundle->token->content, "=", 1))
-		{
-			printf("export: %s: not a valid identifier\n", \
-			bundle->token->content);
-			continue ;
-		}
-		if (ft_strchr(bundle->token->content, '=') == NULL)
-			continue ;
+		if (!valid_argument(bundle))
+			result = FAIL;
 		content_split = ft_split(bundle->token->content, '=');
 		if (content_split == NULL)
-			return (FAIL);
-		value = ft_getenv(bundle, content_split[0]);
-		if (value)
-			result = replace_env(bundle, bundle->token, content_split[0]);
+			result = FAIL;
+		env_value = builtin_getenv(bundle, content_split[0]);
+		if (env_value)
+			replace_env(bundle, bundle->token, content_split[0]);
 		else
-			result = append_env(bundle, bundle->token);
+			append_env(bundle, bundle->token);
+		ft_free(env_value);
 		all_free(content_split);
 	}
-	int i = 0;
 	return (result);
 }

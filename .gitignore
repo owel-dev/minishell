@@ -1,7 +1,7 @@
 .vscode
 .DS_Store
 minishell
-src/test
+src/test.c
 src/builtin/a.out
 src/builtin/a.out.dSYM
 test*

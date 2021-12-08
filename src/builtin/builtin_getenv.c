@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getenv.c                                        :+:      :+:    :+:   */
+/*   builtin_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 03:54:58 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/29 21:44:32 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/08 12:56:15 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *ft_getenv(t_bundle *bundle, char *key)
+char *builtin_getenv(t_bundle *bundle, char *key)
 {
 	int i;
 	char *ret;
@@ -38,6 +38,7 @@ char *ft_getenv(t_bundle *bundle, char *key)
 				return (NULL);
 			return (ret);
 		}
+		free(env_key);
 		i++;
 	}
 	return (NULL);

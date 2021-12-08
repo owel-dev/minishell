@@ -11,7 +11,7 @@ int ft_isallnum(char *str)
 	return (1);
 }
 
-int ft_exit(t_bundle *bundle)
+int builtin_exit(t_bundle *bundle)
 {
 	write(1, "logout\n", 7);
 	if (bundle->token->next)

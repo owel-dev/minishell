@@ -1,12 +1,12 @@
 CC = gcc -g
 FLAG = -Wall -Wextra -Werror
-check_cmd = ../command/check_cmd.c
-builtin = ft_cd.o \
-ft_echo.o ft_env.o ft_export.o ft_getenv.o ft_pwd.o ft_unset.o test.o
+execute_cmd_classify = ../command/execute_cmd_classify.c
+builtin = builtin_cd.o \
+builtin_echo.o builtin_env.o builtin_export.o builtin_getenv.o builtin_pwd.o builtin_unset.o test.o
 LIBFT = -L../libft/ -lft
 
 # %.o: %.c
 # 	$(CC) -c $< -o $@
 
 all : $(builtin)
-	$(CC) $(FLAG) $(check_cmd) $(builtin) $(LIBFT)
+	$(CC) $(FLAG) $(execute_cmd_classify) $(builtin) $(LIBFT)

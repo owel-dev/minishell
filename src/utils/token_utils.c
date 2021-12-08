@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:40:42 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/05 18:34:35 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/08 16:41:14 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	check_env_token(t_token *token, t_bundle *bundle)
 			while (token->content[end] && !is_vaild_char(token->content[end]))
 				end++;
 			temp = ft_substr(token->content, start, end - start);
-			env = ft_getenv(bundle, temp);
+			env = builtin_getenv(bundle, temp);
 			// if (env == NULL)
 			// 	return ;
 			new_content = join_env_str(token->content, env, start, end);
@@ -77,7 +77,7 @@ void	replace_env_token(t_token *temp, t_bundle *bundle)
 	t_token	*delete_token;
 	char	*env_tem;
 
-	env_tem = ft_getenv(bundle, temp->content);
+	env_tem = builtin_getenv(bundle, temp->content);
 	free(temp->content);
 	if (env_tem == NULL)
 	{

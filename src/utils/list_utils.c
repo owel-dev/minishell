@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 00:31:12 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/01 17:33:12 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/08 17:22:32 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 t_token	*tokenlst_new(char *content, int token_type, int back_space)
 {
-	t_token	*new;
+	t_token	*new_token;
 
 	if (content == NULL)
 		return (NULL);
-	new = (t_token *)malloc(sizeof(t_token));
-	if (new == NULL)
+	new_token = (t_token *)malloc(sizeof(t_token));
+	if (new_token == NULL)
 		return (NULL);
-	new->content = content;
-	new->pre = NULL;
-	new->token_type = token_type;
-	new->back_space = back_space;
-	new->redir = 0;
-	new->fd[0] = -2;
-	new->fd[1] = -2;
-	new->pipe = 0;
-	new->next = NULL;
-	return (new);
+	new_token->content = content;
+	new_token->pre = NULL;
+	new_token->token_type = token_type;
+	new_token->back_space = back_space;
+	new_token->redir = 0;
+	new_token->fd[0] = -2;
+	new_token->fd[1] = -2;
+	new_token->pipe = 0;
+	new_token->next = NULL;
+	return (new_token);
 }
 
 void	tokenlst_delete(t_token *lst)
@@ -52,20 +52,20 @@ void	tokenlst_delete(t_token *lst)
 	free(lst);
 }
 
-void	tokenlst_add_back(t_token **lst, t_token *new)
+void	tokenlst_add_back(t_token **lst, t_token *new_token)
 {
 	t_token	*last;
 
-	if (lst == NULL || new == NULL)
+	if (lst == NULL || new_token == NULL)
 		return ;
 	if (*lst == NULL)
 	{
-		*lst = new;
+		*lst = new_token;
 		return ;
 	}
 	last = tokenlst_last(*lst);
-	new->pre = last;
-	last->next = new;
+	new_token->pre = last;
+	last->next = new_token;
 }
 
 void	tokenlst_clear(t_token *lst)

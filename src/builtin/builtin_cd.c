@@ -1,42 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   builtin_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:39:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/04 19:33:30 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/08 15:19:02 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int  ft_cd(t_bundle *bundle)
+int  builtin_cd(t_bundle *bundle)
 {
 	int		ret_chdir;
-	char	*dir;
-	t_token	*next_token;
-	char 	*home;
+	char	*dest_path;
+	char 	*home_path;
 
-	next_token = bundle->token->next;
+	dest_path = bundle->token->next->content;
 	while (bundle->token->next && bundle->token->next->token_type != PIPE)
-	{
 		bundle->token = bundle->token->next;
-	}
-	// if (next_token == NULL || is_io_token(next_token) || !ft_strcmp(next_token->content, "~"))
-	// else
-	dir = next_token->content;
-	if (!ft_strncmp(dir, "~", 1))
+	if (!ft_strncmp(dest_path, "~", 1))
 	{
-		home = NULL;
-		home = ft_getenv(bundle, "HOME");
-		dir = ft_strjoin(home, ++dir);
+		home_path = builtin_getenv(bundle, "HOME");
+		dest_path = ft_strjoin(home_path, ++dest_path);
+		ft_free(home_path);
 	}
-	ret_chdir = chdir(dir);
+	ret_chdir = chdir(dest_path);
+	free(dest_path);
 	if (ret_chdir == -1)
 	{
-		printf("bash: cd: %s: %s\n", dir, strerror(errno));
+		printf("bash: cd: %s: %s\n", dest_path, strerror(errno));
 		bundle->token = bundle->token->next;
 		return (FAIL);
 	}

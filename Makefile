@@ -10,18 +10,19 @@ LIBFT = -L./src/libft -lft
 RM = rm -f
 
 FILE =	main \
-		builtin/ft_cd \
-		builtin/ft_echo \
-		builtin/ft_env \
-		builtin/ft_export \
-		builtin/ft_getenv \
-		builtin/ft_pwd \
-		builtin/ft_unset \
-		builtin/ft_exit \
-		command/is_bin \
-		command/wildcard \
-		execute/check_cmd \
+		builtin/builtin_cd \
+		builtin/builtin_echo \
+		builtin/builtin_env \
+		builtin/builtin_export \
+		builtin/builtin_getenv \
+		builtin/builtin_pwd \
+		builtin/builtin_unset \
+		builtin/builtin_exit \
+		execute/execute_bin \
+		execute/execute_builtin \
 		execute/execute_cmd \
+		execute/execute_wildcard \
+		execute/execute_make_arr \
 		exit/free_exit \
 		exit/print_error \
 		iohandler/pipe_handler \
@@ -38,32 +39,33 @@ FILE =	main \
 		utils/token_utils \
 
 FILE_T =	test \
-			builtin/ft_cd \
-			builtin/ft_echo \
-			builtin/ft_env \
-			builtin/ft_export \
-			builtin/ft_getenv \
-			builtin/ft_pwd \
-			builtin/ft_unset \
-			builtin/ft_exit \
-			command/is_bin \
-			command/wildcard \
-			execute/check_cmd \
-			execute/execute_cmd \
-			exit/free_exit \
-			exit/print_error \
-			iohandler/pipe_handler \
-			iohandler/redir_handler \
-			iohandler/set_redir_fd \
-			parsing/parsing_bundles \
-			parsing/parsing_tokens \
-			parsing/parsing_str \
-			parsing/set_token \
-			utils/list_utils \
-			utils/str_utils \
-			utils/split_utils \
-			utils/fd_utils \
-			utils/token_utils \
+		builtin/builtin_cd \
+		builtin/builtin_echo \
+		builtin/builtin_env \
+		builtin/builtin_export \
+		builtin/builtin_getenv \
+		builtin/builtin_pwd \
+		builtin/builtin_unset \
+		builtin/builtin_exit \
+		execute/execute_bin \
+		execute/execute_builtin \
+		execute/execute_cmd \
+		execute/execute_wildcard \
+		execute/execute_make_arr \
+		exit/free_exit \
+		exit/print_error \
+		iohandler/pipe_handler \
+		iohandler/redir_handler \
+		iohandler/set_redir_fd \
+		parsing/parsing_bundles \
+		parsing/parsing_tokens \
+		parsing/parsing_str \
+		parsing/set_token \
+		utils/list_utils \
+		utils/str_utils \
+		utils/split_utils \
+		utils/fd_utils \
+		utils/token_utils \
 
 SRCS = $(addprefix ./src/, $(addsuffix .c, $(FILE)))
 OBJS = $(addprefix ./src/, $(addsuffix .o, $(FILE)))

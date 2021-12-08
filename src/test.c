@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/05 18:37:59 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/08 17:27:09 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void sig_handler(int signum)
 	int pid;
 	int status;
 	pid = waitpid(-1, &status, WNOHANG);
-	// printf("pid: %d, signum: %d\n", pid, signum);
 	if (signum == SIGINT)
 	{
 		if (pid == -1)

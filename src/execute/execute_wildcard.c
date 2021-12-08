@@ -96,7 +96,7 @@ t_list *get_list_needfile(t_list *files, t_list *checks)
 	return (ret);
 }
 
-t_list *get_list_wildcard(char *token_content)
+t_list *execute_wildcard(char *token_content)
 {
 	t_list *files;
 	t_list *checks;

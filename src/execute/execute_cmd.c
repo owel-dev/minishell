@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/05 19:37:42 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/08 19:51:15 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,11 @@ int	execute_pipe_cmd(t_bundle *bundle)
 				continue ;
 		}
 		result = set_redir_fd(bundle, bundle->token);
-		result = check_cmd(bundle);
+		result = execute_builtin(bundle);
+		if (result == NO_BUILTIN)
+			result = execute_bin(bundle);
+		if (result == SUCCESS)
+			g_status = 0;
 		bundle->token = bundle->token->next;
 		handle_ps(child_ps, bundle, result);
 		reset_fd(bundle);
@@ -84,9 +88,15 @@ int	execute_cmd(t_bundle *bundle)
 	while (bundle->token)
 	{
 		result = set_redir_fd(bundle, bundle->token);
-		result = check_cmd(bundle);
-		if (bundle->token != NULL)
-			bundle->token = bundle->token->next;
+		result = execute_builtin(bundle);
+		if (result == NO_BUILTIN)
+			result = execute_bin(bundle);
+		else if (result == SUCCESS)
+		{
+			g_status = 0;
+			return (SUCCESS);
+		}
+		bundle->token = bundle->token->next;
 	}
 	reset_fd(bundle);
 	return (result);

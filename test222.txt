@@ -1,9 +1,0 @@
-Makefile
-README.md
-minishell
-minishell-tester
-src
-test.c
-test222.txt
-test_dir
-testttt.txt

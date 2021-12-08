@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 18:54:17 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/07 14:46:38 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/08 17:20:58 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 typedef struct s_list
 {
-	void			*content;
+	char			*content;
 	struct s_list	*next;
 }					t_list;
 
@@ -90,5 +90,6 @@ int					ft_strcmp(char *one, char *two);
 int					is_space(int c);
 int					ft_arrlen(char **arr);
 char				**all_free(char **result);
+void				ft_free(void *arr);
 
 #endif
