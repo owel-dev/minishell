@@ -32,6 +32,7 @@ int execute_builtin(t_bundle *bundle)
 		{
 			if (bundle->token == bundle->head)
 				builtin_exit(bundle);
+			return (FAIL);
 		}
 	}
 	return (NO_BUILTIN);
