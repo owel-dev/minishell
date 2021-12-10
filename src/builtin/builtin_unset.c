@@ -30,13 +30,13 @@ char **arr_cpy(t_bundle *bundle, t_token *token, int len)
 		key = ft_split(bundle->env[i], '=');
 		if (key == NULL)
 			return (NULL);
-		if (ft_strcmp(key[0], token->content) != 0)
+		if (ft_strcmp(key[0], token->content))
 		{
 			env_copy[k] = ft_strdup(bundle->env[i]);
 			k++;
 		}
 		i++;
-		all_free(key);
+		ft_two_free(key);
 	}
 	return (env_copy);
 }
@@ -46,21 +46,22 @@ int	builtin_unset(t_bundle *bundle)
 	char	**env_copy;
 	char	*env_current;
 	int		len;
+	char	**temp;
 
 	while (bundle->token->next && bundle->token->next->token_type != PIPE)
 	{
 		bundle->token = bundle->token->next;
 		len = ft_arrlen(bundle->env);
-		if (len == 0)
-			return (FAIL);
-			env_current = builtin_getenv(bundle, bundle->token->content);
-		if (env_current != NULL)
+		env_current = builtin_getenv(bundle, bundle->token->content);
+		if (env_current)
 		{
+			ft_free(env_current);
 			env_copy = arr_cpy(bundle, bundle->token, len);
 			if (env_copy == NULL)
 				return (FAIL);
-			all_free(bundle->env);
+			temp = bundle->env;
 			bundle->env = env_copy;
+			ft_two_free(temp);
 		}
 	}
 	return (SUCCESS);

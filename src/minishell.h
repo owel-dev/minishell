@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/10 16:47:41 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/10 17:11:30 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,9 @@ typedef struct s_bundle
 }				t_bundle;
 
 // main
-char		**start_sh(char **env, char *input);
+void		start_sh(char ***env, char *input);
 char		**dup_env(char **envp);
-// void		loop(char **env);
-void	loop(char **env, char **av);
+void		loop(char **env, char **av);
 
 
 char *builtin_getenv(t_bundle *bundle, char *key);

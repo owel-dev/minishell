@@ -6,42 +6,39 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/10 16:57:08 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/10 18:31:12 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **start_sh(char **env, char *input)
+void	start_sh(char ***env, char *input)
 {
 	t_bundle	*bundles;
 	int			i;
 	int			result;
-	char		**return_env;
+	char		**use_env;
 
+	use_env = *env;
 	if (is_space_str(input))
-		return (NULL);
-	bundles = split_bundle(env, input);
+		return ;
+	bundles = split_bundle(use_env, input);
 	if (parsing_token(bundles) == FAIL)
 	{
 		free_bundle(bundles);
-		return (NULL);
+		return ;
 	}
 	i = 0;
 	while (bundles[i].cmd_line)
 	{
-		result = execute_cmd(&bundles[i]);
-		i++;
+		result = execute_cmd(&bundles[i++]);
 		if (bundles[i].cmd_line != NULL && \
 			(result == SUCCESS && bundles[i].priority == P_OR) \
 			|| (result == FAIL && bundles[i].priority == P_AND))
-		{
 			i++;
-		}
 	}
-	return_env = dup_env(env);
+	*env = bundles->env;
 	free_bundle(bundles);
-	return (return_env);
 }
 
 void	loop(char **env, char **av)
@@ -67,9 +64,7 @@ void	loop(char **env, char **av)
 			continue;
 		}
 		add_history(input);
-		temp = env_dup;
-		env_dup = start_sh(env_dup, input);
-		ft_two_free(temp);
+		start_sh(&env_dup, input);
 		free(input);
 	}
 	ft_two_free(env_dup);
