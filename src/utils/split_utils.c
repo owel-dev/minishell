@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:28:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/24 20:08:03 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/10 16:47:41 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,24 @@ t_bundle	*split_bundle(char **env, char const *str)
 	if (i > -1)
 		free_bundle(bundles);
 	return (bundles);
+}
+
+char	**dup_env(char **envp)
+{
+	char	**env;
+	int		len;
+	int		i;
+
+	len = 0;
+	while (envp[len])
+		len++;
+	env = (char **)malloc(sizeof(char *) * (len + 1));
+	i = 0;
+	while (envp[i])
+	{
+		env[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	env[i] = NULL;
+	return (env);
 }

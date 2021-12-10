@@ -6,7 +6,7 @@
 #    By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/17 14:49:10 by ulee              #+#    #+#              #
-#    Updated: 2021/12/08 13:58:25 by ulee             ###   ########.fr        #
+#    Updated: 2021/12/09 15:54:58 by ulee             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,8 @@ FILES = ft_memset \
 		ft_lstmap \
 		ft_strcmp \
 		ft_arrlen \
-		ft_free
+		ft_free \
+		ft_two_free
 
 SRCS_DIR = ./
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))

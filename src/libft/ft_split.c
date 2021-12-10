@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 20:19:51 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/08 13:54:29 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/09 14:04:38 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	**all_free(char **result)
 {
 	int		i;
 
+	if (result == NULL)
+		return (NULL);
 	i = 0;
 	while (result[i] != NULL)
 	{

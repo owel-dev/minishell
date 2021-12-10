@@ -10,6 +10,7 @@ LIBFT = -L./src/libft -lft
 RM = rm -f
 
 FILE =	main \
+		signal/sig_handler \
 		builtin/builtin_cd \
 		builtin/builtin_echo \
 		builtin/builtin_env \
@@ -23,6 +24,7 @@ FILE =	main \
 		execute/execute_cmd \
 		execute/execute_wildcard \
 		execute/execute_make_arr \
+		execute/execute_run_paths \
 		exit/free_exit \
 		exit/print_error \
 		iohandler/pipe_handler \
@@ -39,6 +41,7 @@ FILE =	main \
 		utils/token_utils \
 
 FILE_T =	test \
+		signal/sig_handler \
 		builtin/builtin_cd \
 		builtin/builtin_echo \
 		builtin/builtin_env \
@@ -52,6 +55,7 @@ FILE_T =	test \
 		execute/execute_cmd \
 		execute/execute_wildcard \
 		execute/execute_make_arr \
+		execute/execute_run_paths \
 		exit/free_exit \
 		exit/print_error \
 		iohandler/pipe_handler \

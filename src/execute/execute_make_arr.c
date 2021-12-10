@@ -24,20 +24,21 @@ char **make_arr(t_list *list)
 	char **ret;
 	int len;
 	int i;
+	t_list *temp;
 
 	len = ft_lstsize(list);
 	ret = (char **)malloc(sizeof(char *) * (len + 2));
 	if (ret == NULL)
 		return (NULL);
 	ret[len + 1] = NULL;
-	ret[0] = "";
+	ret[0] = ft_strdup("");
 	i = 1;
+	temp = list;
 	while (i <= len)
 	{
-		ret[i++] = ft_strdup((char *)list->content);
-		list = list->next;
+		ret[i++] = ft_strdup(temp->content);
+		temp = temp->next;
 	}
-	ft_lstclear(&list);
 	return (ret);
 }
 
@@ -48,5 +49,6 @@ char **execute_make_arr(t_bundle *bundle)
 
 	arg_list = make_list(bundle);
 	arg_arr = make_arr(arg_list);
+	ft_lstclear(&arg_list);
 	return (arg_arr);
 }

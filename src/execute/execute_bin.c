@@ -12,18 +12,7 @@
 
 #include "../minishell.h"
 
-char *make_fullpath(char *path, char *cmd)
-{
-	char *temp;
-	char *full_path;
-
-	temp = ft_strjoin(path, "/");
-	full_path = ft_strjoin(temp, cmd);
-	free(temp);
-	return (full_path);
-}
-
-int exec_cmd(t_bundle *bundle, char *cmd, char **arr)
+int run_cmd(t_bundle *bundle, char *cmd, char **arr)
 {
 	int pid;
 	int status;
@@ -41,51 +30,19 @@ int exec_cmd(t_bundle *bundle, char *cmd, char **arr)
 	return (status);
 }
 
-void set_gloval_status(int status)
-{
-	if (status == 2)
-		g_status = 130;
-	else if (status == 3)
-		g_status = 131;
-}
-
 int execute_bin(t_bundle *bundle)
 {
 	char **arg_arr;
-	char *path_env;
-	char **path_list;
 	char *cmd;
-	char *full_path;
-	int i;
-	int status;
+	int	ret;
 
-	cmd = bundle->token->content;
+	cmd = ft_strdup(bundle->token->content);
 	arg_arr = execute_make_arr(bundle);
 	if (ft_strchr(cmd, '/'))
-		return (exec_cmd(bundle, cmd, arg_arr));
+		ret = run_cmd(bundle, cmd, arg_arr);
 	else
-	{
-		path_env = builtin_getenv(bundle, "PATH");
-		path_list = ft_split(path_env, ':');
-		ft_free(path_env);
-		i = 0;
-		while (path_list[i])
-		{
-			full_path = make_fullpath(path_list[i], cmd);
-			status = exec_cmd(bundle, full_path, arg_arr);
-			free(full_path);
-			if (status == 2 || status == 3)
-			{
-				set_gloval_status(status);
-				return (FAIL);
-			}
-			if (status == 0)
-				return (SUCCESS);
-			i++;
-		}
-		all_free(path_list);
-		printf("bash: %s: command not found\n", cmd);
-		g_status = 127;
-		return (FAIL);
-	}
+		ret = execute_run_paths(bundle, cmd, arg_arr);
+	ft_free(cmd);
+	ft_two_free(arg_arr);
+	return (ret);
 }

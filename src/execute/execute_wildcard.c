@@ -19,15 +19,13 @@ t_list *get_list_file(void)
 	return (files);
 }
 
-t_list *get_list_check(char *token_content)
+t_list *get_list_check(char *cmd)
 {
-	char *cmd;
 	t_list *checks;
 	int start;
 	char *word;
 	int i;
 
-	cmd = token_content;
 	checks = NULL;
 	i = 0;
 	while (cmd[i])
@@ -50,14 +48,38 @@ t_list *get_list_check(char *token_content)
 	return (checks);
 }
 
+char *check_valid(t_list *checks_dup, t_list *checks, char *files_dup)
+{
+	if (checks_dup == checks)
+	{
+		if (ft_strncmp(files_dup, checks_dup->content, ft_strlen(checks_dup->content)) != 0)
+			return (NULL);
+		files_dup += ft_strlen(checks_dup->content);
+		return (files_dup);
+	}
+	else if (checks_dup->next == NULL)
+	{
+		if (ft_strendstr(files_dup, checks_dup->content) == NULL)
+			return (NULL);
+		else if (*(ft_strendstr(files_dup, checks_dup->content) + 1) != '\0')
+			return (NULL);
+	}
+	else
+	{
+		if (ft_strnstr(files_dup, checks_dup->content, ft_strlen(files_dup)) == NULL)
+			return (NULL);
+		files_dup = ft_strendstr(files_dup, checks_dup->content) + 1;
+		return (files_dup);
+	}
+	return (files_dup);
+}
+
 t_list *get_list_needfile(t_list *files, t_list *checks)
 {
 	t_list *checks_dup;
 	char *files_dup;
 	t_list *ret;
 
-	checks_dup = NULL;
-	files_dup = NULL;
 	ret = NULL;
 	while (files)
 	{
@@ -67,25 +89,9 @@ t_list *get_list_needfile(t_list *files, t_list *checks)
 		{
 			if (ft_strcmp(checks_dup->content, "*") != 0)
 			{
-				if (checks_dup == checks)
-				{
-					if (ft_strncmp(files_dup, checks_dup->content, ft_strlen(checks_dup->content)) != 0)
-						break;
-					files_dup += ft_strlen(checks_dup->content);
-				}
-				else if (checks_dup->next == NULL)
-				{
-					if (ft_strendstr(files_dup, checks_dup->content) == NULL)
-						break;
-					else if (*(ft_strendstr(files_dup, checks_dup->content) + 1) != '\0')
-						break;
-				}
-				else
-				{
-					if (ft_strnstr(files_dup, checks_dup->content, ft_strlen(files_dup)) == NULL)
-						break;
-					files_dup = ft_strendstr(files_dup, checks_dup->content) + 1;
-				}
+				files_dup = check_valid(checks_dup, checks, files_dup);
+				if (files_dup == NULL)
+					break;
 			}
 			checks_dup = checks_dup->next;
 		}

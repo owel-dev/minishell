@@ -18,7 +18,10 @@ int  builtin_cd(t_bundle *bundle)
 	char	*dest_path;
 	char 	*home_path;
 
-	dest_path = bundle->token->next->content;
+	if (!bundle->token->next)
+		dest_path = builtin_getenv(bundle, "HOME");
+	else
+		dest_path = ft_strdup(bundle->token->next->content);
 	while (bundle->token->next && bundle->token->next->token_type != PIPE)
 		bundle->token = bundle->token->next;
 	if (!ft_strncmp(dest_path, "~", 1))

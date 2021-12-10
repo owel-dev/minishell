@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/07 20:37:09 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/10 16:57:08 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,84 +39,18 @@ char **start_sh(char **env, char *input)
 			i++;
 		}
 	}
-	return_env = dup_envp(bundles->env);
+	return_env = dup_env(env);
 	free_bundle(bundles);
 	return (return_env);
-}
-
-char	**dup_envp(char **envp)
-{
-	char	**env;
-	int		len;
-	int		i;
-
-	len = 0;
-	while (envp[len])
-		len++;
-	env = (char **)malloc(sizeof(char *) * (len + 1));
-	i = 0;
-	while (envp[i])
-	{
-		env[i] = ft_strdup(envp[i]);
-		i++;
-	}
-	env[i] = NULL;
-	return (env);
-}
-
-void sig_handler(int signum)
-{
-	int pid;
-	int status;
-	pid = waitpid(-1, &status, WNOHANG);
-	if (signum == SIGINT)
-	{
-		if (pid == -1)
-		{
-			rl_on_new_line();
-			rl_redisplay();
-			printf("%c[K\n", 27);
-			rl_replace_line("", 0);
-			rl_on_new_line();
-			rl_redisplay();
-			g_status = 1;
-		}
-		else
-		{
-			g_status = 130;
-			write(1, "\n", 1);
-		}
-	}
-	else if (signum == SIGQUIT && pid != -1)
-	{
-		write(1, "Quit: 3\n", 8);
-		g_status = 131;
-	}
-	else
-	{
-		rl_on_new_line();
-		rl_redisplay();
-		printf("%c[K", 27);
-	}
-}
-
-int ft_isallblank(char *str)
-{
-	if (!ft_strcmp(str, ""))
-		return (1);
-	while (*str)
-	{
-		if (!is_space(*str))
-			return (0);
-		str++;
-	}
-	return (1);
 }
 
 void	loop(char **env, char **av)
 {
 	char	*input;
+	char 	**env_dup;
+	char 	**temp;
 
+	env_dup = dup_env(env);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	while(TRUE)
@@ -133,20 +67,20 @@ void	loop(char **env, char **av)
 			continue;
 		}
 		add_history(input);
-		env = start_sh(env, input);
+		temp = env_dup;
+		env_dup = start_sh(env_dup, input);
+		ft_two_free(temp);
 		free(input);
 	}
-	free(env);
+	ft_two_free(env_dup);
 }
 
-int main(int argc, char **av, char **envp)
+int main(int argc, char **av, char **env)
 {
 	char **dup_env;
 	char **dup_av;
 
 	g_status = 0;
-	dup_env = dup_envp(envp);
-	dup_av = dup_envp(av);
-	loop(dup_env, dup_av);
+	loop(env, av);
 	return 0;
 }

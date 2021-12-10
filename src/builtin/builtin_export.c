@@ -17,6 +17,7 @@ void append_env(t_bundle *bundle, t_token *token)
 	int len;
 	int i;
 	char **env_copy;
+	char **temp;
 
 	len = ft_arrlen(bundle->env);
 	if (len == 0)
@@ -32,14 +33,16 @@ void append_env(t_bundle *bundle, t_token *token)
 		env_copy[i] = ft_strdup(bundle->env[i]);
 		i++;
 	}
-	free(bundle->env);
+	temp = bundle->env;
 	bundle->env = env_copy;
+	ft_two_free(temp);
 }
 
 void replace_env(t_bundle *bundle, t_token *token, char *key)
 {
 	int i;
 	char **env_split;
+	char *temp;
 
 	i = 0;
 	while (bundle->env[i])
@@ -50,8 +53,9 @@ void replace_env(t_bundle *bundle, t_token *token, char *key)
 		if (ft_strcmp(env_split[0], key) == 0)
 		{
 			all_free(env_split);
-			free(bundle->env[i]);
+			temp = bundle->env[i];
 			bundle->env[i] = ft_strdup(token->content);
+			free(temp);
 			return ;
 		}
 		i++;

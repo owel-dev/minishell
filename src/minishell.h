@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/08 18:09:58 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/10 16:47:41 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_bundle
 
 // main
 char		**start_sh(char **env, char *input);
-char		**dup_envp(char **envp);
+char		**dup_env(char **envp);
 // void		loop(char **env);
 void	loop(char **env, char **av);
 
@@ -177,8 +177,7 @@ int			builtin_echo(t_bundle *bundle);
 int			builtin_exit(t_bundle *bundle);\
 
 //bin
-int			run_cmd(t_bundle *bundle, char *env_path, char *cmd, char **arr);
-int			exec_cmd(t_bundle *bundle, char *cmd, char **arr);
+int			run_cmd(t_bundle *bundle, char *cmd, char **arr);
 t_list		*make_list(t_bundle *bundle);
 char		**make_arr(t_list *list);
 
@@ -186,6 +185,12 @@ void sig_handler(int signum);
 
 t_list *execute_wildcard(char *token_content);
 char **execute_make_arr(t_bundle *bundle);
+int execute_run_paths(t_bundle *bundle, char *cmd, char **arg_arr);
+int run_cmd(t_bundle *bundle, char *cmd, char **arr);
+void sig_handler(int signum);
+int ft_isallblank(char *str);
+char	**dup_env(char **envp);
+
 
 
 int g_status;

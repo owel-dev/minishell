@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:36:12 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/02 19:28:24 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/10 16:40:11 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,17 @@ int	is_vaild_char(char c)
 {
 	return (c == '|' || c == '<' || c == '>' || \
 	c == '$' || c == '\'' || c == '\"' || is_space(c));
+}
+
+int ft_isallblank(char *str)
+{
+	if (!ft_strcmp(str, ""))
+		return (1);
+	while (*str)
+	{
+		if (!is_space(*str))
+			return (0);
+		str++;
+	}
+	return (1);
 }

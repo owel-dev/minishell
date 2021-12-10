@@ -20,25 +20,22 @@ char *builtin_getenv(t_bundle *bundle, char *key)
 	char *env_key;
 	char *env_value;
 
-	i = 0;
 	if (key[1] == '?')
 		return (ft_itoa(g_status));
+	i = 0;
 	while (bundle->env[i])
 	{
 		equal = ft_strchr(bundle->env[i], '=');
 		env_key = ft_substr(bundle->env[i], 0, equal - bundle->env[i]);
-		env_value = ++equal;
+		env_value = equal + 1;
 		if (*env_value == '\0')
 			env_value = "";
 		if (ft_strcmp(env_key, key) == 0)
 		{
-			free(env_key);
-			ret = ft_strdup(env_value);
-			if (ret == NULL)
-				return (NULL);
-			return (ret);
+			ft_free(env_key);
+			return (ft_strdup(env_value));
 		}
-		free(env_key);
+		ft_free(env_key);
 		i++;
 	}
 	return (NULL);

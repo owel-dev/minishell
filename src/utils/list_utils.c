@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 00:31:12 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/08 17:22:32 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/09 18:20:00 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,13 @@ void	tokenlst_clear(t_token *lst)
 {
 	t_token	*temp;
 
-	while (lst != NULL)
+	while (lst)
 	{
 		temp = lst->next;
 		free(lst->content);
 		free(lst);
 		lst = temp;
 	}
-	lst = NULL;
 }
 
 int	tokenlst_size(t_token *lst)

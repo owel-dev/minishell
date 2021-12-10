@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/08 19:51:15 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/09 17:37:19 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,6 @@ int	execute_pipe_cmd(t_bundle *bundle)
 		bundle->token = bundle->token->next;
 		handle_ps(child_ps, bundle, result);
 		reset_fd(bundle);
-	}
-	if (result == 0)
-		g_status = 0;
-	if (result == EXIT_7)
-		exit(0);
-	if (result != SUCCESS && result != FAIL)
-	{
-		g_status = result >> 8;
-		result = SUCCESS;
 	}
 	return (result);
 }
