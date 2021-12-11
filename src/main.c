@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:26:02 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/11 20:27:01 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/11 20:56:36 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	start_sh(char *input)
 int	main(int argc, char **av, char **env)
 {
 	char	*input;
-	char	**temp;
 
 	g_global.env = dup_env(env);
 	signal(SIGINT, sig_handler);
@@ -64,5 +63,6 @@ int	main(int argc, char **av, char **env)
 		free(input);
 	}
 	ft_two_free(g_global.env);
+	printf("====== end ======\n");
 	return (0);
 }
