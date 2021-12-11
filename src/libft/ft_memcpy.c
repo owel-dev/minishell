@@ -6,13 +6,13 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 20:19:30 by ulee              #+#    #+#             */
-/*   Updated: 2021/05/24 20:27:23 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/11 21:25:30 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		*ft_memcpy(void *copy, const void *origin, size_t byte_size)
+void	*ft_memcpy(void *copy, const void *origin, size_t byte_size)
 {
 	size_t	i;
 

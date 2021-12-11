@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 20:19:47 by ulee              #+#    #+#             */
-/*   Updated: 2021/05/24 20:31:14 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/11 21:26:26 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_putstr_fd(char *s, int fd)
 {
 	if (s == NULL)
-		return ((void)NULL);
+		return ((void) NULL);
 	while (*s)
 	{
 		ft_putchar_fd(*s, fd);

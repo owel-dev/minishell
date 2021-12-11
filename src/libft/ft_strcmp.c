@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 21:47:47 by ulee              #+#    #+#             */
-/*   Updated: 2021/11/22 18:25:20 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/11 21:26:39 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_strcmp(char *one, char *two)
+int	ft_strcmp(char *one, char *two)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	if (one == 0 || two == 0)
