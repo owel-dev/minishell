@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sig_handler.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/11 20:37:50 by ulee              #+#    #+#             */
+/*   Updated: 2021/12/11 20:38:08 by ulee             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-void ctrl_c__no_process()
+void	ctrl_c__no_process(void)
 {
 	rl_on_new_line();
 	rl_redisplay();
@@ -8,32 +20,33 @@ void ctrl_c__no_process()
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
-	g_status = 1;
+	g_global.status = 1;
 }
 
-void ctrl_c__yes_process()
+void	ctrl_c__yes_process(void)
 {
-	g_status = 130;
+	g_global.status = 130;
 	write(1, "\n", 1);
 }
 
-void ctrl_slash__yes_process()
+void	ctrl_slash__yes_process(void)
 {
 	write(1, "Quit: 3\n", 8);
-	g_status = 131;
+	g_global.status = 131;
 }
 
-void ctrl_slash__no_process()
+void	ctrl_slash__no_process(void)
 {
 	rl_on_new_line();
 	rl_redisplay();
 	printf("%c[K", 27);
 }
 
-void sig_handler(int signum)
+void	sig_handler(int signum)
 {
-	int pid;
-	int status;
+	int	pid;
+	int	status;
+
 	pid = waitpid(-1, &status, WNOHANG);
 	if (signum == SIGINT)
 	{
