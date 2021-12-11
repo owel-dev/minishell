@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_echo.c                                          :+:      :+:    :+:   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 16:38:54 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/08 15:53:17 by ulee             ###   ########.fr       */
+/*   Created: 2021/12/11 20:12:10 by ulee              #+#    #+#             */
+/*   Updated: 2021/12/11 20:13:18 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *append_arg(t_bundle *bundle, char *buf)
+char	*append_arg(t_bundle *bundle, char *buf)
 {
-	char *temp;
-	char *ret;
+	char	*temp;
+	char	*ret;
 
 	ret = ft_strjoin(buf, bundle->token->content);
 	if (ret == NULL)
@@ -31,14 +31,14 @@ char *append_arg(t_bundle *bundle, char *buf)
 	return (ret);
 }
 
-int find_n_option(char *content)
+int	find_n_option(char *content)
 {
 	if (!ft_strncmp(content, "-n", 2) && !ft_strchr(content, 'e'))
 		return (1);
 	return (0);
 }
 
-void print_echo(char *print_word, int n_option)
+void	print_echo(char *print_word, int n_option)
 {
 	if (print_word)
 	{
@@ -51,9 +51,9 @@ void print_echo(char *print_word, int n_option)
 
 int	builtin_echo(t_bundle *bundle)
 {
-	int n_option;
-	char *print_word;
-	char *temp;
+	int		n_option;
+	char	*print_word;
+	char	*temp;
 
 	n_option = 0;
 	print_word = NULL;

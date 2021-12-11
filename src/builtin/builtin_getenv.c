@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_getenv.c                                        :+:      :+:    :+:   */
+/*   builtin_getenv.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/15 03:54:58 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/08 12:56:15 by ulee             ###   ########.fr       */
+/*   Created: 2021/12/11 20:17:10 by ulee              #+#    #+#             */
+/*   Updated: 2021/12/11 20:17:29 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *builtin_getenv(t_bundle *bundle, char *key)
+char	*builtin_getenv(char *key)
 {
-	int i;
-	char *ret;
-	char *equal;
-	char *env_key;
-	char *env_value;
+	int		i;
+	char	*ret;
+	char	*equal;
+	char	*env_key;
+	char	*env_value;
 
 	if (key[1] == '?')
-		return (ft_itoa(g_status));
+		return (ft_itoa(g_global.status));
 	i = 0;
-	while (bundle->env[i])
+	while (g_global.env[i])
 	{
-		equal = ft_strchr(bundle->env[i], '=');
-		env_key = ft_substr(bundle->env[i], 0, equal - bundle->env[i]);
+		equal = ft_strchr(g_global.env[i], '=');
+		env_key = ft_substr(g_global.env[i], 0, equal - g_global.env[i]);
 		env_value = equal + 1;
 		if (*env_value == '\0')
 			env_value = "";

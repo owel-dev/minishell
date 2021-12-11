@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/11 20:15:14 by ulee              #+#    #+#             */
+/*   Updated: 2021/12/11 20:15:15 by ulee             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int ft_isallnum(char *str)
+int	ft_isallnum(char *str)
 {
 	while (*str)
 	{
@@ -11,7 +23,7 @@ int ft_isallnum(char *str)
 	return (1);
 }
 
-int builtin_exit(t_bundle *bundle)
+int	builtin_exit(t_bundle *bundle)
 {
 	write(1, "logout\n", 7);
 	if (bundle->token->next)
@@ -24,4 +36,3 @@ int builtin_exit(t_bundle *bundle)
 	}
 	exit(0);
 }
-
