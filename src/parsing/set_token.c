@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:37:09 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/02 05:26:48 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/11 15:34:00 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*make_token(char *str, int start, int end, int token_type)
 		end--;
 	}
 	if (token_type == STATUS)
-		return (ft_itoa(g_status));
+		return (ft_itoa(g_global.status));
 	else if (token_type == ENV)
 		start++;
 	new_str = (char *)malloc(sizeof(char) * (end - start + 1));

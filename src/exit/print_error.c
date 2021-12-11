@@ -2,7 +2,7 @@
 
 void	print_error_exit(char *str, int error_num)
 {
-	printf("%s\n", str);
+	printf("%s222\n", str);
 	exit(error_num);
 }
 

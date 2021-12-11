@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_bundles.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:58:22 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/26 02:49:27 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/11 15:17:01 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,13 @@ int	set_bundle_line(t_bundle *bundle, int word_len)
 	return (0);
 }
 
-void	set_bundle(t_bundle *bundle, char **env, int bundles_num, char const *str)
+void	set_bundle(t_bundle *bundle, int bundles_num, char const *str)
 {
 	int		i;
 
 	i = 0;
 	while (i <= bundles_num)
 	{
-		bundle[i].env = env;
 		bundle[i].quote = 0;
 		bundle[i].priority = 0;
 		bundle[i].is_redir = 0;
