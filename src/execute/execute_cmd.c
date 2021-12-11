@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 16:35:44 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/09 17:37:19 by ulee             ###   ########.fr       */
+/*   Created: 2021/12/11 20:22:01 by ulee              #+#    #+#             */
+/*   Updated: 2021/12/11 20:22:02 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,30 @@ int	execute_pipe_cmd(t_bundle *bundle)
 		if (result == NO_BUILTIN)
 			result = execute_bin(bundle);
 		if (result == SUCCESS)
-			g_status = 0;
+			g_global.status = 0;
 		bundle->token = bundle->token->next;
 		handle_ps(child_ps, bundle, result);
 		reset_fd(bundle);
 	}
 	return (result);
+}
+
+int	set_status(int result)
+{
+	if (result == SUCCESS)
+	{
+		g_global.status = 0;
+		return (SUCCESS);
+	}
+	else if (result == INVALID_ARG || result == 256)
+		g_global.status = 1;
+	else if (result == FAIL)
+		g_global.status = 127;
+	else if (result == 2)
+		g_global.status = 130;
+	else if (result == 3)
+		g_global.status = 131;
+	return (FAIL);
 }
 
 int	execute_cmd(t_bundle *bundle)
@@ -82,11 +100,7 @@ int	execute_cmd(t_bundle *bundle)
 		result = execute_builtin(bundle);
 		if (result == NO_BUILTIN)
 			result = execute_bin(bundle);
-		else if (result == SUCCESS)
-		{
-			g_status = 0;
-			return (SUCCESS);
-		}
+		result = set_status(result);
 		bundle->token = bundle->token->next;
 	}
 	reset_fd(bundle);

@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_wildcard.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/11 20:23:46 by ulee              #+#    #+#             */
+/*   Updated: 2021/12/11 20:25:50 by ulee             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-t_list *get_list_file(void)
+t_list	*get_list_file(void)
 {
-	DIR *dir_ptr;
-	struct dirent *file;
-	t_list *files;
+	DIR				*dir_ptr;
+	struct dirent	*file;
+	t_list			*files;
 
 	dir_ptr = opendir(".");
 	file = readdir(dir_ptr);
@@ -19,12 +31,12 @@ t_list *get_list_file(void)
 	return (files);
 }
 
-t_list *get_list_check(char *cmd)
+t_list	*get_list_check(char *cmd)
 {
-	t_list *checks;
-	int start;
-	char *word;
-	int i;
+	t_list	*checks;
+	int		start;
+	char	*word;
+	int		i;
 
 	checks = NULL;
 	i = 0;
@@ -48,11 +60,12 @@ t_list *get_list_check(char *cmd)
 	return (checks);
 }
 
-char *check_valid(t_list *checks_dup, t_list *checks, char *files_dup)
+char	*check_valid(t_list *checks_dup, t_list *checks, char *files_dup)
 {
 	if (checks_dup == checks)
 	{
-		if (ft_strncmp(files_dup, checks_dup->content, ft_strlen(checks_dup->content)) != 0)
+		if (ft_strncmp(files_dup, checks_dup->content, \
+			ft_strlen(checks_dup->content)) != 0)
 			return (NULL);
 		files_dup += ft_strlen(checks_dup->content);
 		return (files_dup);
@@ -66,7 +79,8 @@ char *check_valid(t_list *checks_dup, t_list *checks, char *files_dup)
 	}
 	else
 	{
-		if (ft_strnstr(files_dup, checks_dup->content, ft_strlen(files_dup)) == NULL)
+		if (ft_strnstr(files_dup, checks_dup->content, \
+			ft_strlen(files_dup)) == NULL)
 			return (NULL);
 		files_dup = ft_strendstr(files_dup, checks_dup->content) + 1;
 		return (files_dup);
@@ -74,11 +88,11 @@ char *check_valid(t_list *checks_dup, t_list *checks, char *files_dup)
 	return (files_dup);
 }
 
-t_list *get_list_needfile(t_list *files, t_list *checks)
+t_list	*get_list_needfile(t_list *files, t_list *checks)
 {
-	t_list *checks_dup;
-	char *files_dup;
-	t_list *ret;
+	t_list	*checks_dup;
+	char	*files_dup;
+	t_list	*ret;
 
 	ret = NULL;
 	while (files)
@@ -91,7 +105,7 @@ t_list *get_list_needfile(t_list *files, t_list *checks)
 			{
 				files_dup = check_valid(checks_dup, checks, files_dup);
 				if (files_dup == NULL)
-					break;
+					break ;
 			}
 			checks_dup = checks_dup->next;
 		}
@@ -102,11 +116,11 @@ t_list *get_list_needfile(t_list *files, t_list *checks)
 	return (ret);
 }
 
-t_list *execute_wildcard(char *token_content)
+t_list	*execute_wildcard(char *token_content)
 {
-	t_list *files;
-	t_list *checks;
-	t_list *ret;
+	t_list	*files;
+	t_list	*checks;
+	t_list	*ret;
 
 	files = get_list_file();
 	checks = get_list_check(token_content);

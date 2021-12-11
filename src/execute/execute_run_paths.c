@@ -1,20 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_run_paths.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/11 20:22:52 by ulee              #+#    #+#             */
+/*   Updated: 2021/12/11 20:23:42 by ulee             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-char **make_pathlist(t_bundle *bundle)
+char	**make_pathlist(void)
 {
-	char *path_env;
-	char **path_list;
+	char	*path_env;
+	char	**path_list;
 
-	path_env = builtin_getenv(bundle, "PATH");
+	path_env = builtin_getenv("PATH");
 	path_list = ft_split(path_env, ':');
 	ft_free(path_env);
 	return (path_list);
 }
 
-char *make_fullpath(char *path, char *cmd)
+char	*make_fullpath(char *path, char *cmd)
 {
-	char *temp;
-	char *full_path;
+	char	*temp;
+	char	*full_path;
 
 	temp = ft_strjoin(path, "/");
 	full_path = ft_strjoin(temp, cmd);
@@ -22,45 +34,34 @@ char *make_fullpath(char *path, char *cmd)
 	return (full_path);
 }
 
-int set_status(int status)
-{
-	if (status == 0)
-		return (SUCCESS);
-	else if (status == 2)
-		g_status = 130;
-	else if (status == 3)
-		g_status = 131;
-	return (FAIL);
-}
-
-int		print_not_found(t_bundle *bundle)
+int	print_not_found(t_bundle *bundle)
 {
 	printf("bash: %s: command not found\n", \
 		bundle->token->content);
-	g_status = 127;
+	g_global.status = 127;
 	return (FAIL);
 }
 
-int execute_run_paths(t_bundle *bundle, char *cmd, char **arg_arr)
+int	execute_run_paths(t_bundle *bundle, char *cmd, char **arg_arr)
 {
-	char **path_list;
-	int i;
-	char *full_path;
-	int status;
-	int ret;
+	char	**path_list;
+	int		i;
+	char	*full_path;
+	int		status;
+	int		ret;
 
-	path_list = make_pathlist(bundle);
+	path_list = make_pathlist();
 	i = 0;
 	while (path_list[i])
 	{
 		full_path = make_fullpath(path_list[i], cmd);
 		status = run_cmd(bundle, full_path, arg_arr);
 		ft_free(full_path);
-		if (status == 2 || status == 3 || status == 0)
+		if (status == 256 || status == 3 || status == 0 || \
+			status == 2)
 		{
-			ret = set_status(status);
 			ft_two_free(path_list);
-			return (ret);
+			return (status);
 		}
 		i++;
 	}

@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_make_arr.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/11 20:22:13 by ulee              #+#    #+#             */
+/*   Updated: 2021/12/11 20:22:42 by ulee             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-
-t_list *make_list(t_bundle *bundle)
+t_list	*make_list(t_bundle *bundle)
 {
-	char *token_content;
-	t_list *list;
+	char	*token_content;
+	t_list	*list;
 
 	list = NULL;
 	while (bundle->token->next && bundle->token->next->token_type != PIPE)
@@ -19,19 +30,19 @@ t_list *make_list(t_bundle *bundle)
 	return (list);
 }
 
-char **make_arr(t_list *list)
+char	**make_arr(char *cmd, t_list *list)
 {
-	char **ret;
-	int len;
-	int i;
-	t_list *temp;
+	char	**ret;
+	int		len;
+	int		i;
+	t_list	*temp;
 
 	len = ft_lstsize(list);
 	ret = (char **)malloc(sizeof(char *) * (len + 2));
 	if (ret == NULL)
 		return (NULL);
 	ret[len + 1] = NULL;
-	ret[0] = ft_strdup("");
+	ret[0] = ft_strdup(cmd);
 	i = 1;
 	temp = list;
 	while (i <= len)
@@ -42,13 +53,16 @@ char **make_arr(t_list *list)
 	return (ret);
 }
 
-char **execute_make_arr(t_bundle *bundle)
+char	**execute_make_arr(t_bundle *bundle)
 {
-	char **arg_arr;
-	t_list *arg_list;
+	char	**arg_arr;
+	t_list	*arg_list;
+	char	*cmd;
 
+	cmd = ft_strdup(bundle->token->content);
 	arg_list = make_list(bundle);
-	arg_arr = make_arr(arg_list);
+	arg_arr = make_arr(cmd, arg_list);
+	free(cmd);
 	ft_lstclear(&arg_list);
 	return (arg_arr);
 }

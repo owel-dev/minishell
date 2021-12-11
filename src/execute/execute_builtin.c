@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_cmd_classify.c                                        :+:      :+:    :+:   */
+/*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/12 16:50:05 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/08 16:41:59 by ulee             ###   ########.fr       */
+/*   Created: 2021/12/11 20:21:07 by ulee              #+#    #+#             */
+/*   Updated: 2021/12/11 20:21:43 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int execute_builtin(t_bundle *bundle)
+int	execute_builtin(t_bundle *bundle)
 {
-	if (!bundle->token->next || bundle->token->back_space || is_io_token(bundle->token->next))
+	if (!bundle->token->next || bundle->token->back_space || \
+		is_io_token(bundle->token->next))
 	{
 		if (ft_strcmp(bundle->token->content, "cd") == 0)
 			return (builtin_cd(bundle));
