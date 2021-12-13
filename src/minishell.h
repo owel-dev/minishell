@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/13 18:59:43 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/13 19:14:45 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 # define NO_BUILTIN 10
 # define INVALID_ARG 11
 
-typedef struct g_global
+typedef struct s_global
 {
 	int		status;
 	char	**env;
