@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:24:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/04 16:48:42 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/13 11:31:10 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	read_here_document(t_bundle *bundle, t_token *token)
 
 void	set_fd(t_token *token)
 {
-	if (token->pre && is_fdnum(token->pre->content, 0) == 1 &&
+	if (token->pre && is_fdnum(token->pre->content, 0) == 1 && \
 	token->pre->back_space == 0)
 	{
 		token->fd[0] = ft_atoi(token->pre->content);
@@ -77,27 +77,32 @@ void	set_fd(t_token *token)
 		token->fd[1] = -1;
 }
 
-int	redir_handler(t_bundle *bundle, t_token *token)
+int	redir_handler(t_bundle *bundle, t_token *token, int err_flag)
 {
 	if (token->token_type == D_REDIR_OUT)
-		return(d_redir_out(bundle, token));
+		return (d_redir_out(bundle, token, err_flag));
 	else if (token->token_type == D_REDIR_IN)
 		return (d_redir_in(bundle, token));
 	else if (token->token_type == REDIR_IN)
-		return (redir_in(bundle, token));
+		return (redir_in(bundle, token, err_flag));
 	else if (token->token_type == REDIR_OUT)
-		return (redir_out(bundle, token));
-	return (FAIL);
+		return (redir_out(bundle, token, err_flag));
+	return (SUCCESS);
 }
 
 int	set_redir_fd(t_bundle *bundle, t_token *token)
 {
 	t_token	*tmp;
 	int		result;
+	int		err_flag;
 
+	result = 0;
+	err_flag = 0;
 	while (token && token->token_type != PIPE)
 	{
-		result = redir_handler(bundle, token);
+		result = redir_handler(bundle, token, err_flag);
+		if (result)
+			err_flag = result;
 		if (is_redir_token(token))
 		{
 			tmp = token->next;
@@ -107,17 +112,6 @@ int	set_redir_fd(t_bundle *bundle, t_token *token)
 		else
 			token = token->next;
 	}
-	if (bundle->token->fd[0] == -1 || bundle->token->fd[1] == -1)
-	{
-		printf("%s\n", bundle->error_msg);
-		exit(FAIL);
-	}
-	else
-	{
-		if (bundle->token->fd[0] > -1)
-			dup2(bundle->token->fd[0], STDIN_FILENO);
-		if (bundle->token->fd[1] > -1)
-			dup2(bundle->token->fd[1], STDOUT_FILENO);
-	}
+	dup_redir_fd(bundle);
 	return (result);
 }

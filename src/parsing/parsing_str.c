@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 19:17:24 by hyospark          #+#    #+#             */
-/*   Updated: 2021/11/22 01:30:23 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/13 19:03:02 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	parsing_quote_str(char *str, int start, int quote)
 
 int	parsing_env_str(char *str, int start)
 {
-	while (str[start] && (!is_space(str[start + 1]) 
+	while (str[start] && (!is_space(str[start + 1]) \
 	&& !ft_strchr("|<>", str[start + 1]) && \
 	!check_quote(str, start + 1, ft_strlen(str))))
 	{

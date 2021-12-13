@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 02:23:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/02 04:16:54 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/13 19:00:47 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,35 +29,50 @@ int	get_token(t_bundle *bnde, int i, int start)
 		}
 		i++;
 	}
-	if ((bnde->cmd_line[i] && is_space(bnde->cmd_line[i + 1])) || !bnde->cmd_line[i])
+	if ((bnde->cmd_line[i] && is_space(bnde->cmd_line[i + 1])) \
+	|| !bnde->cmd_line[i])
 		back_space = TRUE;
 	tokenlst_add_back(&bnde->token, tokenlst_new(make_token \
 	(bnde->cmd_line, start, i, token_type), token_type, back_space));
 	return (i);
 }
 
-int	check_vaild_token_list(t_bundle *bundle)
+int	check_redir_token(t_token *temp)
 {
-	t_token *temp;
-	int size;
-	int error;
+	int	error;
+
+	error = 0;
+	if (temp->next == NULL || is_space_str(temp->next->content))
+	{
+		error = \
+		printf("minishell: syntax error near unexpected token 'newline'\n");
+	}
+	else if (temp->next->token_type >= REDIR_IN)
+	{
+		error = printf("minishell: syntax error near \
+		unexpected token '%s'\n", temp->next->content);
+	}
+	set_fd(temp);
+	return (error);
+}
+
+int	check_vaild_token_list(t_bundle *bundle, int error)
+{
+	t_token	*temp;
+	int		size;
 
 	temp = bundle->token;
 	size = tokenlst_size(bundle->token);
-	error = 0;
 	while (temp)
 	{
 		if (is_redir_token(temp))
 		{
-			if (temp->next == NULL || is_space_str(temp->next->content))
-				error = printf("minishell: syntax error near unexpected token 'newline'\n");
-			else if (temp->next->token_type >= REDIR_IN)
-				error = printf("minishell: syntax error near unexpected token '%s'\n", temp->next->content);
-			set_fd(temp);
+			check_redir_token(temp);
 			bundle->is_redir = 1;
 		}
 		else if (temp->token_type == PIPE && bundle->head == temp)
-			error = printf("minishell: syntax error near unexpected token `|'\n");
+			error = \
+			printf("minishell: syntax error near unexpected token `|'\n");
 		else if (temp->token_type == D_CLOSE)
 			check_env_token(temp, bundle);
 		else if (temp->token_type == ENV)
@@ -89,7 +104,7 @@ int	parsing_token_list(t_bundle *bundle)
 		i++;
 	}
 	bundle->head = bundle->token;
-	if (check_vaild_token_list(bundle) == FAIL)
+	if (check_vaild_token_list(bundle, 0) == FAIL)
 		return (FAIL);
 	return (SUCCESS);
 }

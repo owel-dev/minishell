@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:28:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/11 15:16:40 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/13 18:33:28 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	sh_count_word(char const *s)
 {
 	int	i;
 	int	count;
-	int quote;
+	int	quote;
 
 	if (ft_strlen(s) < 3)
 		return (1);
@@ -52,16 +52,12 @@ int	sh_make_word(t_bundle *bundle, char const *s, int j, int word_len)
 	return (0);
 }
 
-int	cut_cmd(t_bundle *bundles, char const *s)
+int	cut_cmd(t_bundle *bundles, char const *s, int i, int j)
 {
-	int		i;
-	int		j;
-	int		word_len;
+	int	word_len;
 
-	i = 0;
-	j = 0;
 	word_len = 0;
-	while (s[j]) // 세미콜론 유무 및 우선순위 체크하여 각 bundle의 cmd_line 생성
+	while (s[j])
 	{
 		if (!is_quote(s[j], bundles[i].quote) && check_priority(s, j))
 		{
@@ -89,13 +85,13 @@ t_bundle	*split_bundle(char const *str)
 	t_bundle	*bundles;
 	int			i;
 
-	bundles_num = sh_count_word(str); // 우선순위 구문 count
+	bundles_num = sh_count_word(str);
 	bundles = (t_bundle *)malloc(sizeof(t_bundle) * (bundles_num + 1));
 	if (bundles == NULL)
 		return (NULL);
 	bundles[bundles_num].cmd_line = NULL;
 	set_bundle(bundles, bundles_num, str);
-	i = cut_cmd(bundles, str);
+	i = cut_cmd(bundles, str, 0, 0);
 	if (i > -1)
 		free_bundle(bundles);
 	return (bundles);

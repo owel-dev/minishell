@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 16:23:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/04 13:16:16 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/13 11:31:06 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,17 @@ int	is_fdnum(char *str, int back)
 		i++;
 	}
 	return (fd);
+}
+
+void	dup_redir_fd(t_bundle *bundle)
+{
+	if (bundle->token->fd[0] == -1 || bundle->token->fd[1] == -1)
+	{
+		printf("%s\n", bundle->error_msg);
+		exit(FAIL);
+	}
+	if (bundle->token->fd[0] > -1)
+		dup2(bundle->token->fd[0], STDIN_FILENO);
+	if (bundle->token->fd[1] > -1)
+		dup2(bundle->token->fd[1], STDOUT_FILENO);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_redir_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 03:18:22 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/11 18:50:25 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/13 11:24:08 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,71 +21,85 @@ int	d_redir_in(t_bundle *bundle, t_token *token)
 	return (SUCCESS);
 }
 
-int	d_redir_out(t_bundle *bundle, t_token *token)
+int	d_redir_out(t_bundle *bundle, t_token *token, int err_flag)
 {
+	int	result;
+
+	result = SUCCESS;
 	if (token->fd[0] > -1)
 		bundle->token->fd[0] = token->fd[0];
 	if (token->fd[1] < 0)
 	{
-		if (bundle->token->fd[0] != -1 && bundle->token->fd[1] != -1)
+		if (!err_flag && \
+		bundle->token->fd[0] != -1 && bundle->token->fd[1] != -1)
 		{
 			token->fd[1] = \
 			open(token->next->content, O_WRONLY | O_APPEND | O_CREAT, 0666);
 			if (token->fd[1] < 0)
+			{
 				bundle->error_msg = "d_redir_out open file error";
+				result = FAIL;
+			}
 			bundle->token->fd[1] = token->fd[1];
 		}
 		tokenlst_delete(token->next);
 	}
 	else if (bundle->token->fd[1] != -1)
-	{
 		bundle->token->fd[1] = token->fd[1];
-	}
-	return (SUCCESS);
+	return (result);
 }
 
-int	redir_out(t_bundle *bundle, t_token *token)
+int	redir_out(t_bundle *bundle, t_token *token, int err_flag)
 {
+	int	result;
+
+	result = SUCCESS;
 	if (token->fd[0] > -1)
-	{
 		bundle->token->fd[0] = token->fd[0];
-	}
 	if (token->fd[1] < 0)
 	{
-		if (bundle->token->fd[0] != -1 && bundle->token->fd[1] != -1)
+		if (!err_flag && \
+		bundle->token->fd[0] != -1 && bundle->token->fd[1] != -1)
 		{
-			token->fd[1] = open(token->next->content, O_WRONLY | O_TRUNC | O_CREAT, 0666);
+			token->fd[1] = \
+			open(token->next->content, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 			if (token->fd[1] < 0)
+			{
 				bundle->error_msg = "redir_out open file error";
+				result = FAIL;
+			}
 			bundle->token->fd[1] = token->fd[1];
 		}
 		tokenlst_delete(token->next);
 	}
 	else if (bundle->token->fd[1] != -1)
-	{
 		bundle->token->fd[1] = token->fd[1];
-	}
-	return (SUCCESS);
+	return (result);
 }
 
-int	redir_in(t_bundle *bundle, t_token *token)
+int	redir_in(t_bundle *bundle, t_token *token, int err_flag)
 {
+	int	result;
+
+	result = SUCCESS;
 	if (token->fd[1] > -1)
 		bundle->token->fd[1] = token->fd[1];
 	if (token->fd[0] < 0)
 	{
-		if (bundle->token->fd[0] != -1 && bundle->token->fd[1] != -1)
+		if (!err_flag && \
+		bundle->token->fd[0] != -1 && bundle->token->fd[1] != -1)
 		{
 			token->fd[0] = open(token->next->content, O_RDONLY);
 			if (token->fd[0] < 0)
+			{
 				bundle->error_msg = "redir_in open file error";
+				result = FAIL;
+			}
 			bundle->token->fd[0] = token->fd[0];
 		}
 		tokenlst_delete(token->next);
 	}
 	else if (bundle->token->fd[0] != -1)
-	{
 		bundle->token->fd[0] = token->fd[0];
-	}
-	return (SUCCESS);
+	return (result);
 }

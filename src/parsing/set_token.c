@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:37:09 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/11 15:34:00 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/13 13:40:31 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	set_iotoken(t_bundle *bundle)
 int	set_token_type(int token_type, t_bundle *bnde, int i)
 {
 	if (token_type == ENV)
-		i = parsing_env_str(bnde->cmd_line, i); // env 토큰 문자열 길이 체크
+		i = parsing_env_str(bnde->cmd_line, i);
 	if (token_type == STATUS)
 		return (i + 1);
 	else if (token_type == REDIR_IN || token_type == REDIR_OUT || \
@@ -39,7 +39,7 @@ int	set_token_type(int token_type, t_bundle *bnde, int i)
 		tokenlst_last(bnde->token)->redir = token_type;
 	}
 	else if (token_type == S_CLOSE || token_type == D_CLOSE)
-		i = parsing_quote_str(bnde->cmd_line, i, token_type); // quote 토큰 문자열 길이 체크
+		i = parsing_quote_str(bnde->cmd_line, i, token_type);
 	else if (token_type == PIPE)
 	{
 		bnde->is_pipe = TRUE;
@@ -55,7 +55,7 @@ char	*make_token(char *str, int start, int end, int token_type)
 	char	*new_str;
 	int		i;
 
-	if (token_type == S_CLOSE || token_type == D_CLOSE) //quote 문자 자르기
+	if (token_type == S_CLOSE || token_type == D_CLOSE)
 	{
 		start++;
 		end--;

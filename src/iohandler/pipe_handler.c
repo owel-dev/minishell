@@ -6,11 +6,20 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:30:02 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/05 19:35:23 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/13 11:26:28 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+void	passing_pipe_token(t_bundle *bundle)
+{
+	while (bundle->token->next)
+	{
+		bundle->token = bundle->token->next;
+		if (bundle->token->pre->token_type == PIPE)
+			return ;
+	}
+}
 
 int	pipe_cmd(t_bundle *bundle)
 {
@@ -23,7 +32,7 @@ int	pipe_cmd(t_bundle *bundle)
 	pid = fork();
 	if (pid < 0)
 		print_error_exit("pipe fork error", EXIT_FAILURE);
-	if(pid == 0)
+	if (pid == 0)
 	{
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
@@ -34,13 +43,8 @@ int	pipe_cmd(t_bundle *bundle)
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
-		while(bundle->token->next)
-		{
-			bundle->token = bundle->token->next;
-			if (bundle->token->pre->token_type == PIPE)
-				break ;
-		}
-		waitpid(pid ,&status, 0);
+		passing_pipe_token(bundle);
+		waitpid(pid, &status, 0);
 		return (0);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/11 20:36:30 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/13 18:59:43 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,13 +154,13 @@ int			pipe_cmd(t_bundle *bundle);
 void		get_readline(int fd[], t_token *token);
 int			read_here_document(t_bundle *bundle, t_token *token);
 void		set_fd(t_token *token);
-int			redir_handler(t_bundle *bundle, t_token *token);
+int			redir_handler(t_bundle *bundle, t_token *token, int err_flag);
 int			set_redir_fd(t_bundle *bundle, t_token *token);
 
 int			d_redir_in(t_bundle *bundle, t_token *token);
-int			d_redir_out(t_bundle *bundle, t_token *token);
-int			redir_out(t_bundle *bundle, t_token *token);
-int			redir_in(t_bundle *bundle, t_token *token);
+int			d_redir_out(t_bundle *bundle, t_token *token, int err_flag);
+int			redir_out(t_bundle *bundle, t_token *token, int err_flag);
+int			redir_in(t_bundle *bundle, t_token *token, int err_flag);
 
 //parsing
 int			set_bundle_line(t_bundle *bundle, int word_len);
@@ -171,7 +171,7 @@ int			parsing_quote_str(char *str, int start, int quote);
 int			parsing_env_str(char *str, int start);
 
 int			get_token(t_bundle *bnde, int i, int start);
-int			check_vaild_token_list(t_bundle *bundle);
+int			check_vaild_token_list(t_bundle *bundle, int error);
 int			parsing_token_list(t_bundle *bundle);
 int			parsing_token(t_bundle *bundles);
 
@@ -188,17 +188,17 @@ void		sig_handler(int signum);
 
 //utils
 int			is_fdnum(char *str, int back);
-
+void		dup_redir_fd(t_bundle *bundle);
 t_token		*tokenlst_new(char *content, int token_type, int back_space);
 void		tokenlst_delete(t_token *lst);
 void		tokenlst_add_back(t_token **lst, t_token *new_token);
 void		tokenlst_clear(t_token *lst);
 int			tokenlst_size(t_token *lst);
 t_token		*tokenlst_last(t_token *lst);
-
+void		make_env_str(int *start, int *end, t_token *token);
 int			sh_count_word(char const *s);
 int			sh_make_word(t_bundle *bundle, char const *s, int j, int word_len);
-int			cut_cmd(t_bundle *bundles, char const *s);
+int			cut_cmd(t_bundle *bundles, char const *s, int i, int j);
 t_bundle	*split_bundle(char const *str);
 char		**dup_env(char **envp);
 

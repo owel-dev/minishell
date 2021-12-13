@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:36:12 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/10 16:40:11 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/13 18:27:34 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,75 +30,7 @@ char	*ft_strndup(const char *s, int start)
 	return (result);
 }
 
-int	is_space_str(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!is_space(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int	is_quote(char str, int preval)
-{
-	if (str == '\"' && preval == D_OPEN)
-		return (D_CLOSE);
-	if (str == '\"' && preval == 0)
-		return (D_OPEN);
-	if (str == '\'' && preval == S_OPEN)
-		return (S_CLOSE);
-	if (str == '\'' && preval == 0)
-		return (S_OPEN);
-	return (0);
-}
-
-int	check_priority(const char *str, int start)
-{
-	if ((str[start] == '&' && str[start + 1] == '&'))
-		return (P_AND);
-	if ((str[start] == '|' && str[start + 1] == '|'))
-		return (P_OR);
-	return (0);
-}
-
-int	check_vaild_str(char *str, int start)
-{
-	if (check_quote(str, start, ft_strlen(str)) > 0)
-		return (check_quote(str, start, ft_strlen(str)));
-	if (str[start] == '|')
-		return (PIPE);
-	if (str[start] == '<' && str[start + 1] == '<')
-		return (D_REDIR_IN);
-	if (str[start] == '>' && str[start + 1] == '>')
-		return (D_REDIR_OUT);
-	if (str[start] == '<')
-		return (REDIR_IN);
-	if (str[start] == '>')
-		return (REDIR_OUT);
-	if (str[start] == '$')
-	{
-		if (str[start + 1] && str[start + 1] == '?')
-			return (STATUS);
-		return (ENV);
-	}
-	if (is_space(str[start + 1]) || ft_strchr("|<>$", str[start + 1]) ||
-	check_quote(str, start + 1, ft_strlen(str)))
-		return (1);
-	return (0);
-}
-
-int	is_vaild_char(char c)
-{
-	return (c == '|' || c == '<' || c == '>' || \
-	c == '$' || c == '\'' || c == '\"' || is_space(c));
-}
-
-int ft_isallblank(char *str)
+int	ft_isallblank(char *str)
 {
 	if (!ft_strcmp(str, ""))
 		return (1);
@@ -109,4 +41,41 @@ int ft_isallblank(char *str)
 		str++;
 	}
 	return (1);
+}
+
+char	*join_env_str(char *content, char *env, int start, int end)
+{
+	char	*pre;
+	char	*new_content;
+
+	if ((start - 1) > 0)
+		pre = ft_substr(content, 0, start - 1);
+	else
+		pre = "";
+	new_content = ft_strjoin(pre, env);
+	free(env);
+	free(pre);
+	return (new_content);
+}
+
+void	make_env_str(int *start, int *end, t_token *token)
+{
+	char	*new_content;
+	char	*env;
+	char	*temp;
+
+	*end = *start;
+	while (token->content[*end] && !is_vaild_char(token->content[*end]))
+		*end += 1;
+	temp = ft_substr(token->content, *start, *end - *start);
+	env = builtin_getenv(temp);
+	new_content = join_env_str(token->content, env, *start, *end);
+	free(temp);
+	*start = ft_strlen(new_content);
+	temp = ft_substr(token->content, *end, ft_strlen(token->content));
+	env = ft_strjoin(new_content, temp);
+	free(new_content);
+	free(temp);
+	free(token->content);
+	token->content = env;
 }

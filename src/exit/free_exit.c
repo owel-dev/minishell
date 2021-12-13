@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 01:47:17 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/10 14:29:43 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/13 19:03:58 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../minishell.h"
+#include "../minishell.h"
 
 void	free_bundle(t_bundle *bundles)
 {
