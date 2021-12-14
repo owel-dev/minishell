@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:12:10 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/11 20:13:18 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/14 20:41:30 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,29 @@ char	*append_arg(t_bundle *bundle, char *buf)
 		ret = ft_strjoin(ret, " ");
 		if (ret == NULL)
 			return (NULL);
-		free(temp);
+		ft_free(temp);
 	}
 	return (ret);
 }
 
 int	find_n_option(char *content)
 {
-	if (!ft_strncmp(content, "-n", 2) && !ft_strchr(content, 'e'))
+	int i;
+
+	if (!ft_strncmp(content, "-n", 2))
+	{
+		if (ft_strlen(content) > 2)
+		{
+			i = 2;
+			while (content[i])
+			{
+				if (content[i] != 'n' && content[i] != 'e')
+					return (0);
+				i++;
+			}
+		}
 		return (1);
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:15:22 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/11 20:16:59 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/14 20:41:32 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	replace_env(t_token *token, char *key)
 			all_free(env_split);
 			temp = g_global.env[i];
 			g_global.env[i] = ft_strdup(token->content);
-			free(temp);
+			ft_free(temp);
 			return ;
 		}
 		i++;
@@ -72,7 +72,7 @@ void	print_env(void)
 	{
 		env_line = ft_strjoin("declare -x ", g_global.env[i]);
 		printf("%s\n", env_line);
-		free(env_line);
+		ft_free(env_line);
 		i++;
 	}
 }

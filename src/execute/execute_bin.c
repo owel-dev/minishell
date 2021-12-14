@@ -6,13 +6,13 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:19:25 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/11 20:20:53 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/14 18:20:33 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	run_cmd(t_bundle *bundle, char *cmd, char **arr)
+int	run_cmd(char *cmd, char **arr)
 {
 	int	pid;
 	int	status;
@@ -39,7 +39,7 @@ int	execute_bin(t_bundle *bundle)
 	cmd = ft_strdup(bundle->token->content);
 	arg_arr = execute_make_arr(bundle);
 	if (ft_strchr(cmd, '/'))
-		ret = run_cmd(bundle, cmd, arg_arr);
+		ret = run_cmd(cmd, arg_arr);
 	else
 		ret = execute_run_paths(bundle, cmd, arg_arr);
 	ft_free(cmd);

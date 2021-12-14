@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:22:01 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/13 11:04:39 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/14 18:20:50 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	execute_pipe_cmd(t_bundle *bundle)
 {
 	int		result;
 	pid_t	child_ps;
-	int		status;
 
 	while (bundle->token)
 	{

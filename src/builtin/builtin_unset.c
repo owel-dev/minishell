@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:18:19 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/11 20:19:17 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/14 18:19:51 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	builtin_unset(t_bundle *bundle)
 {
 	char	**env_copy;
 	char	*env_current;
-	int		len;
 	char	**temp;
 	int		result;
 

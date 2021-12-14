@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_str.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 19:17:24 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/13 19:03:02 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/14 18:26:51 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	check_quote(char *str, int start, int end)
 {
-	int		count;
 	int		quote_check;
 
 	quote_check = 0;

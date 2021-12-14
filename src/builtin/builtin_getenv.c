@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:17:10 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/11 20:17:29 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/14 18:19:43 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	*builtin_getenv(char *key)
 {
 	int		i;
-	char	*ret;
 	char	*equal;
 	char	*env_key;
 	char	*env_value;

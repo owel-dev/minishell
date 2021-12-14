@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 13:24:11 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/13 11:31:10 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/14 20:41:41 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	get_readline(int fd[], t_token *token)
 			write(fd[1], read_doc, ft_strlen(read_doc));
 			write(fd[1], "\n", 1);
 		}
-		free(read_doc);
+		ft_free(read_doc);
 	}
 }
 
@@ -37,6 +37,7 @@ int	read_here_document(t_bundle *bundle, t_token *token)
 	int		status;
 	int		fd[2];
 
+	status = 0;
 	if (pipe(fd) < 0)
 		return (-1);
 	pid = fork();

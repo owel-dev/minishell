@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:23:46 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/14 18:02:38 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/14 21:11:12 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ t_list	*execute_wildcard(char *token_content)
 	t_list	*files;
 	t_list	*checks;
 	t_list	*ret;
-	t_list	*temp;
 
 	files = get_list_file();
 	checks = get_list_check(token_content);

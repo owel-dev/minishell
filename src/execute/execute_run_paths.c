@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:22:52 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/11 20:23:42 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/14 20:41:34 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*make_fullpath(char *path, char *cmd)
 
 	temp = ft_strjoin(path, "/");
 	full_path = ft_strjoin(temp, cmd);
-	free(temp);
+	ft_free(temp);
 	return (full_path);
 }
 
@@ -55,7 +55,7 @@ int	execute_run_paths(t_bundle *bundle, char *cmd, char **arg_arr)
 	while (path_list[i])
 	{
 		full_path = make_fullpath(path_list[i], cmd);
-		status = run_cmd(bundle, full_path, arg_arr);
+		status = run_cmd(full_path, arg_arr);
 		ft_free(full_path);
 		if (status == 256 || status == 3 || status == 0 || \
 			status == 2)

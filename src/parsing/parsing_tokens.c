@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 02:23:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/13 19:00:47 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/14 19:22:47 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ int	check_vaild_token_list(t_bundle *bundle, int error)
 			error = \
 			printf("minishell: syntax error near unexpected token `|'\n");
 		else if (temp->token_type == D_CLOSE)
-			check_env_token(temp, bundle);
+			check_env_token(temp);
 		else if (temp->token_type == ENV)
-			replace_env_token(temp, bundle);
+			replace_env_token(temp);
 		if (error)
 			return (FAIL);
 		temp = temp->next;
@@ -88,7 +88,6 @@ int	parsing_token_list(t_bundle *bundle)
 {
 	int		i;
 	int		start;
-	char	*cmd;
 
 	i = 0;
 	start = 0;

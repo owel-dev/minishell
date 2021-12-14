@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:22:13 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/14 18:02:49 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/14 21:15:27 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ t_list	*make_list(t_bundle *bundle)
 	{
 		bundle->token = bundle->token->next;
 		token_content = ft_strdup(bundle->token->content);
-		if (ft_strchr(token_content, '*') != NULL)
+		if (ft_strchr(token_content, '*'))
 			ft_lstadd_back(&list, execute_wildcard(token_content));
 		else
-			ft_lstadd_back(&list, ft_lstnew(token_content));
+			ft_lstadd_back(&list, ft_lstnew(ft_strdup(token_content)));
 		ft_free(token_content);
 	}
 	return (list);
@@ -63,7 +63,7 @@ char	**execute_make_arr(t_bundle *bundle)
 	cmd = ft_strdup(bundle->token->content);
 	arg_list = make_list(bundle);
 	arg_arr = make_arr(cmd, arg_list);
-	free(cmd);
+	ft_free(cmd);
 	ft_lstclear(&arg_list);
 	return (arg_arr);
 }

@@ -5,24 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/29 20:30:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/11 15:09:55 by ulee             ###   ########.fr       */
+/*   Created: 2021/12/11 20:26:02 by ulee              #+#    #+#             */
+/*   Updated: 2021/12/14 20:41:28 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	start_sh(char ***env, char *input)
+void	init_main(int argc, char **av, char **env)
+{
+	(void)argc;
+	(void)av;
+	g_global.env = dup_env(env);
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, sig_handler);
+}
+
+void	start_sh(char *input)
 {
 	t_bundle	*bundles;
 	int			i;
 	int			result;
-	char		**use_env;
 
-	use_env = *env;
 	if (is_space_str(input))
 		return ;
-	bundles = split_bundle(use_env, input);
+	bundles = split_bundle(input);
 	if (parsing_token(bundles) == FAIL)
 	{
 		free_bundle(bundles);
@@ -32,26 +39,19 @@ void	start_sh(char ***env, char *input)
 	while (bundles[i].cmd_line)
 	{
 		result = execute_cmd(&bundles[i++]);
-		if (bundles[i].cmd_line != NULL && \
-			(result == SUCCESS && bundles[i].priority == P_OR) \
-			|| (result == FAIL && bundles[i].priority == P_AND))
+		if (((bundles[i].cmd_line != NULL) && (result == SUCCESS && bundles[i].priority == P_OR)) || (result == FAIL && bundles[i].priority == P_AND))
 			i++;
 	}
-	*env = bundles->env;
 	free_bundle(bundles);
 }
 
-void	loop(char **env, char **av)
+int	main(int argc, char **av, char **env)
 {
 	char	*input;
-	char 	**env_dup;
-	char 	**temp;
 
-	env_dup = dup_env(env);
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
+	init_main(argc, av, env);
 	int i = 1;
-	while(av[i])
+	while (av[i])
 	{
 		input = ft_strdup(av[i]);
 		if (input == NULL)
@@ -61,22 +61,14 @@ void	loop(char **env, char **av)
 		}
 		if (ft_isallblank(input))
 		{
-			free(input);
-			continue;
+			ft_free(input);
+			continue ;
 		}
 		add_history(input);
-		start_sh(&env_dup, input);
-		free(input);
+		start_sh(input);
+		ft_free(input);
 		i++;
 	}
-	ft_two_free(env_dup);
-}
-
-int main(int argc, char **av, char **env)
-{
-	char **dup_env;
-	char **dup_av;
-
-	loop(env, av);
-	return 0;
+	ft_two_free(g_global.env);
+	return (0);
 }

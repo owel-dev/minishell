@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:09:39 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/11 20:11:55 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/14 18:19:36 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	builtin_cd(t_bundle *bundle)
 {
 	int		ret_chdir;
 	char	*dest_path;
-	char	*home_path;
 
 	if (!bundle->token->next)
 		dest_path = builtin_getenv("HOME");

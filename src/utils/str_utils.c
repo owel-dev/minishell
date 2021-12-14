@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:36:12 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/14 18:03:49 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/14 20:49:59 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_isallblank(char *str)
 	return (1);
 }
 
-char	*join_env_str(char *content, char *env, int start, int end)
+char	*join_env_str(char *content, char *env, int start)
 {
 	char	*pre;
 	char	*new_content;
@@ -51,10 +51,10 @@ char	*join_env_str(char *content, char *env, int start, int end)
 	if ((start - 1) > 0)
 		pre = ft_substr(content, 0, start - 1);
 	else
-		pre = "";
+		pre = NULL;
 	new_content = ft_strjoin(pre, env);
-	free(env);
-	free(pre);
+	ft_free(env);
+	ft_free(pre);
 	return (new_content);
 }
 
@@ -69,14 +69,14 @@ void	make_env_str(int *start, int *end, t_token *token)
 		*end += 1;
 	temp = ft_substr(token->content, *start, *end - *start);
 	env = builtin_getenv(temp);
-	new_content = join_env_str(token->content, env, *start, *end);
-	free(temp);
+	new_content = join_env_str(token->content, env, *start);
+	ft_free(temp);
 	*start = ft_strlen(new_content);
 	temp = ft_substr(token->content, *end, ft_strlen(token->content));
 	env = ft_strjoin(new_content, temp);
-	free(new_content);
-	free(temp);
-	free(token->content);
+	ft_free(new_content);
+	ft_free(temp);
+	ft_free(token->content);
 	token->content = env;
 }
 

@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/14 17:52:30 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/14 20:47:09 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int			invalid_argument(t_bundle *bundle, int *result);
 int			builtin_unset(t_bundle *bundle);
 
 //execute
-int			run_cmd(t_bundle *bundle, char *cmd, char **arr);
+int			run_cmd(char *cmd, char **arr);
 int			execute_bin(t_bundle *bundle);
 
 int			execute_builtin(t_bundle *bundle);
@@ -212,9 +212,9 @@ int			ft_isallblank(char *str);
 
 int			is_redir_token(t_token *token);
 int			is_io_token(t_token *token);
-char		*join_env_str(char *content, char *env, int start, int end);
-void		check_env_token(t_token *token, t_bundle *bundle);
-void		replace_env_token(t_token *temp, t_bundle *bundle);
+char		*join_env_str(char *content, char *env, int start);
+void		check_env_token(t_token *token);
+void		replace_env_token(t_token *temp);
 char		*ft_strnstr_reverse(char *check_in_file, t_list *checks_dup);
 
 #endif
