@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:23:46 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/14 17:40:58 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/14 18:02:38 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,60 +60,58 @@ t_list	*get_list_check(char *cmd)
 	return (checks);
 }
 
-char	*check_valid(t_list *checks_dup, t_list *checks, t_list *files_dup)
+char	*check_valid(char *file_name, t_list *checks, t_list *head)
 {
-	char *check_in_file;
+	char	*check_in_file;
 
-	check_in_file = ft_strnstr(files_dup->content, checks_dup->content, \
-		ft_strlen(files_dup->content));
+	check_in_file = ft_strnstr(file_name, checks->content, \
+		ft_strlen(file_name));
 	if (!check_in_file)
 		return (NULL);
-	check_in_file = check_in_file + ft_strlen(checks_dup->content);
-	if (checks_dup == checks)
+	check_in_file = check_in_file + ft_strlen(checks->content);
+	if (checks == head)
 	{
-		if (ft_strncmp(files_dup->content, checks_dup->content, \
-			ft_strlen(checks_dup->content)) != 0)
+		if (ft_strncmp(file_name, checks->content, \
+			ft_strlen(checks->content)) != 0)
 			return (NULL);
-		files_dup->content = check_in_file;
-		return (files_dup->content);
+		file_name = check_in_file;
+		return (file_name);
 	}
-	if (checks_dup->next == NULL)
+	if (checks->next == NULL)
 	{
-		check_in_file = ft_strnstr_reverse(check_in_file, checks_dup);
+		check_in_file = ft_strnstr_reverse(check_in_file, checks);
 		if (check_in_file == NULL)
 			return (NULL);
 		return (check_in_file);
 	}
-	files_dup->content = check_in_file;
-	return (files_dup->content);
+	file_name = check_in_file;
+	return (file_name);
 }
 
 t_list	*get_list_needfile(t_list *files, t_list *checks)
 {
 	t_list	*checks_dup;
-	t_list	*files_dup;
 	t_list	*ret;
-	char *files_content;
+	char	*files_content;
 
 	ret = NULL;
-	files_dup = files;
-	while (files_dup)
+	while (files)
 	{
 		checks_dup = checks;
-		files_content = files_dup->content;
+		files_content = files->content;
 		while (checks_dup)
 		{
 			if (ft_strcmp(checks_dup->content, "*") != 0)
 			{
-				files_dup->content = check_valid(checks_dup, checks, files_dup);
-				if (files_dup->content == NULL)
+				files_content = check_valid(files_content, checks_dup, checks);
+				if (files_content == NULL)
 					break ;
 			}
 			checks_dup = checks_dup->next;
 		}
 		if (checks_dup == NULL)
-			ft_lstadd_back(&ret, ft_lstnew(ft_strdup(files_content)));
-		files_dup = files_dup->next;
+			ft_lstadd_back(&ret, ft_lstnew(ft_strdup(files->content)));
+		files = files->next;
 	}
 	return (ret);
 }
@@ -123,13 +121,14 @@ t_list	*execute_wildcard(char *token_content)
 	t_list	*files;
 	t_list	*checks;
 	t_list	*ret;
-	t_list *temp;
+	t_list	*temp;
 
 	files = get_list_file();
 	checks = get_list_check(token_content);
 	ret = get_list_needfile(files, checks);
 	if (ret == NULL)
 		ft_lstadd_back(&ret, ft_lstnew(ft_strdup(token_content)));
-	ft_lstclear(files);
+	ft_lstclear(&files);
+	ft_lstclear(&checks);
 	return (ret);
 }

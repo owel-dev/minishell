@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 18:54:17 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/14 15:16:45 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/14 18:03:12 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ size_t				ft_strlcat(char *first, const char *second, \
 	size_t total_len);
 char				*ft_strchr(const char *str, int c);
 char				*ft_strrchr(const char *str, int c);
-char				*ft_strnstr(const char *big, const char *little, size_t len);
+char				*ft_strnstr(const char *big, const char *little, \
+	size_t len);
 int					ft_strncmp(const char *first, const char *second, \
 	size_t len);
 int					ft_atoi(const char *str);

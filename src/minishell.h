@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/13 21:02:18 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/14 17:52:30 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int			execute_run_paths(t_bundle *bundle, char *cmd, char **arg_arr);
 
 t_list		*get_list_file(void);
 t_list		*get_list_check(char *cmd);
-char		*check_valid(t_list *checks_dup, t_list *checks, t_list *files_dup);
+char		*check_valid(char *file_name, t_list *checks, t_list *head);
 t_list		*get_list_needfile(t_list *files, t_list *checks);
 t_list		*execute_wildcard(char *token_content);
 

@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:22:13 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/11 20:22:42 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/14 18:02:49 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_list	*make_list(t_bundle *bundle)
 			ft_lstadd_back(&list, execute_wildcard(token_content));
 		else
 			ft_lstadd_back(&list, ft_lstnew(token_content));
+		ft_free(token_content);
 	}
 	return (list);
 }

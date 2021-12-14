@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:36:12 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/14 17:32:06 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/14 18:03:49 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	make_env_str(int *start, int *end, t_token *token)
 	token->content = env;
 }
 
-char *ft_strnstr_reverse(char *check_in_file, t_list *checks_dup)
+char	*ft_strnstr_reverse(char *check_in_file, t_list *checks_dup)
 {
 	while (check_in_file != NULL)
 	{
