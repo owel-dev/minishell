@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/13 19:14:45 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/13 21:02:18 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int			execute_run_paths(t_bundle *bundle, char *cmd, char **arg_arr);
 
 t_list		*get_list_file(void);
 t_list		*get_list_check(char *cmd);
-char		*check_valid(t_list *checks_dup, t_list *checks, char *files_dup);
+char		*check_valid(t_list *checks_dup, t_list *checks, t_list *files_dup);
 t_list		*get_list_needfile(t_list *files, t_list *checks);
 t_list		*execute_wildcard(char *token_content);
 
@@ -215,5 +215,6 @@ int			is_io_token(t_token *token);
 char		*join_env_str(char *content, char *env, int start, int end);
 void		check_env_token(t_token *token, t_bundle *bundle);
 void		replace_env_token(t_token *temp, t_bundle *bundle);
+char		*ft_strnstr_reverse(char *check_in_file, t_list *checks_dup);
 
 #endif

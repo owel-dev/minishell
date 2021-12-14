@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:36:12 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/13 18:27:34 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/14 17:32:06 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,18 @@ void	make_env_str(int *start, int *end, t_token *token)
 	free(temp);
 	free(token->content);
 	token->content = env;
+}
+
+char *ft_strnstr_reverse(char *check_in_file, t_list *checks_dup)
+{
+	while (check_in_file != NULL)
+	{
+		if (*(++check_in_file) == '\0')
+			return (check_in_file);
+		check_in_file = ft_strnstr(check_in_file, checks_dup->content, \
+			ft_strlen(check_in_file));
+		if (check_in_file == NULL)
+			return (NULL);
+	}
+	return (NULL);
 }

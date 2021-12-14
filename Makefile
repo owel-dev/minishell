@@ -1,10 +1,10 @@
 NAME = minishell
 CC = gcc -g
-CFLAGS = -Wall -Wextra -Werror -lreadline -L /usr/local/opt/readline/lib -I/usr/local/opt/readline/include
-INCS = -I./src/libft -I./ -I/usr/local/opt/readline/include
+# CFLAGS = -Wall -Wextra -Werror -lreadline -L /usr/local/opt/readline/lib -I/usr/local/opt/readline/include
+# INCS = -I./src/libft -I./ -I/usr/local/opt/readline/include
 
-# CFLAGS = -Wall -Wextra -Werror -lreadline -L /Users/ulee/Downloads/readline/lib -I/Users/ulee/Downloads/readline/include
-# INCS = -I./src/libft -I./ -I/Users/ulee/Downloads/readline/include
+CFLAGS = -Wall -Wextra -Werror -lreadline -L/Users/ulee/.brew/opt/readline/lib -I/Users/ulee/.brew/opt/readline/include
+INCS = -I./src/libft -I./ -I/Users/ulee/.brew/opt/readline/include
 
 LIBFT = -L./src/libft -lft
 RM = rm -f
@@ -40,7 +40,7 @@ FILE =	main \
 		utils/split_utils \
 		utils/fd_utils \
 		utils/token_utils \
-		utils/check_utils \
+		utils/check_utils
 
 FILE_T =	test \
 		signal/sig_handler \
@@ -68,10 +68,12 @@ FILE_T =	test \
 		parsing/parsing_str \
 		parsing/set_token \
 		utils/list_utils \
+		utils/list_utils2 \
 		utils/str_utils \
 		utils/split_utils \
 		utils/fd_utils \
 		utils/token_utils \
+		utils/check_utils
 
 SRCS = $(addprefix ./src/, $(addsuffix .c, $(FILE)))
 OBJS = $(addprefix ./src/, $(addsuffix .o, $(FILE)))
