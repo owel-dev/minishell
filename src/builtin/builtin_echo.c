@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:12:10 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/14 20:41:30 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/15 15:27:11 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*append_arg(t_bundle *bundle, char *buf)
 
 int	find_n_option(char *content)
 {
-	int i;
+	int	i;
 
 	if (!ft_strncmp(content, "-n", 2))
 	{

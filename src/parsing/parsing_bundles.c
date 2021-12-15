@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_bundles.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:58:22 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/13 19:03:34 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/15 17:19:56 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,7 @@ void	set_bundle(t_bundle *bundle, int bundles_num, char const *str)
 	i = 0;
 	while (i <= bundles_num)
 	{
-		bundle[i].quote = 0;
-		bundle[i].priority = 0;
-		bundle[i].is_redir = 0;
-		bundle[i].token = NULL;
-		bundle[i].pipe_token = NULL;
 		bundle[i].input = (char *)str;
-		bundle[i].cmd_line = NULL;
 		i++;
 	}
 }

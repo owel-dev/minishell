@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:26:02 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/14 20:41:24 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/15 15:43:16 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ void	start_sh(char *input)
 	while (bundles[i].cmd_line)
 	{
 		result = execute_cmd(&bundles[i++]);
-		if (((bundles[i].cmd_line != NULL) && (result == SUCCESS && bundles[i].priority == P_OR)) || (result == FAIL && bundles[i].priority == P_AND))
+		if (((bundles[i].cmd_line != NULL) && (result == SUCCESS \
+			&& bundles[i].priority == P_OR)) || (result == FAIL && \
+			bundles[i].priority == P_AND))
 			i++;
 	}
 	free_bundle(bundles);
@@ -50,13 +52,13 @@ int	main(int argc, char **av, char **env)
 	char	*input;
 
 	init_main(argc, av, env);
-	while (TRUE)
+	while (1)
 	{
 		input = readline("minishell$ ");
 		if (input == NULL)
 		{
 			printf("logout\n");
-			exit(0);
+			exit(2);
 		}
 		if (ft_isallblank(input))
 		{
@@ -68,5 +70,5 @@ int	main(int argc, char **av, char **env)
 		ft_free(input);
 	}
 	ft_two_free(g_global.env);
-	return (0);
+	return (2);
 }

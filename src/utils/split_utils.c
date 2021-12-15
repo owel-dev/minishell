@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 15:28:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/13 18:33:28 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/15 17:20:02 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ t_bundle	*split_bundle(char const *str)
 	bundles = (t_bundle *)malloc(sizeof(t_bundle) * (bundles_num + 1));
 	if (bundles == NULL)
 		return (NULL);
+	ft_bzero(bundles, sizeof(t_bundle) * (bundles_num + 1));
 	bundles[bundles_num].cmd_line = NULL;
 	set_bundle(bundles, bundles_num, str);
 	i = cut_cmd(bundles, str, 0, 0);
