@@ -6,11 +6,12 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:30:02 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/13 11:26:28 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/15 23:39:08 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
 void	passing_pipe_token(t_bundle *bundle)
 {
 	while (bundle->token->next)

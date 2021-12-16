@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:26:02 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/15 15:43:16 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/16 20:15:39 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int	main(int argc, char **av, char **env)
 		input = readline("minishell$ ");
 		if (input == NULL)
 		{
-			printf("logout\n");
-			exit(2);
+			write(1, "exit\n", 5);
+			exit(0);
 		}
 		if (ft_isallblank(input))
 		{
@@ -70,5 +70,5 @@ int	main(int argc, char **av, char **env)
 		ft_free(input);
 	}
 	ft_two_free(g_global.env);
-	return (2);
+	return (0);
 }

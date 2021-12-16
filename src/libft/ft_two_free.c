@@ -9,10 +9,10 @@ void	ft_two_free(char **result)
 	i = 0;
 	while (result[i] != NULL)
 	{
-		free(result[i]);
+		ft_free(result[i]);
 		result[i] = NULL;
 		i++;
 	}
-	free(result);
+	ft_free(result);
 	return ;
 }

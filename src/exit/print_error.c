@@ -9,5 +9,5 @@ void	print_error_exit(char *str, int error_num)
 void	print_error(char *str)
 {
 	write(2, str, ft_strlen(str));
-	write(1, "\n", 1);
+	write(2, "\n", 1);
 }

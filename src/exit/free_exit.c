@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 01:47:17 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/15 16:02:01 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/16 19:26:02 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	child_exit(t_bundle *bundles, int status)
 	int	i;
 
 	i = 0;
+	close(3);
+	close(4);
 	ft_free(bundles->input);
 	while (bundles[i].cmd_line)
 	{

@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:46:34 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/13 13:47:04 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/16 19:36:43 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ void	tokenlst_delete(t_token *lst)
 	{
 		lst->next->pre = NULL;
 	}
-	free(lst->content);
-	free(lst);
+	ft_free(lst->content);
+	ft_free(lst);
 }

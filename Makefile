@@ -1,10 +1,10 @@
 NAME = minishell
-CC = gcc -g -Wall -Wextra -Werror
-# CFLAGS = -Wall -Wextra -Werror -lreadline -L /usr/local/opt/readline/lib -I/usr/local/opt/readline/include
-# INCS = -I./src/libft -I./ -I/usr/local/opt/readline/include
+CC = gcc -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -lreadline -L /usr/local/opt/readline/lib -I/usr/local/opt/readline/include
+INCS = -I./src/libft -I./ -I/usr/local/opt/readline/include
 
-CFLAGS = -lreadline -L/Users/ulee/.brew/opt/readline/lib -I/Users/ulee/.brew/opt/readline/include
-INCS = -I./src/libft -I./ -I/Users/ulee/.brew/opt/readline/include
+# CFLAGS = -lreadline -L/Users/ulee/.brew/opt/readline/lib -I/Users/ulee/.brew/opt/readline/include
+# INCS = -I./src/libft -I./ -I/Users/ulee/.brew/opt/readline/include
 
 LIBFT = -L./src/libft -lft
 RM = rm -f

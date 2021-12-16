@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:40:42 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/14 20:47:39 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/16 20:13:24 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,22 @@ void	check_env_token(t_token *token)
 	}
 }
 
-void	replace_env_token(t_token *temp)
+void	replace_env_token(t_bundle *bundle, t_token *temp)
 {
-	t_token	*delete_token;
 	char	*env_tem;
 
 	env_tem = builtin_getenv(temp->content);
-	free(temp->content);
 	if (env_tem == NULL)
 	{
-		temp->pre->next = temp->next;
-		delete_token = temp;
-		temp = temp->pre;
-		free(delete_token);
+		if (bundle->head == temp)
+		{
+			bundle->head = NULL;
+		}
+		tokenlst_delete(temp);
 	}
 	else
+	{
+		ft_free(temp->content);
 		temp->content = env_tem;
+	}
 }
