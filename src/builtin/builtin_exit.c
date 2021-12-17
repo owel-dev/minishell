@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:15:14 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/16 10:44:26 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/17 16:14:53 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_isallnum(char *str)
 
 int	builtin_exit(t_bundle *bundle)
 {
-	write(1, "exit\n", 5);
+	write(2, "exit\n", 5);
 	if (bundle->token->next)
 	{
 		if (!ft_isallnum(bundle->token->next->content))

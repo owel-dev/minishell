@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:15:22 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/16 15:42:38 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/17 17:20:56 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,13 @@ void	replace_env(t_token *token, char *key)
 			return ;
 		if (ft_strcmp(env_split[0], key) == 0)
 		{
-			all_free(env_split);
+			ft_two_free(env_split);
 			temp = g_global.env[i];
 			g_global.env[i] = ft_strdup(token->content);
 			ft_free(temp);
 			return ;
 		}
+		ft_two_free(env_split);
 		i++;
 	}
 }

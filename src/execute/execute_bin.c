@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:19:25 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/17 09:59:47 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/17 17:02:37 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	run_cmd(char *cmd, char **arr)
 		exit(2);
 	}
 	waitpid(pid, &status, 0);
-	set_signal();
 	return (status);
 }
 
