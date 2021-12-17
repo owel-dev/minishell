@@ -1,25 +1,24 @@
-# minishell
-
-my own bash 🐚
+# minishell 🐚
 
 ## Build and Run
 
 ```
-git clone git@github.com:kyoshong/minishell.git && cd minishell && make && ./minishell
+git clone git@github.com:kyoshong/minishell.git
+cd minishell
+make && ./minishell
 ```
 ## Commands
 
 | Command | funcion |
 |---|---|
 | cd | mv directory |
-| builtin funcions | ls, cat, ect... |
+| builtin funcions : /bin | ls, cat, echo etc.. |
 |redirection | <, >, <<, >> |
 | pipe |  |
 | double quote (") | |
 | single quote (') | |
 | $? | exit code |
 | signal | |
-|exit | |
 | exit | |
 | &&, \|\| | priority |
 | * | wildcard |
