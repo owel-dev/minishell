@@ -6,13 +6,13 @@
 #    By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/17 14:49:10 by ulee              #+#    #+#              #
-#    Updated: 2021/12/09 15:54:58 by ulee             ###   ########.fr        #
+#    Updated: 2021/12/15 17:46:24 by ulee             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-CC = gcc -g
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
 RM = rm -f

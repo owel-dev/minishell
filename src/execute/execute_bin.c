@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:19:25 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/15 15:51:43 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/17 09:59:47 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ int	run_cmd(char *cmd, char **arr)
 {
 	int	pid;
 	int	status;
-	int	exec_status;
 
 	pid = fork();
 	if (pid == -1)
-		return (256);
+		exit(1);
 	if (pid == 0)
 	{
-		exec_status = execve(cmd, arr, g_global.env);
+		execve(cmd, arr, g_global.env);
 		exit(2);
 	}
 	waitpid(pid, &status, 0);
+	set_signal();
 	return (status);
 }
 
@@ -34,15 +34,17 @@ int	execute_bin(t_bundle *bundle)
 {
 	char	**arg_arr;
 	char	*cmd;
-	int		ret;
+	int		result;
 
 	cmd = ft_strdup(bundle->token->content);
 	arg_arr = execute_make_arr(bundle);
 	if (ft_strchr(cmd, '/'))
-		ret = run_cmd(cmd, arg_arr);
+		result = run_cmd(cmd, arg_arr);
 	else
-		ret = execute_run_paths(bundle, cmd, arg_arr);
+		result = execute_run_paths(cmd, arg_arr);
+	if (result == -1 || result == 512)
+		print_not_found(cmd, result);
 	ft_free(cmd);
 	ft_two_free(arg_arr);
-	return (ret);
+	return (result);
 }

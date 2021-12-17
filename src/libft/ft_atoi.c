@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 20:18:18 by ulee              #+#    #+#             */
-/*   Updated: 2021/11/01 17:27:42 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/16 10:44:58 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_space(int c)
 	return (0);
 }
 
-int	ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
 	long long	num;
 	int			is_minus;

@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:13:28 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/11 20:14:36 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/16 15:43:38 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	builtin_env(t_bundle *bundle)
 		!ft_strncmp(bundle->token->next->content, "=", 1))
 	{
 		bundle->token = bundle->token->next;
-		printf("%s: %s: not a valid identifier\n", \
-		bundle->head->content, bundle->token->content);
+		printf("minishell: env: %s: not a valid identifier\n", \
+		bundle->token->content);
 		return (INVALID_ARG);
 	}
 	if (bundle->token->next && bundle->token->next->token_type < ENV)
 	{
-		printf("env: %s: No such file or directory\n", \
+		printf("minishell: env: %s: No such file or directory\n", \
 			bundle->token->next->content);
 		return (FAIL);
 	}

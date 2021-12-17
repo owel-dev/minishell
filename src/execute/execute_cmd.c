@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:22:01 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/15 17:15:53 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/16 20:59:50 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	set_status(int result)
 	}
 	else if (result == INVALID_ARG || result == 256)
 		g_global.status = 1;
-	else if (result == FAIL)
+	else if (result == 512 || result == 32512 || result == -1)
 		g_global.status = 127;
 	else if (result == 2)
 		g_global.status = 130;

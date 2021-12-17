@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:26:02 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/15 15:43:16 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/17 10:15:09 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,18 @@ void	init_main(int argc, char **av, char **env)
 	(void)argc;
 	(void)av;
 	g_global.env = dup_env(env);
+}
+
+void	set_signal(void)
+{
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
+}
+
+void	unset_signal(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	start_sh(char *input)
@@ -52,13 +62,15 @@ int	main(int argc, char **av, char **env)
 	char	*input;
 
 	init_main(argc, av, env);
-	while (1)
+	set_signal();
+	while (TRUE)
 	{
 		input = readline("minishell$ ");
+		unset_signal();
 		if (input == NULL)
 		{
-			printf("logout\n");
-			exit(2);
+			write(1, "exit\n", 5);
+			exit(0);
 		}
 		if (ft_isallblank(input))
 		{
@@ -68,7 +80,8 @@ int	main(int argc, char **av, char **env)
 		add_history(input);
 		start_sh(input);
 		ft_free(input);
+		set_signal();
 	}
 	ft_two_free(g_global.env);
-	return (2);
+	return (0);
 }

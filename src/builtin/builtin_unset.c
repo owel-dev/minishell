@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:18:19 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/14 18:19:51 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/16 15:42:47 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	invalid_argument(t_bundle *bundle, int *result)
 	if (ft_strchr(bundle->token->content, '='))
 	{
 		*result = INVALID_ARG;
-		printf("export: %s: not a valid identifier\n", \
+		printf("minishell: unset: %s: not a valid identifier\n", \
 		bundle->token->content);
 		return (1);
 	}

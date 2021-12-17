@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:21:07 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/11 20:21:43 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/16 17:38:29 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	execute_builtin(t_bundle *bundle)
 	{
 		if (ft_strcmp(bundle->token->content, "cd") == 0)
 			return (builtin_cd(bundle));
-		else if (ft_strcmp(bundle->token->content, "env") == 0)
-			return (builtin_env(bundle));
 		else if (ft_strcmp(bundle->token->content, "pwd") == 0)
 			return (builtin_pwd(bundle));
 		else if (ft_strcmp(bundle->token->content, "export") == 0)

@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 18:54:17 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/14 18:03:12 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/16 10:45:17 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char				*ft_strnstr(const char *big, const char *little, \
 	size_t len);
 int					ft_strncmp(const char *first, const char *second, \
 	size_t len);
-int					ft_atoi(const char *str);
+long long			ft_atoi(const char *str);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);

@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/15 10:22:51 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/17 10:16:46 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ typedef struct s_bundle
 }				t_bundle;
 
 // main
+void		init_main(int argc, char **av, char **env);
+void		set_signal(void);
+void		unset_signal(void);
 void		start_sh(char *input);
 char		**dup_env(char **envp);
 
@@ -132,8 +135,8 @@ char		**execute_make_arr(t_bundle *bundle);
 
 char		**make_pathlist(void);
 char		*make_fullpath(char *path, char *cmd);
-int			print_not_found(t_bundle *bundle);
-int			execute_run_paths(t_bundle *bundle, char *cmd, char **arg_arr);
+void		print_not_found(char *cmd, int status);
+int			execute_run_paths(char *cmd, char **arg_arr);
 
 t_list		*get_list_file(void);
 t_list		*get_list_check(char *cmd);
@@ -146,7 +149,6 @@ void		free_bundle(t_bundle *bundles);
 void		child_exit(t_bundle *bundles, int status);
 
 void		print_error_exit(char *str, int error_num);
-void		print_error(char *str);
 
 //iohandler
 int			pipe_cmd(t_bundle *bundle);
