@@ -1,13 +1,13 @@
 # minishell
 
-## make my own bash🐚
+my own bash 🐚
 
-### Build and Run
+## Build and Run
 
 ```
 git clone git@github.com:kyoshong/minishell.git && cd minishell && make && ./minishell
 ```
-### Commands
+## Commands
 
 | Command | funcion |
 |---|---|
@@ -23,3 +23,7 @@ git clone git@github.com:kyoshong/minishell.git && cd minishell && make && ./min
 | exit | |
 | &&, \|\| | priority |
 | * | wildcard |
+
+## flow chart
+![image](https://user-images.githubusercontent.com/45951630/146562876-7b3549d9-7cca-40ea-ae71-b645db6dc675.png)
+
