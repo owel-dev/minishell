@@ -5,3 +5,4 @@ src/test.c
 test*
 leaks_loop.sh
 a.out
+README.md
