@@ -3,18 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+         #
+#    By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/15 17:43:53 by ulee              #+#    #+#              #
-#    Updated: 2021/12/17 10:25:19 by ulee             ###   ########.fr        #
+#    Updated: 2021/12/17 16:04:20 by hyospark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = gcc -Wall -Wextra -Werror
-CFLAGS = -lreadline -L/Users/ulee/.brew/opt/readline/lib -I/Users/ulee/.brew/opt/readline/include
-INCS = -I./src/libft -I./ -I/Users/ulee/.brew/opt/readline/include
-
+# CFLAGS = -lreadline -L/Users/ulee/.brew/opt/readline/lib -I/Users/ulee/.brew/opt/readline/include
+# INCS = -I./src/libft -I./ -I/Users/ulee/.brew/opt/readline/include
+CFLAGS = -lreadline -L /usr/local/opt/readline/lib -I/usr/local/opt/readline/include
+INCS = -I./src/libft -I./ -I/usr/local/opt/readline/include
 LIBFT = -L./src/libft -lft
 RM = rm -f
 
