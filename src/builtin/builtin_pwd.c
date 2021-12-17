@@ -6,13 +6,13 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:17:51 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/16 20:59:38 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/17 10:33:39 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *get_pwd(void)
+char	*get_pwd(void)
 {
 	char	*ret_pwd;
 	char	dir[1000];

@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/17 10:24:40 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/17 10:33:18 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,12 +211,12 @@ int			check_priority(const char *str, int start);
 int			check_vaild_str(char *str, int start);
 int			is_vaild_char(char c);
 int			ft_isallblank(char *str);
+char		*join_env_str(char *content, char *env, int start);
+char		*ft_strnstr_reverse(char *check_in_file, t_list *checks_dup);
 
 int			is_redir_token(t_token *token);
 int			is_io_token(t_token *token);
-char		*join_env_str(char *content, char *env, int start);
 void		check_env_token(t_token *token);
 void		replace_env_token(t_bundle *bundle, t_token *temp);
-char		*ft_strnstr_reverse(char *check_in_file, t_list *checks_dup);
 
 #endif
