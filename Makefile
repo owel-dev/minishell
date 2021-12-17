@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -7,7 +6,7 @@
 #    By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/15 17:43:53 by ulee              #+#    #+#              #
-#    Updated: 2021/12/16 19:31:28 by ulee             ###   ########.fr        #
+#    Updated: 2021/12/17 10:25:19 by ulee             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,15 +14,6 @@ NAME = minishell
 CC = gcc -Wall -Wextra -Werror
 CFLAGS = -lreadline -L/Users/ulee/.brew/opt/readline/lib -I/Users/ulee/.brew/opt/readline/include
 INCS = -I./src/libft -I./ -I/Users/ulee/.brew/opt/readline/include
-=======
-NAME = minishell
-CC = gcc -Wall -Wextra -Werror
-CFLAGS = -Wall -Wextra -Werror -lreadline -L /usr/local/opt/readline/lib -I/usr/local/opt/readline/include
-INCS = -I./src/libft -I./ -I/usr/local/opt/readline/include
-
-# CFLAGS = -lreadline -L/Users/ulee/.brew/opt/readline/lib -I/Users/ulee/.brew/opt/readline/include
-# INCS = -I./src/libft -I./ -I/Users/ulee/.brew/opt/readline/include
->>>>>>> fa1413a8a5a7e6be17ea7a0bc36a49cbc8635576
 
 LIBFT = -L./src/libft -lft
 RM = rm -f

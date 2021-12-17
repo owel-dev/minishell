@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 19:34:15 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/16 19:34:18 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/17 10:25:47 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	print_error_exit(char *str, int error_num)
 
 void	print_not_found(char *cmd, int status)
 {
-<<<<<<< HEAD
 	char	log[300];
 	char	*process;
 	char	*detail;
@@ -36,8 +35,4 @@ void	print_not_found(char *cmd, int status)
 	ft_strlcat(log, detail, ft_strlen(process) + ft_strlen(cmd) + \
 		ft_strlen(detail) + 1);
 	write(2, log, ft_strlen(log));
-=======
-	write(2, str, ft_strlen(str));
-	write(2, "\n", 1);
->>>>>>> fa1413a8a5a7e6be17ea7a0bc36a49cbc8635576
 }
