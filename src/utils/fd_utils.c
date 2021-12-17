@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 16:23:10 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/14 20:20:49 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/15 23:48:31 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,15 @@ void	dup_redir_fd(t_bundle *bundle)
 		exit(FAIL);
 	}
 	if (bundle->token->fd[0] > -1)
+	{
+		close(STDIN_FILENO);
 		dup2(bundle->token->fd[0], STDIN_FILENO);
+		close(bundle->token->fd[0]);
+	}
 	if (bundle->token->fd[1] > -1)
+	{
+		close(STDOUT_FILENO);
 		dup2(bundle->token->fd[1], STDOUT_FILENO);
+		close(bundle->token->fd[1]);
+	}
 }

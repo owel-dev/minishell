@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 02:23:14 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/14 19:22:47 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/16 20:12:15 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	check_vaild_token_list(t_bundle *bundle, int error)
 		else if (temp->token_type == D_CLOSE)
 			check_env_token(temp);
 		else if (temp->token_type == ENV)
-			replace_env_token(temp);
+			replace_env_token(bundle, temp);
 		if (error)
 			return (FAIL);
 		temp = temp->next;

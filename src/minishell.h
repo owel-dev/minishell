@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/17 10:16:46 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/17 10:24:40 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,7 @@ int			is_redir_token(t_token *token);
 int			is_io_token(t_token *token);
 char		*join_env_str(char *content, char *env, int start);
 void		check_env_token(t_token *token);
-void		replace_env_token(t_token *temp);
+void		replace_env_token(t_bundle *bundle, t_token *temp);
 char		*ft_strnstr_reverse(char *check_in_file, t_list *checks_dup);
 
 #endif

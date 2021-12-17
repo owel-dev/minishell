@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:22:01 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/16 20:59:50 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/17 10:24:24 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int	execute_cmd(t_bundle *bundle)
 	int		result;
 
 	result = FAIL;
+	if (!bundle->head)
+		return (result);
 	dup2(STDIN_FILENO, 3);
 	dup2(STDOUT_FILENO, 4);
 	if (bundle->is_pipe)
