@@ -2,6 +2,6 @@
 .DS_Store
 minishell
 src/test.c
-src/builtin/a.out
-src/builtin/a.out.dSYM
 test*
+leaks_loop.sh
+a.out

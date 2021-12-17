@@ -6,7 +6,7 @@
 /*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:26:02 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/17 10:24:31 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/17 12:28:59 by ulee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,11 @@ int	main(int argc, char **av, char **env)
 			write(1, "exit\n", 5);
 			exit(0);
 		}
-		if (ft_isallblank(input))
+		if (!ft_isallblank(input))
 		{
-			ft_free(input);
-			continue ;
+			add_history(input);
+			start_sh(input);
 		}
-		add_history(input);
-		start_sh(input);
 		ft_free(input);
 		set_signal();
 	}
