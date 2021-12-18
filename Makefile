@@ -6,7 +6,7 @@
 #    By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/15 17:43:53 by ulee              #+#    #+#              #
-#    Updated: 2021/12/17 16:07:44 by ulee             ###   ########.fr        #
+#    Updated: 2021/12/18 16:10:57 by ulee             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ FILE =	main \
 		utils/split_utils \
 		utils/fd_utils \
 		utils/token_utils \
-		utils/check_utils
+		utils/check_utils \
+		signal/signal
 
 SRCS = $(addprefix ./src/, $(addsuffix .c, $(FILE)))
 OBJS = $(addprefix ./src/, $(addsuffix .o, $(FILE)))
