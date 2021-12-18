@@ -19,8 +19,6 @@ void	init_main(int argc, char **av, char **env)
 	g_global.env = dup_env(env);
 }
 
-
-
 void	start_sh(char *input)
 {
 	t_bundle	*bundles;
