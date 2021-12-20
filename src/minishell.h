@@ -6,7 +6,7 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/21 05:12:50 by hyospark         ###   ########.fr       */
+/*   Updated: 2021/12/21 05:26:06 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ typedef struct s_bundle
 
 // main
 void		init_main(int argc, char **av, char **env);
-void		set_signal(void);
-void		unset_signal(void);
 void		start_sh(char *input);
 char		**dup_env(char **envp);
 
@@ -190,6 +188,10 @@ void		ctrl_c__yes_process(void);
 void		ctrl_slash__yes_process(void);
 void		ctrl_slash__no_process(void);
 void		sig_handler(int signum);
+
+void		set_signal(void);
+void		unset_signal(int signum);
+void		init_signal(int signum);
 
 //utils
 int			is_fdnum(char *str, int back);

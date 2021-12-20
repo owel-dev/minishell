@@ -6,7 +6,11 @@
 /*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:26:02 by ulee              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/12/21 05:14:04 by hyospark         ###   ########.fr       */
+=======
+/*   Updated: 2021/12/18 16:07:46 by ulee             ###   ########.fr       */
+>>>>>>> b9d0befd9f1b19f03103fbfd5b877f91ac8e519d
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +62,13 @@ int	main(int argc, char **av, char **env)
 	char	*input;
 
 	init_main(argc, av, env);
-	set_signal();
 	while (TRUE)
 	{
+		set_signal();
+		signal(SIGUSR1, init_signal);
+		kill(0, SIGUSR1);
+		signal(SIGUSR1, unset_signal);
 		input = readline("minishell$ ");
-		unset_signal();
 		if (input == NULL)
 		{
 			write(1, "exit\n", 5);
@@ -74,7 +80,6 @@ int	main(int argc, char **av, char **env)
 			start_sh(input);
 		}
 		ft_free(input);
-		set_signal();
 	}
 	ft_two_free(g_global.env);
 	return (0);
