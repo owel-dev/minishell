@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:07:16 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/17 17:11:19 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/21 05:12:50 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ typedef struct s_bundle
 	t_token		*head;
 	int			quote;
 	int			priority;
+	int			priority_level;
+	int			parenth;
 	int			is_pipe;
 	int			is_redir;
 	char		*cmd_line;
@@ -165,13 +167,14 @@ int			redir_out(t_bundle *bundle, t_token *token, int err_flag);
 int			redir_in(t_bundle *bundle, t_token *token, int err_flag);
 
 //parsing
-int			set_bundle_line(t_bundle *bundle, int word_len);
-void		set_bundle(t_bundle *bundle, int bundles_num, char const *str);
+void		set_bundle(t_bundle *bundle, int bundles_num, \
+char const *str, int par);
 
 int			check_quote(char *str, int start, int end);
 int			parsing_quote_str(char *str, int start, int quote);
 int			parsing_env_str(char *str, int start);
-
+int			check_paren(char c, int par_check);
+int			check_parenth_bundle(char const *s);
 int			get_token(t_bundle *bnde, int i, int start);
 int			check_vaild_token_list(t_bundle *bundle, int error);
 int			parsing_token_list(t_bundle *bundle);
@@ -198,8 +201,8 @@ void		tokenlst_clear(t_token *lst);
 int			tokenlst_size(t_token *lst);
 t_token		*tokenlst_last(t_token *lst);
 void		make_env_str(int *start, int *end, t_token *token);
-int			sh_count_word(char const *s);
-int			sh_make_word(t_bundle *bundle, char const *s, int j, int word_len);
+int			sh_count_word(char const *s, int i, int count, int quote);
+int			sh_make_word(t_bundle *bundle, char const *s, int *j, int word_len);
 int			cut_cmd(t_bundle *bundles, char const *s, int i, int j);
 t_bundle	*split_bundle(char const *str);
 char		**dup_env(char **envp);
@@ -218,5 +221,12 @@ int			is_redir_token(t_token *token);
 int			is_io_token(t_token *token);
 void		check_env_token(t_token *token);
 void		replace_env_token(t_bundle *bundle, t_token *temp);
+
+//parent
+int			set_parent_level(t_bundle *bundle, char s, int *par_level);
+int			check_parenth_bundle(char const *s);
+
+void		set_bundle_quote(t_bundle *bundles, char const *s, int j);
+void		cut_priority(t_bundle *bundles, char const *s, int i, int *j);
 
 #endif

@@ -3,17 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+         #
+#    By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/15 17:43:53 by ulee              #+#    #+#              #
-#    Updated: 2021/12/17 16:07:44 by ulee             ###   ########.fr        #
+#    Updated: 2021/12/21 04:59:26 by hyospark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = gcc -Wall -Wextra -Werror
-CFLAGS = -lreadline -L/Users/ulee/.brew/opt/readline/lib -I/Users/ulee/.brew/opt/readline/include
-INCS = -I./src/libft -I./ -I/Users/ulee/.brew/opt/readline/include
+CFLAGS = -lreadline -L /usr/local/opt/readline/lib -I/usr/local/opt/readline/include
+INCS = -I./src/libft -I./ -I/usr/local/opt/readline/include
+# CFLAGS = -lreadline -L/Users/ulee/.brew/opt/readline/lib -I/Users/ulee/.brew/opt/readline/include
+# INCS = -I./src/libft -I./ -I/Users/ulee/.brew/opt/readline/include
 LIBFT = -L./src/libft -lft
 RM = rm -f
 
@@ -48,7 +50,9 @@ FILE =	main \
 		utils/split_utils \
 		utils/fd_utils \
 		utils/token_utils \
-		utils/check_utils
+		utils/check_utils \
+		utils/signal_utils
+
 
 SRCS = $(addprefix ./src/, $(addsuffix .c, $(FILE)))
 OBJS = $(addprefix ./src/, $(addsuffix .o, $(FILE)))

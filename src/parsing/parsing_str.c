@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_str.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 19:17:24 by hyospark          #+#    #+#             */
-/*   Updated: 2021/12/14 18:26:51 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/21 01:53:25 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,13 @@ int	parsing_env_str(char *str, int start)
 		start++;
 	}
 	return (start);
+}
+
+int	check_paren(char c, int par_check)
+{
+	if (c == '(')
+		return (1);
+	if (par_check > 0 && c == ')')
+		return (-1);
+	return (0);
 }

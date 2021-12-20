@@ -3,32 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 20:26:02 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/17 17:30:18 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/21 05:14:04 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_main(int argc, char **av, char **env)
+int	return_priority(t_bundle *bundle, int result, int level, int flag)
 {
-	(void)argc;
-	(void)av;
-	g_global.env = dup_env(env);
-}
-
-void	set_signal(void)
-{
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
-}
-
-void	unset_signal(void)
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
+	if (flag)
+	{
+		return (bundle->cmd_line != NULL && ((result == SUCCESS \
+				&& bundle->priority == P_OR) || (result == FAIL && \
+				bundle->priority == P_AND)));
+	}
+	return (bundle->cmd_line != NULL && (bundle->priority_level > level \
+			|| (result == SUCCESS && bundle->priority == P_OR) || \
+			(result == FAIL && bundle->priority == P_AND)));
 }
 
 void	start_sh(char *input)
@@ -36,23 +30,25 @@ void	start_sh(char *input)
 	t_bundle	*bundles;
 	int			i;
 	int			result;
+	int			level;
 
 	if (is_space_str(input))
 		return ;
 	bundles = split_bundle(input);
 	if (parsing_token(bundles) == FAIL)
-	{
-		free_bundle(bundles);
-		return ;
-	}
+		return (free_bundle(bundles));
 	i = 0;
+	level = 0;
 	while (bundles[i].cmd_line)
 	{
 		result = execute_cmd(&bundles[i++]);
-		if (((bundles[i].cmd_line != NULL) && (result == SUCCESS \
-			&& bundles[i].priority == P_OR)) || (result == FAIL && \
-			bundles[i].priority == P_AND))
+		level = bundles[i - 1].priority_level;
+		if (return_priority(&bundles[i], result, level, 1))
+		{
 			i++;
+			while (return_priority(&bundles[i], result, level, 0))
+				i++;
+		}
 	}
 	free_bundle(bundles);
 }
