@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ulee <ulee@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 16:02:54 by ulee              #+#    #+#             */
-/*   Updated: 2021/12/18 16:11:32 by ulee             ###   ########.fr       */
+/*   Updated: 2021/12/21 05:31:38 by hyospark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,11 @@ void	init_signal(int signum)
 {
 	if (signum == SIGUSR1)
 		return ;
+}
+
+void	init_main(int argc, char **av, char **env)
+{
+	(void)argc;
+	(void)av;
+	g_global.env = dup_env(env);
 }

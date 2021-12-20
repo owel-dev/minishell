@@ -6,7 +6,7 @@
 #    By: hyospark <hyospark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/15 17:43:53 by ulee              #+#    #+#              #
-#    Updated: 2021/12/21 05:26:31 by hyospark         ###   ########.fr        #
+#    Updated: 2021/12/21 05:30:57 by hyospark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ RM = rm -f
 
 FILE =	main \
 		signal/sig_handler \
+		signal/signal \
 		builtin/builtin_cd \
 		builtin/builtin_echo \
 		builtin/builtin_env \
@@ -51,7 +52,6 @@ FILE =	main \
 		utils/fd_utils \
 		utils/token_utils \
 		utils/check_utils \
-		utils/signal_utils
 
 
 SRCS = $(addprefix ./src/, $(addsuffix .c, $(FILE)))
