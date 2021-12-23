@@ -23,7 +23,7 @@ make && ./minishell
 | $? : exit code |
 | signal(ctrl + C , ctrl + D, ctrl + /) |
 | exit |
-| &&, \|\| : priority |
+| &&, \|\|, () : priority |
 | * : wildcard |
   
 
